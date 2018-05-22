@@ -1,0 +1,44 @@
+{
+  "env": {
+    "development": {
+      "application/javascript": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "electron": "2.0"
+              }
+            }
+          ],
+          "react"
+        ],
+        "plugins": [
+          "transform-async-to-generator",
+          "transform-object-rest-spread"
+        ],
+        "sourceMaps": "inline"
+      }
+    },
+    "production": {
+      "application/javascript": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "electron": "2.0"
+              }
+            }
+          ],
+          "react"
+        ],
+        "plugins": [
+          "transform-async-to-generator",
+          "transform-object-rest-spread"
+        ],
+        "sourceMaps": "none"
+      }
+    }
+  }
+}
