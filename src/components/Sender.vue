@@ -1,36 +1,49 @@
 <template>
   <div id="send-container">
-    <textarea id="send-area__data" class="message-area" placeholder="Type message here..."></textarea>
-    <button id="send-area__button">Send</button>
+    <input
+      id="send-area__data"
+      v-model="msg"
+      placeholder="Type message here..."
+      @keyup.enter="handleSend"
+    />
   </div>
 </template>
 
 <script>
-export default {
-  name: 'Sender'
-}
+  import { mapActions } from 'vuex'
+  import { SEND_MESSAGE } from '../store/types'
+
+  export default {
+    name: 'Sender',
+    data () {
+      return {
+        msg: ''
+      }
+    },
+    methods: {
+      handleSend () {
+        this.sendMessage({ text: this.msg })
+        this.msg = ''
+      },
+      ...mapActions({
+        sendMessage: SEND_MESSAGE
+      })
+    }
+  }
 </script>
 
 <style>
-textarea {
-  outline: none;
-  resize: none;
-}
-#send-container {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  width: 100%;
-  height: 100%;
-}
-#send-area__data {
-  grid-column-start: 1;
-  grid-column-end: 11;
-  min-width: calc(100vw - (2*(100vw/12)));
-  width: 100%;
-}
-#send-area__button {
-  width: 100%;
-  grid-column-start: 11;
-  grid-column-end: 13;
-}
+  input {
+    outline: none;
+  }
+  #send-container {
+    display: grid;
+    width: 100%;
+    height: 100%;
+  }
+  #send-area__data {
+    font-size: 18px;
+    min-width: 100vw;
+    width: 100%;
+  }
 </style>

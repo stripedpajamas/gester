@@ -1,8 +1,8 @@
-const state = require('../util/state')
+const client = require('../helpers/client')
 
 module.exports = () => {
   return new Promise((resolve, reject) => {
-    const sbot = state.getClient()
+    const sbot = client.getClient()
     if (sbot) {
       sbot.whoami((err, id) => {
         if (err) return reject(err)

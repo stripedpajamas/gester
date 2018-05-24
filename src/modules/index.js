@@ -1,6 +1,6 @@
-// const post = require('./post')
+const post = require('./post')
 // const invite = require('./invite')
-// const whoami = require('./whoami')
+const whoami = require('./whoami')
 // const follow = require('./follow')
 // const about = require('./about')
 // const privatePost = require('./private')
@@ -8,10 +8,10 @@ const unbox = require('./unbox')
 
 module.exports = {
   // about,
-  // post,
+  post,
   // invite,
   // follow,
-  // whoami,
+  whoami,
   // private: privatePost,
   unbox
 }

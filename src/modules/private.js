@@ -1,9 +1,9 @@
-const state = require('../util/state')
+const client = require('../helpers/client')
 const constants = require('../util/constants')
 
 module.exports = (text, recipients) => {
   return new Promise((resolve, reject) => {
-    const sbot = state.getClient()
+    const sbot = client.getClient()
     // recipients always has me because it's populated by state.privateRecipients
 
     if (sbot && text) {

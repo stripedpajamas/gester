@@ -53,6 +53,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "pull-stream": "^3.6.8",
     "ssb-party": "^0.5.1",
+    "ssb-ref": "^2.11.1",
     "vue": "^2.1.7",
     "vueify": "^9.4.1",
     "vuex": "^3.0.1"

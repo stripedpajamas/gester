@@ -1,9 +1,9 @@
-const state = require('../util/state')
-const constants = require('../util/constants')
+const client = require('../helpers/client')
+const constants = require('../helpers/constants')
 
 module.exports = (text) => {
   return new Promise((resolve, reject) => {
-    const sbot = state.getClient()
+    const sbot = client.getClient()
     if (sbot && text) {
       sbot.publish({ type: constants.MESSAGE_TYPE, text }, (err, msg) => {
         if (err) return reject(err)
