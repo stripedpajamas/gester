@@ -58,14 +58,32 @@ class Processor {
       }
       case Constants.SET_MY_NAME: {
         Modules.about(data.name, data.who)
-          .then(() => this.handleSystemMessage(Constants.SET_MY_NAME_SUCCESS))
-          .catch(() => this.handleErrorMessage(Constants.SET_MY_NAME_FAILURE))
+          .then(() => this.handleSystemMessage(Constants.SET_NAME_SUCCESS))
+          .catch(() => this.handleErrorMessage(Constants.SET_NAME_FAILURE))
+        break
+      }
+      case Constants.SET_YOUR_NAME: {
+        Modules.about(data.name, data.id)
+          .then(() => this.handleSystemMessage(Constants.SET_NAME_SUCCESS))
+          .catch(() => this.handleErrorMessage(Constants.SET_NAME_FAILURE))
         break
       }
       case Constants.WHOAMI: {
         Modules.whoami()
           .then((id) => this.handleSystemMessage(id))
           .catch(() => this.handleErrorMessage(Constants.WHOAMI_FAILURE))
+        break
+      }
+      case Constants.FOLLOW: {
+        Modules.follow(data.id, true)
+          .then(() => this.handleSystemMessage(Constants.FOLLOW_SUCCESS))
+          .catch(() => this.handleErrorMessage(Constants.FOLLOW_FAILURE))
+        break
+      }
+      case Constants.UNFOLLOW: {
+        Modules.follow(data.id, false)
+          .then(() => this.handleSystemMessage(Constants.UNFOLLOW_SUCCESS))
+          .catch(() => this.handleErrorMessage(Constants.UNFOLLOW_FAILURE))
         break
       }
       default:

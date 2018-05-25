@@ -21,15 +21,12 @@ import { mapState, mapGetters } from "vuex";
 export default {
   name: 'Messages',
   watch: {
-    messages() {
-      const container = this.$el;
-      if (typeof container.scrollTo === 'function') {
-        container.scrollTo(0, container.scrollHeight);
-      }
-    }
+    messages: 'scrollToBottom',
+    mode: 'scrollToBottom'
   },
   computed: {
     ...mapGetters({
+      mode: 'mode',
       messages: 'visibleMessages'
     }),
     ...mapState({
@@ -40,6 +37,14 @@ export default {
     })
   },
   methods: {
+    scrollToBottom() {
+      const container = this.$el;
+      if (typeof container.scrollTo === 'function') {
+        this.$nextTick(() => {
+          container.scrollTo(0, container.scrollHeight);
+        })
+      }
+    },
     getAuthor (msg) {
       return (this.authors[msg.author] || {}).name || msg.author;
     },

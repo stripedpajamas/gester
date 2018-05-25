@@ -1,9 +1,9 @@
-const state = require('../util/state')
-const constants = require('../util/constants')
+const client = require('../helpers/client')
+const constants = require('../helpers/constants')
 
 module.exports = (id, follow) => {
   return new Promise((resolve, reject) => {
-    const sbot = state.getClient()
+    const sbot = client.getClient()
 
     const following = !!follow
 

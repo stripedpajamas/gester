@@ -2,6 +2,7 @@
   <div id="send-container">
     <input
       id="send-area__data"
+      v-focus
       v-model="msg"
       placeholder="Type message here..."
       @keyup.enter="handleSend"

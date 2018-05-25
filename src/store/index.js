@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import { ipcRenderer } from 'electron'
 import * as Types from './types'
 import * as Constants from '../helpers/constants'
-import { compare } from '../helpers/compare'
+import { compare, sort } from '../helpers/arrays'
 import { getRandomColor } from '../helpers/randomColor'
 import { getAuthorQueue, resetAuthorQueue, pushAuthorQueue } from '../helpers/authorQueue'
 
@@ -30,7 +30,12 @@ export default {
         .filter(r => r !== state.me)
         .map(r => (state.authors[r] || {}).name || r.slice(0, 7)).join(', ')
     },
-    mode: state => state.privateMode ? Constants.MODE.PRIVATE : Constants.MODE.PUBLIC
+    mode: state => state.privateMode ? Constants.MODE.PRIVATE : Constants.MODE.PUBLIC,
+    getAuthorId: state => {
+      const authors = state.authors
+      const ids = Object.keys(authors)
+      return (name) => ids.find(a => (authors[a] || {}).name === name || (authors[a] || {}).name === `@${name}`)
+    }
   },
   mutations: {
     [Types.SET_AUTHOR_COLOR] (state, { author, color }) {
@@ -41,6 +46,11 @@ export default {
     },
     [Types.ADD_MESSAGE] (state, { message }) {
       state.messages.push(message)
+
+      // if the message that came in was private, we should resort
+      if (message.private) {
+        sort(state.messages)
+      }
     },
     [Types.SET_SYSTEM_MESSAGE] (state, { error, message }) {
       Vue.set(state, 'systemMessage', { error, message })
@@ -92,7 +102,6 @@ export default {
             break
           }
           case Constants.MESSAGE_TYPE: {
-            console.log(msg)
             let authorColor
             if (!state.authorColors[msg.author]) {
               authorColor = getRandomColor()
@@ -101,6 +110,7 @@ export default {
               authorColor = state.authorColors[msg.author]
             }
             const formattedMessage = {
+              rawTime: msg.timestamp,
               timestamp: format(msg.timestamp, Constants.TIME_FORMAT),
               author: msg.author,
               text: msg.content.text,
@@ -140,11 +150,12 @@ export default {
         return
       }
       // if these are names, we need to turn them into ids
-      const authorIds = Object.keys(state.authors)
+      const authors = state.authors
+      const authorIds = Object.keys(authors)
       const recipientIds = recipients.map(r => {
         if (!isFeedId(r)) {
           return authorIds.find(
-            author => (authorIds[author] || {}).name === r || (authorIds[author] || {}).name === `@${r}`
+            author => (authors[author] || {}).name === r || (authors[author] || {}).name === `@${r}`
           ) || r
         }
         return r
@@ -156,7 +167,7 @@ export default {
       }
 
       // we won't enter private mode if any recipients are invalid
-      if (!recipientIds.every(r => isFeedId(r))) {
+      if (!recipientIds.every(isFeedId)) {
         dispatch(Types.SET_SYSTEM_MESSAGE, { message: Constants.PRIVATE_RECIPIENTS_INVALID })
         return
       }
@@ -167,7 +178,7 @@ export default {
       commit(Types.SET_AUTHORS, { authors: getAuthorQueue() })
       resetAuthorQueue()
     },
-    [Types.RUN_COMMAND] ({ state, commit, dispatch }, { text }) {
+    [Types.RUN_COMMAND] ({ state, commit, dispatch, getters }, { text }) {
       const line = text.split(' ')
       const command = line[0]
       switch (command) {
@@ -175,6 +186,17 @@ export default {
           ipcRenderer.send(Constants.SBOT_COMMAND, {
             command: Constants.WHOAMI
           })
+          break
+        }
+        case '/whois': {
+          // /whois @pete
+          const lookup = line.slice(1).join(' ')
+          const id = getters.getAuthorId(lookup)
+          if (id) {
+            dispatch(Types.SET_SYSTEM_MESSAGE, { message: id })
+          } else {
+            dispatch(Types.SET_SYSTEM_MESSAGE, { message: Constants.WHOIS_FAILURE })
+          }
           break
         }
         case '/private': {
@@ -202,11 +224,51 @@ export default {
         case '/name':
         case '/nick': {
           // identify self
-          const name = line.slice(1)
+          const name = line.slice(1).join(' ')
           ipcRenderer.send(Constants.SBOT_COMMAND, {
             command: Constants.SET_MY_NAME,
             who: state.me,
             name
+          })
+          break
+        }
+        case '/identify': {
+          // /identify @id name
+          // first see if maybe i'm using identify on myself (weird)
+          const id = line[1]
+          const name = line.slice(2).join(' ')
+          if (id === state.me) {
+            dispatch(Types.SET_SYSTEM_MESSAGE, { message: Constants.USE_NAME_COMMAND })
+          } else {
+            ipcRenderer.send(Constants.SBOT_COMMAND, {
+              command: Constants.SET_YOUR_NAME,
+              id,
+              name
+            })
+          }
+          break
+        }
+        case '/follow': {
+          // /follow @person or /follow @id
+          let id = line.slice(1).join(' ')
+          if (!isFeedId(id)) {
+            id = getters.getAuthorId(id)
+          }
+          ipcRenderer.send(Constants.SBOT_COMMAND, {
+            command: Constants.FOLLOW,
+            id
+          })
+          break
+        }
+        case '/unfollow': {
+          // /unfollow @person or /unfollow @id
+          let id = line.slice(1).join(' ')
+          if (!isFeedId(id)) {
+            id = getters.getAuthorId(id)
+          }
+          ipcRenderer.send(Constants.SBOT_COMMAND, {
+            command: Constants.UNFOLLOW,
+            id
           })
           break
         }

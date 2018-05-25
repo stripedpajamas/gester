@@ -1,6 +1,4 @@
-console.log('this is running')
 process.once('message', function (config) {
-  console.log('got the message')
   var createSbot = require('scuttlebot')
     .use(require('scuttlebot/plugins/master'))
     .use(require('./control'))

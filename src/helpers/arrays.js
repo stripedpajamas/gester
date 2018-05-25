@@ -11,3 +11,10 @@ export const compare = (arr1, arr2) => {
   }
   return true
 }
+
+// sorts by timestamp
+export const sort = (arr) => arr.sort((a, b) => {
+  if (a.rawTime < b.rawTime) return -1
+  if (a.rawTime > b.rawTime) return 1
+  return 0
+})
