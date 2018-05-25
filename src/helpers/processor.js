@@ -45,6 +45,23 @@ class Processor {
           .catch(() => this.handleErrorMessage(Constants.PUBLIC_SEND_FAILURE))
         break
       }
+      case Constants.SEND_PRIVATE: {
+        Modules.private(data.text, data.recipients)
+          .catch(() => this.handleErrorMessage(Constants.PRIVATE_SEND_FAILURE))
+        break
+      }
+      case Constants.JOIN_PUB: {
+        Modules.pub(data.inviteCode)
+          .then(() => this.handleSystemMessage(Constants.PUB_JOIN_SUCCESS))
+          .catch(() => this.handleErrorMessage(Constants.PUB_JOIN_FAILURE))
+        break
+      }
+      case Constants.SET_MY_NAME: {
+        Modules.about(data.name, data.who)
+          .then(() => this.handleSystemMessage(Constants.SET_MY_NAME_SUCCESS))
+          .catch(() => this.handleErrorMessage(Constants.SET_MY_NAME_FAILURE))
+        break
+      }
       case Constants.WHOAMI: {
         Modules.whoami()
           .then((id) => this.handleSystemMessage(id))

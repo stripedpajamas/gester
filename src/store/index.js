@@ -28,7 +28,7 @@ export default {
     privateRecipientNames: state => {
       return state.privateRecipients
         .filter(r => r !== state.me)
-        .map(r => (state.authors[r] || {}).name || r).join(', ')
+        .map(r => (state.authors[r] || {}).name || r.slice(0, 7)).join(', ')
     },
     mode: state => state.privateMode ? Constants.MODE.PRIVATE : Constants.MODE.PUBLIC
   },
@@ -42,8 +42,8 @@ export default {
     [Types.ADD_MESSAGE] (state, { message }) {
       state.messages.push(message)
     },
-    [Types.SET_SYSTEM_MESSAGE] (state, { message }) {
-      Vue.set(state, 'systemMessage', message)
+    [Types.SET_SYSTEM_MESSAGE] (state, { error, message }) {
+      Vue.set(state, 'systemMessage', { error, message })
     },
     [Types.SET_PRIVATE_MODE] (state, { privateMode }) {
       Vue.set(state, 'privateMode', privateMode)
@@ -92,6 +92,7 @@ export default {
             break
           }
           case Constants.MESSAGE_TYPE: {
+            console.log(msg)
             let authorColor
             if (!state.authorColors[msg.author]) {
               authorColor = getRandomColor()
@@ -105,7 +106,7 @@ export default {
               text: msg.content.text,
               authorColor: authorColor,
               private: msg.private,
-              recipients: msg.recps || msg.recipients
+              recipients: msg.content.recps || msg.content.recipients
             }
             commit(Types.ADD_MESSAGE, { message: formattedMessage })
             break
@@ -119,10 +120,25 @@ export default {
     [Types.SET_SYSTEM_MESSAGE] ({ commit }, { message }) {
       commit(Types.SET_SYSTEM_MESSAGE, { message })
     },
-    [Types.SET_PRIVATE_MODE] ({ commit }, { privateMode }) {
+    [Types.SET_ERROR_MESSAGE] ({ commit }, { message }) {
+      commit(Types.SET_SYSTEM_MESSAGE, { error: true, message })
+    },
+    [Types.SET_PRIVATE_MODE] ({ commit, dispatch }, { privateMode }) {
+      // when private mode is set or unset, clear system notifications
+      dispatch(Types.SET_SYSTEM_MESSAGE, { message: '' })
+
+      if (!privateMode) {
+        // if we are going public, clear private recipients
+        dispatch(Types.SET_PRIVATE_RECIPIENTS, { recipients: [] })
+      }
       commit(Types.SET_PRIVATE_MODE, { privateMode })
     },
-    [Types.SET_PRIVATE_RECIPIENTS] ({ commit, state }, { recipients }) {
+    [Types.SET_PRIVATE_RECIPIENTS] ({ commit, state, dispatch }, { recipients }) {
+      if (!recipients.length) {
+        // empty recipients, clear state
+        commit(Types.SET_PRIVATE_RECIPIENTS, { recipients })
+        return
+      }
       // if these are names, we need to turn them into ids
       const authorIds = Object.keys(state.authors)
       const recipientIds = recipients.map(r => {
@@ -138,7 +154,14 @@ export default {
       if (!recipientIds.includes(state.me)) {
         recipientIds.push(state.me)
       }
+
+      // we won't enter private mode if any recipients are invalid
+      if (!recipientIds.every(r => isFeedId(r))) {
+        dispatch(Types.SET_SYSTEM_MESSAGE, { message: Constants.PRIVATE_RECIPIENTS_INVALID })
+        return
+      }
       commit(Types.SET_PRIVATE_RECIPIENTS, { recipients: recipientIds })
+      dispatch(Types.SET_PRIVATE_MODE, { privateMode: true })
     },
     [Types.SET_AUTHORS] ({ commit }) {
       commit(Types.SET_AUTHORS, { authors: getAuthorQueue() })
@@ -157,8 +180,34 @@ export default {
         case '/private': {
           // /private @pete @joel
           const recipients = line.slice(1)
-          dispatch(Types.SET_PRIVATE_MODE, { privateMode: true })
           dispatch(Types.SET_PRIVATE_RECIPIENTS, { recipients })
+          break
+        }
+        case '/q':
+        case '/quit': {
+          // quit removes me from private mode
+          dispatch(Types.SET_PRIVATE_MODE, { privateMode: false })
+          break
+        }
+        case '/join':
+        case '/pub': {
+          // join a pub
+          const inviteCode = line[1]
+          ipcRenderer.send(Constants.SBOT_COMMAND, {
+            command: Constants.JOIN_PUB,
+            inviteCode
+          })
+          break
+        }
+        case '/name':
+        case '/nick': {
+          // identify self
+          const name = line.slice(1)
+          ipcRenderer.send(Constants.SBOT_COMMAND, {
+            command: Constants.SET_MY_NAME,
+            who: state.me,
+            name
+          })
           break
         }
         default:
@@ -174,6 +223,11 @@ export default {
       }
       if (state.privateMode) {
         // handle private sending to private recipients
+        ipcRenderer.send(Constants.SBOT_COMMAND, {
+          command: Constants.SEND_PRIVATE,
+          recipients: state.privateRecipients,
+          text
+        })
         return
       }
       // sending a public message

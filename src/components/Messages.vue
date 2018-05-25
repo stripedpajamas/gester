@@ -7,10 +7,10 @@
       </span>
       <span class="message__text">{{ msg.text }}</span>
     </div>
-    <div class="message" v-if="systemMessage">
-      <span class="message__timestamp"></span>
-      <span class="message__author"></span>
-      <span class="message__text"><mark>{{ systemMessage }}</mark></span>
+    <div class="message" v-if="systemMessage.message">
+      <span :class="getSystemClass(systemMessage)">
+        <mark>{{ systemMessage.message }}</mark>
+      </span>
     </div>
   </div>
 </template>
@@ -34,13 +34,18 @@ export default {
     }),
     ...mapState({
       systemMessage: state => state.systemMessage,
+      errorMessage: state => state.errorMessage,
       authors: state => state.authors,
       me: state => state.me
     })
   },
   methods: {
-    getAuthor(msg) {
+    getAuthor (msg) {
       return (this.authors[msg.author] || {}).name || msg.author;
+    },
+    getSystemClass (msg) {
+      const prefix = msg.error ? 'error' : 'system'
+      return `${prefix} message__text`
     }
   }
 };
@@ -53,8 +58,11 @@ export default {
   grid-row-end: 12;
   overflow: scroll;
 }
-mark {
+.system > mark {
   background-color: #B2DFDB;
+}
+.error > mark {
+  background-color: #ef9a9a;
 }
 .message {
   font-size: 18px;

@@ -14,6 +14,7 @@ import { mapActions } from 'vuex'
 import {
   ADD_MESSAGE,
   SET_SYSTEM_MESSAGE,
+  SET_ERROR_MESSAGE,
   SET_AUTHORS,
   SET_ME
 } from './store/types'
@@ -34,6 +35,7 @@ export default {
     ipcRenderer.on(Constants.GENERIC_SBOT_IPC, (_, msg) => this.addMessage({ message: msg }))
     ipcRenderer.on(Constants.SBOT_ME_IPC, (_, msg) => this.setMe({ me: msg }))
     ipcRenderer.on(Constants.SYSTEM_MESSAGE, (_, msg) => this.setSystemMessage({ message: msg }))
+    ipcRenderer.on(Constants.ERROR_MESSAGE, (_, msg) => this.setErrorMessage({ message: msg }))
     setInterval(() => {
       if (getAuthorQueueLength()) {
         this.setAuthors()
@@ -44,6 +46,7 @@ export default {
     ...mapActions({
       addMessage: ADD_MESSAGE,
       setSystemMessage: SET_SYSTEM_MESSAGE,
+      setErrorMessage: SET_ERROR_MESSAGE,
       setAuthors: SET_AUTHORS,
       setMe: SET_ME
     })

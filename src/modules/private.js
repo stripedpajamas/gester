@@ -1,5 +1,5 @@
 const client = require('../helpers/client')
-const constants = require('../util/constants')
+const constants = require('../helpers/constants')
 
 module.exports = (text, recipients) => {
   return new Promise((resolve, reject) => {
