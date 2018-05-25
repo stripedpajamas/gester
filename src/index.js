@@ -1,6 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
-import { enableLiveReload } from 'electron-compile'
 import pull from 'pull-stream'
 import { setClient } from './helpers/client'
 import party from './ssb-party'

@@ -45,6 +45,7 @@
   #send-area__data {
     font-size: 18px;
     min-width: 100vw;
-    width: 100%;
+    border: none;
+    border-top: 1px solid #E0E0E0;
   }
 </style>

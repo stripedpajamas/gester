@@ -22,6 +22,7 @@ export default {
   name: 'Messages',
   watch: {
     messages: 'scrollToBottom',
+    systemMessage: 'scrollToBottom',
     mode: 'scrollToBottom'
   },
   computed: {

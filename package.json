@@ -21,6 +21,7 @@
           "squirrel"
         ],
         "darwin": [
+          "dmg",
           "zip"
         ],
         "linux": [
@@ -32,17 +33,17 @@
         "packageManager": "yarn"
       },
       "electronWinstallerConfig": {
-        "name": "stool"
+        "name": "Stool"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
       "github_repository": {
-        "owner": "",
-        "name": ""
+        "owner": "stripedpajamas",
+        "name": "Stool"
       },
       "windowsStoreConfig": {
         "packageName": "",
-        "name": "stool"
+        "name": "Stool"
       }
     }
   },
