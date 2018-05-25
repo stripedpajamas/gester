@@ -21,7 +21,7 @@ let willQuitApp
 
 const isDevMode = process.execPath.match(/[\\/]electron/)
 
-if (isDevMode) enableLiveReload()
+// if (isDevMode) enableLiveReload()
 
 const createWindows = async () => {
   // Create the browser window.
@@ -36,7 +36,7 @@ const createWindows = async () => {
   // Open the DevTools.
   if (isDevMode) {
     await installExtension(VUEJS_DEVTOOLS)
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
   }
 
   mainWindow.webContents.on('did-finish-load', () => {
