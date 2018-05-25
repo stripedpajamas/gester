@@ -6,15 +6,23 @@ module.exports = {
   SYSTEM_MESSAGE: 'system_message',
   ERROR_MESSAGE: 'error_message',
 
-  // sbot commands for IPC
+  // ipc commands
   SEND_PUBLIC: 'send_public',
   SEND_PRIVATE: 'send_private',
-  JOIN_PUB: 'join_pub',
-  SET_MY_NAME: 'set_my_name',
-  SET_YOUR_NAME: 'set_your_name',
-  WHOAMI: 'whoami',
-  FOLLOW: 'follow',
-  UNFOLLOW: 'unfollow',
+
+  // commands
+  COMMANDS: {
+    FOLLOW: '/follow',
+    IDENTIFY: '/identify',
+    NAME: '/name',
+    NICK: '/nick',
+    PUB: '/pub',
+    PRIVATE: '/private',
+    UNFOLLOW: '/unfollow',
+    QUIT: '/quit',
+    WHOAMI: '/whoami',
+    WHOIS: '/whois'
+  },
 
   // message types
   MESSAGE_TYPE: 'scat_message',

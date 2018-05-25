@@ -1,6 +1,6 @@
 {
   "name": "stool",
-  "productName": "stool",
+  "productName": "Stool",
   "version": "1.0.0",
   "description": "a higher ui for scat (scuttlebutt chat)",
   "main": "src/index.js",

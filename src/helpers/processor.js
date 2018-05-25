@@ -50,37 +50,37 @@ class Processor {
           .catch(() => this.handleErrorMessage(Constants.PRIVATE_SEND_FAILURE))
         break
       }
-      case Constants.JOIN_PUB: {
+      case Constants.COMMANDS.PUB: {
         Modules.pub(data.inviteCode)
           .then(() => this.handleSystemMessage(Constants.PUB_JOIN_SUCCESS))
           .catch(() => this.handleErrorMessage(Constants.PUB_JOIN_FAILURE))
         break
       }
-      case Constants.SET_MY_NAME: {
+      case Constants.COMMANDS.NAME: {
         Modules.about(data.name, data.who)
           .then(() => this.handleSystemMessage(Constants.SET_NAME_SUCCESS))
           .catch(() => this.handleErrorMessage(Constants.SET_NAME_FAILURE))
         break
       }
-      case Constants.SET_YOUR_NAME: {
+      case Constants.COMMANDS.IDENTIFY: {
         Modules.about(data.name, data.id)
           .then(() => this.handleSystemMessage(Constants.SET_NAME_SUCCESS))
           .catch(() => this.handleErrorMessage(Constants.SET_NAME_FAILURE))
         break
       }
-      case Constants.WHOAMI: {
+      case Constants.COMMANDS.WHOAMI: {
         Modules.whoami()
           .then((id) => this.handleSystemMessage(id))
           .catch(() => this.handleErrorMessage(Constants.WHOAMI_FAILURE))
         break
       }
-      case Constants.FOLLOW: {
+      case Constants.COMMANDS.FOLLOW: {
         Modules.follow(data.id, true)
           .then(() => this.handleSystemMessage(Constants.FOLLOW_SUCCESS))
           .catch(() => this.handleErrorMessage(Constants.FOLLOW_FAILURE))
         break
       }
-      case Constants.UNFOLLOW: {
+      case Constants.COMMANDS.UNFOLLOW: {
         Modules.follow(data.id, false)
           .then(() => this.handleSystemMessage(Constants.UNFOLLOW_SUCCESS))
           .catch(() => this.handleErrorMessage(Constants.UNFOLLOW_FAILURE))

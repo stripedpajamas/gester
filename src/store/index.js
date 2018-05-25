@@ -31,6 +31,7 @@ export default {
         .map(r => (state.authors[r] || {}).name || r.slice(0, 7)).join(', ')
     },
     mode: state => state.privateMode ? Constants.MODE.PRIVATE : Constants.MODE.PUBLIC,
+    authorNames: state => Object.values(state.authors).map(a => a.name),
     getAuthorId: state => {
       const authors = state.authors
       const ids = Object.keys(authors)
@@ -182,13 +183,13 @@ export default {
       const line = text.split(' ')
       const command = line[0]
       switch (command) {
-        case '/whoami': {
+        case Constants.COMMANDS.WHOAMI: {
           ipcRenderer.send(Constants.SBOT_COMMAND, {
-            command: Constants.WHOAMI
+            command: Constants.COMMANDS.WHOAMI
           })
           break
         }
-        case '/whois': {
+        case Constants.COMMANDS.WHOIS: {
           // /whois @pete
           const lookup = line.slice(1).join(' ')
           const id = getters.getAuthorId(lookup)
@@ -199,40 +200,40 @@ export default {
           }
           break
         }
-        case '/private': {
-          // /private @pete @joel
-          const recipients = line.slice(1)
+        case Constants.COMMANDS.PRIVATE: {
+          // /private @pete, @joel
+          const recipients = line.slice(1).join(' ').split(',').map(r => r.trim())
           dispatch(Types.SET_PRIVATE_RECIPIENTS, { recipients })
           break
         }
         case '/q':
-        case '/quit': {
+        case Constants.COMMANDS.QUIT: {
           // quit removes me from private mode
           dispatch(Types.SET_PRIVATE_MODE, { privateMode: false })
           break
         }
         case '/join':
-        case '/pub': {
+        case Constants.COMMANDS.PUB: {
           // join a pub
           const inviteCode = line[1]
           ipcRenderer.send(Constants.SBOT_COMMAND, {
-            command: Constants.JOIN_PUB,
+            command: Constants.COMMANDS.PUB,
             inviteCode
           })
           break
         }
-        case '/name':
-        case '/nick': {
+        case '/nick':
+        case Constants.COMMANDS.NAME: {
           // identify self
           const name = line.slice(1).join(' ')
           ipcRenderer.send(Constants.SBOT_COMMAND, {
-            command: Constants.SET_MY_NAME,
+            command: Constants.COMMANDS.NAME,
             who: state.me,
             name
           })
           break
         }
-        case '/identify': {
+        case Constants.COMMANDS.IDENTIFY: {
           // /identify @id name
           // first see if maybe i'm using identify on myself (weird)
           const id = line[1]
@@ -241,33 +242,33 @@ export default {
             dispatch(Types.SET_SYSTEM_MESSAGE, { message: Constants.USE_NAME_COMMAND })
           } else {
             ipcRenderer.send(Constants.SBOT_COMMAND, {
-              command: Constants.SET_YOUR_NAME,
+              command: Constants.COMMANDS.IDENTIFY,
               id,
               name
             })
           }
           break
         }
-        case '/follow': {
+        case Constants.COMMANDS.FOLLOW: {
           // /follow @person or /follow @id
           let id = line.slice(1).join(' ')
           if (!isFeedId(id)) {
             id = getters.getAuthorId(id)
           }
           ipcRenderer.send(Constants.SBOT_COMMAND, {
-            command: Constants.FOLLOW,
+            command: Constants.COMMANDS.FOLLOW,
             id
           })
           break
         }
-        case '/unfollow': {
+        case Constants.COMMANDS.UNFOLLOW: {
           // /unfollow @person or /unfollow @id
           let id = line.slice(1).join(' ')
           if (!isFeedId(id)) {
             id = getters.getAuthorId(id)
           }
           ipcRenderer.send(Constants.SBOT_COMMAND, {
-            command: Constants.UNFOLLOW,
+            command: Constants.COMMANDS.UNFOLLOW,
             id
           })
           break

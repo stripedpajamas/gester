@@ -13,7 +13,10 @@ this is just a more user friendly ui for [scat :mouse:](https://github.com/strip
 $ git clone https://github.com/stripedpajamas/stool.git
 $ cd stool
 $ npm install
-$ npm start
+$ npm run package
+
+# app is now in ./out/your-arch/Stool.app
+# e.g. cd out/Stool-darwin-x64 && open Stool.app
 ```
 
 ### commands
@@ -40,7 +43,7 @@ stool has support for a couple of scuttlebutt related commands:
 `/whoami`
 
 #### to enter private mode
-`/private @recipient1 @recipient2...`
+`/private @recipient1, @recipient2, @...`
 
 #### to quit private mode
 `/quit`
