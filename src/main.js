@@ -1,13 +1,18 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import App from './App'
-import initialState from './store'
+import React from 'react'
+import { render } from 'react-dom'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import App from './App.jsx'
+import reducer from './store/reducer'
 
-Vue.use(Vuex)
-Vue.directive('focus', {
-  inserted: el => { el.focus() }
-})
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
-App.store = new Vuex.Store(initialState)
-
-new Vue(App).$mount('#app')
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)

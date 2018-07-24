@@ -1,26 +1,25 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
-import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
-import pull from 'pull-stream'
-import { setClient } from './helpers/client'
-import party from './ssb-party'
-import Processor from './helpers/processor'
-import * as Constants from './helpers/constants'
+#!/usr/bin/env node
+import { app, BrowserWindow } from 'electron'
+import installExtension, {
+  REACT_DEVELOPER_TOOLS,
+  REDUX_DEVTOOLS
+} from 'electron-devtools-installer'
+const core = require('ssb-chat-core')
 
-process.on('uncaughtException', () => {
-  console.log('Uncaught exception :(')
+global.core = core
+
+process.on('uncaughtException', (e) => {
+  console.log(e)
+  core.stop()
   process.exit(1)
 })
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-let processor
-let client
 let willQuitApp
 
 const isDevMode = process.execPath.match(/[\\/]electron/)
-
-// if (isDevMode) enableLiveReload()
 
 const createWindows = async () => {
   // Create the browser window.
@@ -32,16 +31,23 @@ const createWindows = async () => {
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`)
 
-  // Open the DevTools.
-  if (isDevMode) {
-    await installExtension(VUEJS_DEVTOOLS)
-    // mainWindow.webContents.openDevTools()
-  }
-
   mainWindow.webContents.on('did-finish-load', () => {
-    processor = new Processor(mainWindow.webContents)
-    startServer()
+    core.start({ debug: true }, (err) => {
+      if (err) {
+        console.log(err)
+        process.exit(1)
+      }
+    })
   })
+
+  if (isDevMode) {
+    try {
+      await installExtension(REACT_DEVELOPER_TOOLS)
+      await installExtension(REDUX_DEVTOOLS)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   mainWindow.on('close', (e) => {
     if (willQuitApp) {
@@ -90,43 +96,6 @@ app.on('activate', () => {
 })
 
 const quit = () => {
-  try {
-    client && client.control && typeof client.control.stop === 'function' && client.control.stop()
-  } catch (e) {}
+  core.stop()
   app.quit()
 }
-
-const hr = 60 * 60 * 1000
-const since = Date.now() - (7 * 24 * hr) // 1 week of data
-
-const startServer = () => {
-  const opts = { timers: { keepalive: 10 } } // party: { out: false, err: false }
-  party(opts, (err, sbot) => {
-    if (err) {
-      console.log(err)
-      process.exit(1)
-    }
-
-    // set global sbot instance
-    client = sbot
-    setClient(client)
-
-    // set me
-    processor.processMe(sbot.id)
-
-    // start streaming abouts
-    pull(
-      // don't limit the about messages to a week because we want identifiers
-      sbot.messagesByType({ type: Constants.ABOUT, live: true }),
-      pull.drain((msg) => processor.processMsg(msg))
-    )
-
-    // start streaming messages
-    pull(
-      sbot.messagesByType({ type: Constants.MESSAGE_TYPE, live: true, gt: since }),
-      pull.drain((msg) => processor.processMsg(msg))
-    )
-  })
-}
-
-ipcMain.on(Constants.SBOT_COMMAND, (_, data) => processor.processSbotCommand(data))
