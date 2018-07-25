@@ -31,15 +31,6 @@ const createWindows = async () => {
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`)
 
-  mainWindow.webContents.on('did-finish-load', () => {
-    core.start({ debug: true }, (err) => {
-      if (err) {
-        console.log(err)
-        process.exit(1)
-      }
-    })
-  })
-
   if (isDevMode) {
     try {
       await installExtension(REACT_DEVELOPER_TOOLS)
@@ -99,3 +90,10 @@ const quit = () => {
   core.stop()
   app.quit()
 }
+
+core.start({ debug: true }, (err) => {
+  if (err) {
+    console.log(err)
+    process.exit(1)
+  }
+})

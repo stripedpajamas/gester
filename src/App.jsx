@@ -1,15 +1,30 @@
 import React, { Component } from 'react'
+import electron from 'electron'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import * as Actions from './store/actions'
-import Messages from './components/messages'
-import MessageInput from './components/messageInput'
+import ControlPanel from './components/ControlPanel'
+import Messages from './components/Messages'
+import MessageInput from './components/MessageInput'
+
+const core = electron.remote.getGlobal('core')
 
 class App extends Component {
-  render() {
+  componentDidMount () {
+    this.props.updateMessages()
+    core.events.messages.onNew(() => {
+      // update state with latest copy of msgs
+      this.props.updateMessages()
+    })
+    core.events.mode.onChange(() => {
+      this.props.updateMessages()
+    })
+  }
+  render () {
     return (
       <div className='main'>
+        <ControlPanel />
         <div className='message-view'>
           <Messages />
           <MessageInput />

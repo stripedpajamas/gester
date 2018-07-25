@@ -12,8 +12,3 @@ export const updateMessages = () => {
     messages
   }
 }
-
-core.events.messages.onNew(() => {
-  // update state with latest copy of msgs
-  updateMessages()
-})
