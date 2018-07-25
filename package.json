@@ -65,8 +65,8 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "electron-devtools-installer": "^2.1.0",
-    "electron-forge": "^5.2.2",
     "electron-prebuilt-compile": "2.0.0",
+    "electron-forge": "^5.2.2",
     "standard": "^11.0.1"
   }
 }

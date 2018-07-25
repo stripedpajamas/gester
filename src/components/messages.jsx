@@ -6,10 +6,6 @@ import { updateMessages } from '../store/actions';
 import * as Actions from '../store/actions'
 
 class Messages extends Component {
-  constructor (props) {
-    super(props)
-  }
-
   componentWillMount () {
     this.props.updateMessages()
   }

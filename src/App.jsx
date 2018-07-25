@@ -7,13 +7,6 @@ import Messages from './components/messages'
 import MessageInput from './components/messageInput'
 
 class App extends Component {
-  constructor () {
-    super()
-    this.handleOnClick = this.handleOnClick.bind(this)
-  }
-  handleOnClick () {
-    this.props.updateMessages()
-  }
   render () {
     return (
       <div>
