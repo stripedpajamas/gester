@@ -1,3 +1,22 @@
-body {
-  background-color: peru;
+.main {
+  display: grid;
+  // 2 columns: the control bar on the left and the message box
+  grid-template-columns: 100px auto;
+}
+
+/* messages */
+.message-view {
+  grid-column-start: 2;
+  display: grid;
+  grid-template-rows: auto 65px;
+}
+.message {
+  display: grid;
+  grid-template-columns: 100px 150px auto;
+  &-author {
+    overflow: hidden;
+  }
+  &-text {
+    padding-left: 10px;
+  }
 }

@@ -7,11 +7,13 @@ import Messages from './components/messages'
 import MessageInput from './components/messageInput'
 
 class App extends Component {
-  render () {
+  render() {
     return (
-      <div>
-        <Messages />
-        <MessageInput />
+      <div className='main'>
+        <div className='message-view'>
+          <Messages />
+          <MessageInput />
+        </div>
       </div>
     )
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
-import { updateMessages } from '../store/actions';
+import Message from './Message'
 import * as Actions from '../store/actions'
 
 class Messages extends Component {
@@ -14,11 +14,8 @@ class Messages extends Component {
     return (
       <div className='messages'>
         {this.props.messages.map((message) => (
-          <div className='message'>
-            <p>{new Date(message.timestamp).toDateString()}</p>
-            <p>{message.authorName()}</p>
-            <p>{message.text}</p>
-          </div>))}
+          <Message key={message.key} message={message} />
+        ))}
       </div>
     )
   }
