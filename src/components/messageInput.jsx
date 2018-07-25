@@ -14,6 +14,7 @@ class MessageInput extends Component {
 
   handleKeyPress (e) {
     if (e.key === 'Enter') {
+      // this will be replaced with sending a message
       console.log(e.target.value)
       this.setState({ message: '' })
     }

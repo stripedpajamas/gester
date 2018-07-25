@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as Actions from './store/actions'
 import PropTypes from 'prop-types'
+import * as Actions from './store/actions'
+import Messages from './components/messages'
+import MessageInput from './components/messageInput'
 
 class App extends Component {
   constructor () {
@@ -15,8 +17,8 @@ class App extends Component {
   render () {
     return (
       <div>
-        <h1>hello world</h1>
-        <button onClick={this.handleOnClick}>click me for news</button>
+        <Messages />
+        <MessageInput />
       </div>
     )
   }
