@@ -15,18 +15,17 @@ class ControlPanel extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.handleRecipientsChange = this.handleRecipientsChange.bind(this)
     this.state = {
-      goingPrivate: false,
       rawRecipients: ''
     }
   }
   handleGoPublic () {
-    this.setState({ goingPrivate: false })
+    this.props.togglePrivatePanel()
     core.mode.setPublic()
   }
   handleGoPrivate () {
     // need some recipients to go private with
     // so allow them to enter that info
-    this.setState({ goingPrivate: true })
+    this.props.togglePrivatePanel()
   }
   handleRecipientsChange (e) {
     this.setState({ rawRecipients: e.target.value })
@@ -59,4 +58,12 @@ class ControlPanel extends Component {
   }
 }
 
-export default ControlPanel
+const mapDispatchToProps = dispatch => ({
+  togglePrivatePanel: bindActionCreators(Actions.togglePrivatePanel, dispatch)
+})
+
+ControlPanel.propTypes = {
+  togglePrivatePanel: PropTypes.func.isRequired
+}
+
+export default connect(null, mapDispatchToProps)(ControlPanel)

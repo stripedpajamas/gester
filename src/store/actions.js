@@ -12,3 +12,9 @@ export const updateMessages = () => {
     messages
   }
 }
+
+export const togglePrivatePanel = () => {
+  return {
+    type: Types.TOGGLE_PRIVATE_PANEL
+  }
+}

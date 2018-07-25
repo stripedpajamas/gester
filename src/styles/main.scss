@@ -1,26 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 .main {
-  display: grid;
-  // 2 columns: the control bar on the left and the message box
-  grid-template-columns: 100px auto;
+    display: grid;
+    // 2 columns: the control bar on the left and the message box
+    grid-template-columns: 100px auto auto;
 }
 
 .control-panel {
   
 }
 
+.private {
+    width: 200px;
+    height: 100vh;
+    background-color: blue;
+}
+
 /* messages */
 .message-view {
-  grid-column-start: 2;
-  display: grid;
-  grid-template-rows: auto 65px;
+    grid-column-start: 3;
+    display: grid;
+    grid-template-rows: auto 65px;
 }
 .message {
-  display: grid;
-  grid-template-columns: 100px 150px auto;
-  &-author {
-    overflow: hidden;
-  }
-  &-text {
-    padding-left: 10px;
-  }
+    display: grid;
+    grid-template-columns: 100px 150px auto;
+    &-author {
+        overflow: hidden;
+    }
+    &-text {
+        padding-left: 10px;
+    }
 }
