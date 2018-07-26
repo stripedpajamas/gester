@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 class MessageInput extends Component {
   constructor (props) {
@@ -25,10 +27,13 @@ class MessageInput extends Component {
   }
 
   render () {
+    const mode = this.props.private ? 'private' : 'public'
     return (
-      <div>
+      <div className='messenger'>
         <input
+          className='messenger-input'
           type='text'
+          placeholder={`Send ${mode} message`}
           onKeyPress={this.handleKeyPress}
           onChange={this.handleChange}
           value={this.state.message}
@@ -38,4 +43,12 @@ class MessageInput extends Component {
   }
 }
 
-export default MessageInput
+const mapStateToProps = state => ({
+  private: state.private
+})
+
+MessageInput.propTypes = {
+  private: PropTypes.bool.isRequired
+}
+
+export default connect(mapStateToProps, null)(MessageInput)
