@@ -7,6 +7,13 @@ export default (state = initialState, action) => (
     switch (action.type) {
       case Types.SET_MESSAGES:
         draft.messages = action.messages
+        break
+      case Types.SET_PRIVATE:
+        draft.private = true
+        break
+      case Types.SET_PUBLIC:
+        draft.private = false
+        break
     }
   })
 )

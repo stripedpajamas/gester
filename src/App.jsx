@@ -21,6 +21,7 @@ class App extends Component {
       this.props.updateMessages()
     })
   }
+
   render () {
     return (
       <div className='main'>

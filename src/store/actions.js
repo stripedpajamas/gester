@@ -12,3 +12,15 @@ export const updateMessages = () => {
     messages
   }
 }
+
+export const setPrivate = () => {
+  return {
+    type: Types.SET_PRIVATE
+  }
+}
+
+export const setPublic = () => {
+  return {
+    type: Types.SET_PUBLIC
+  }
+}

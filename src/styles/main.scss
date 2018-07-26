@@ -1,26 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#root, .main {
+    height: 100vh;
+}
+
 .main {
-  display: grid;
-  // 2 columns: the control bar on the left and the message box
-  grid-template-columns: 100px auto;
+    display: grid;
+    // 2 columns: the control bar on the left and the message box
+    grid-template-columns: 200px auto;
+}
+
+input {
+    outline: none;
+    border: 3px solid darkgrey;
+    border-radius: 5px;
 }
 
 .control-panel {
-  
+    background-color: lightblue;
+    display: grid;
+    grid-template-rows: 50px 60px auto;
+    text-align: center;
+
+    div {
+        height: 100%;
+    }
+
+    &__input {
+        margin-top: 10px;
+        padding-left: 10px;
+        width: 75%;
+        height: 40%;
+    }
+
+    button {
+        padding: 10px 20px;
+    }
 }
 
 /* messages */
 .message-view {
-  grid-column-start: 2;
-  display: grid;
-  grid-template-rows: auto 65px;
+    grid-column-start: 2;
+    display: grid;
+    grid-template-rows: auto 50px;
 }
 .message {
-  display: grid;
-  grid-template-columns: 100px 150px auto;
-  &-author {
-    overflow: hidden;
-  }
-  &-text {
-    padding-left: 10px;
-  }
+    width: 95%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 100px 150px auto;
+    &-author {
+        overflow: hidden;
+    }
+    &-text {
+        padding-left: 10px;
+    }
+}
+
+/* chat input */
+.messenger {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+
+    &-input {
+        padding: 10px;
+        height: 30%;
+        width: 75%;
+    }
 }
