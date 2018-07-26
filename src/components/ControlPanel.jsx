@@ -9,7 +9,7 @@ import * as Actions from '../store/actions'
 const core = electron.remote.getGlobal('core')
 
 class ControlPanel extends Component {
-  constructor() {
+  constructor () {
     super()
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.handleModeButton = this.handleModeButton.bind(this)
@@ -80,7 +80,7 @@ class ControlPanel extends Component {
           <input
             className='control-panel__input'
             type='text'
-            placeholder='Start private message...'
+            placeholder='New private message...'
             onKeyPress={this.handleKeyPress}
             ref={el => { this.recipientsInput = el }}
           />
@@ -91,27 +91,29 @@ class ControlPanel extends Component {
           }
         </div>
         <div className='control-panel__users'>
-          <h1>users</h1>
-          {core.recents.get().map((recent, idx) => {
-            const me = core.me.get()
-            const current = core.recipients.get().toArray().join(',')
-            const isCurrent = current === recent.join(',')
-            const notMeNames = recent
-              .filter(r => r !== me)
-              .map(core.authors.getName)
-              .join(', ')
-            const className = isCurrent
-              ? 'control-panel__users__item__current'
-              : 'control-panel__users__item'
-            return (
-              <p
-                className={className}
-                onClick={() => this.handleRecentClick(recent)}
-                key={idx}
-              >{notMeNames}</p>
-            )
-          })
-          }
+          <h1>Recents</h1>
+          <div className='recents'>
+            {core.recents.get().map((recent, idx) => {
+              const me = core.me.get()
+              const current = core.recipients.get().toArray().join(',')
+              const isCurrent = current === recent.join(',')
+              const notMeNames = recent
+                .filter(r => r !== me)
+                .map(core.authors.getName)
+                .join(', ')
+              const className = isCurrent
+                ? 'control-panel__users__item__active'
+                : 'control-panel__users__item'
+              return (
+                <p
+                  className={className}
+                  onClick={() => this.handleRecentClick(recent)}
+                  key={idx}
+                >{notMeNames}</p>
+              )
+            })
+            }
+          </div>
         </div>
       </div>
     )
