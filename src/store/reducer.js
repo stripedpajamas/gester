@@ -8,8 +8,11 @@ export default (state = initialState, action) => (
       case Types.SET_MESSAGES:
         draft.messages = action.messages
         break
-      case Types.TOGGLE_PRIVATE_PANEL:
-        draft.privatePanel = !state.privatePanel
+      case Types.SET_PRIVATE:
+        draft.private = true
+        break
+      case Types.SET_PUBLIC:
+        draft.private = false
         break
     }
   })

@@ -13,8 +13,14 @@ export const updateMessages = () => {
   }
 }
 
-export const togglePrivatePanel = () => {
+export const setPrivate = () => {
   return {
-    type: Types.TOGGLE_PRIVATE_PANEL
+    type: Types.SET_PRIVATE
+  }
+}
+
+export const setPublic = () => {
+  return {
+    type: Types.SET_PUBLIC
   }
 }
