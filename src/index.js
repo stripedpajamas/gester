@@ -65,7 +65,14 @@ const createWindows = async () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-  createWindows()
+  core.start({ debug: true }, (err) => {
+    if (err) {
+      console.log(err)
+      quit()
+      process.exit(1)
+    }
+    createWindows()
+  })
 })
 
 // Quit when all windows are closed.
@@ -90,10 +97,3 @@ const quit = () => {
   core.stop()
   app.quit()
 }
-
-core.start({ debug: true }, (err) => {
-  if (err) {
-    console.log(err)
-    process.exit(1)
-  }
-})

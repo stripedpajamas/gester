@@ -12,9 +12,14 @@ const core = electron.remote.getGlobal('core')
 
 class App extends Component {
   componentDidMount () {
+    core.mode.setPublic() // so we always start public
     this.props.updateMessages()
     core.events.messages.onNew(() => {
       // update state with latest copy of msgs
+      this.props.updateMessages()
+    })
+    core.events.authors.onNew(() => {
+      // a new author means we need to update our messages' authors
       this.props.updateMessages()
     })
     core.events.mode.onChange(() => {

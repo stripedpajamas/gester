@@ -9,7 +9,7 @@ dependencies:
   react-redux: 5.0.7
   redux: 4.0.0
   redux-thunk: 2.3.0
-  ssb-chat-core: 1.0.3
+  ssb-chat-core: 1.0.6
 devDependencies:
   babel-plugin-transform-async-to-generator: 6.24.1
   babel-plugin-transform-object-rest-spread: 6.26.0
@@ -521,7 +521,7 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha1-5yzx/caQFb2f0r3z07iMFlB9Jo4=
-  /aws-sdk/2.280.1:
+  /aws-sdk/2.281.1:
     dependencies:
       buffer: 4.9.1
       events: 1.1.1
@@ -536,7 +536,7 @@ packages:
     engines:
       node: '>= 0.8.0'
     resolution:
-      integrity: sha512-NdATmKYTWKvRsUo7F0hhMbSVbk4kHdQb8aWSJpXRccXsOTviNSxTIOvaube8RXT7nCz+S5CckJ/fPTUTVv/vQw==
+      integrity: sha512-zN+ltzpIqn4mUH4Tj3fS7jfkag+cEDwhocFYsnnrxDwEA5ASOeQ/9FMYWrWx3eTPm1OLSWjD1FKNJClvYM3GvA==
   /aws-sign2/0.6.0:
     dev: true
     resolution:
@@ -2419,7 +2419,7 @@ packages:
   /electron-forge/5.2.2:
     dependencies:
       '@octokit/rest': 15.9.4
-      aws-sdk: 2.280.1
+      aws-sdk: 2.281.1
       babel-register: 6.26.0
       bluebird: 3.5.1
       colors: 1.3.1
@@ -7785,7 +7785,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-DeeInkFU8oN1mYlPVrqrm9tupf6wze4HuowK7N2vv/O+UeSLuYPU1p4HrxSqdAPvUabr0OtvbFA6z1T4nw+9fw==
-  /ssb-chat-core/1.0.3:
+  /ssb-chat-core/1.0.6:
     dependencies:
       immutable: 3.8.2
       node-persist: 2.1.0
@@ -7810,7 +7810,7 @@ packages:
       ssb-ws: 2.1.1
     dev: false
     resolution:
-      integrity: sha512-GR86ExhSPb2jUqwHjb5C5l/gKs+rk+Rrm+F3nXmWeXjkgHP1sqi0bAt/1e6lMwW0QOXVjrS/kDjhW4ei1ogRCg==
+      integrity: sha512-lsZqGtXrtSCgAAiKybgbr3KsGsUq0qHeeAHpb8OfVBb2HrPf0B6J5uRDAv9GNbYFZV57tpQCXOGb5R8v+jb1uA==
   /ssb-client/4.5.7:
     dependencies:
       explain-error: 1.0.4

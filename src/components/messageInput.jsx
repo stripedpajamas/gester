@@ -7,23 +7,15 @@ class MessageInput extends Component {
     super(props)
 
     this.handleKeyPress = this.handleKeyPress.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-
-    this.state = {
-      message: ''
-    }
   }
 
   handleKeyPress (e) {
+    const msg = e.target.value
     if (e.key === 'Enter') {
       // TODO this will be replaced with sending a message
-      console.log(e.target.value)
-      this.setState({ message: '' })
+      console.log(msg)
+      this.messageInput.value = ''
     }
-  }
-
-  handleChange (e) {
-    this.setState({ message: e.target.value })
   }
 
   render () {
@@ -36,7 +28,7 @@ class MessageInput extends Component {
           placeholder={`Send ${mode} message`}
           onKeyPress={this.handleKeyPress}
           onChange={this.handleChange}
-          value={this.state.message}
+          ref={el => { this.messageInput = el }}
         />
       </div>
     )
