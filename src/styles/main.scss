@@ -1,6 +1,19 @@
+$theme-secondary: #424242;
+$theme-primary: #212121;
+$theme-buttons: #4fc3f7;
+$theme-buttons-hover: #039be5;
+$theme-buttons-click: #0277bd;
+$theme-border: #4D5061;
+$theme-font: #fafafa;
+$theme-font-secondary: #4fc3f7;
+$theme-highlight: #e1f5fe;
+
 * {
     margin: 0;
     padding: 0;
+    font-family: Helvetica, sans-serif;
+    font-size:  14px;
+    color: $theme-font;
 }
 
 #root, .main {
@@ -13,30 +26,69 @@
     grid-template-columns: 200px auto;
 }
 
-input {
-    outline: none;
-    border: 3px solid darkgrey;
-    border-radius: 5px;
+h1 {
+    color: $theme-font-secondary;
+    font-size: 20px;
 }
 
+input {
+    outline: none;
+    // border: 3px solid $theme-border;
+    border: none;
+    border-radius: 5px;
+    color: $theme-primary;
+    font-size: 12px;
+}
+
+button {
+    background-color: $theme-buttons;
+    border: none;
+
+    &:hover {
+        background-color: $theme-buttons-hover;
+    }
+
+    &:focus {
+        outline: none;
+        background-color: $theme-buttons-click;
+    }
+}
+
+/* ------ Control Panel ------ */
+
 .control-panel {
-    background-color: lightblue;
+    background-color: $theme-primary;
     display: grid;
     grid-template-rows: 60px 50px 60px auto;
     text-align: center;
+    position: fixed;
+    height: 100vh;
+    width: 200px;
 
     &__input {
         margin-top: 10px;
-        padding-left: 10px;
+        padding: 5px 10px;
         width: 75%;
         height: 40%;
     }
 
     &__users {
-        &__item {
-            cursor: pointer;
-            &__current {
-                background-color: tomato;
+        h1 {
+            padding-bottom: 7px;
+            border-bottom: 2px solid $theme-border;
+        }
+        .recents {
+            margin-top: 7px;
+
+            p {
+                padding: 5px 0;
+            }
+            
+            &__item {
+                cursor: pointer;
+                &__active {
+                    background-color: $theme-highlight;
+                }
             }
         }
     }
@@ -46,6 +98,7 @@ input {
     }
 }
 
+/* ------ Modal ------ */
 .modal {
     z-index: 1010;
     position: fixed;
@@ -59,6 +112,7 @@ input {
     background-color: white;
 }
 
+
 .modal-overlay {
     z-index: 1000;
     position: fixed;
@@ -70,34 +124,45 @@ input {
     opacity: 0.75;
 }
 
-/* messages */
+
+/* ------ Message View ------ */
 .message-view {
     grid-column-start: 2;
-    display: grid;
-    grid-template-rows: auto 50px;
+    background-color: $theme-secondary;
+
+    .messenger {
+        width: calc(100% - 200px);
+        float: right;
+        position: fixed;
+        bottom: 0;
+        right: 0
+    }
+
 }
+
+.messenger-input {
+    width: calc(100% - 50px);
+    margin-left: 10px;
+    padding: 10px;
+    margin-bottom: 25px;
+}
+
+.messages {
+    height: 90vh;
+    overflow: scroll;
+}
+
+
 .message {
-    width: 95%;
-    margin: 0 auto;
+    width: calc(100% - 21px);
+    padding: 0 10px;
+    margin: 10px auto;
     display: grid;
-    grid-template-columns: 100px 150px auto;
+    grid-template-columns: 110px 125px auto;
     &-author {
         overflow: hidden;
     }
     &-text {
         padding-left: 10px;
-    }
-}
-
-/* chat input */
-.messenger {
-    height: 100%;
-    width: 100%;
-    text-align: center;
-
-    &-input {
-        padding: 10px;
-        height: 30%;
-        width: 75%;
     }
 }
