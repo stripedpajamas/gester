@@ -7,7 +7,6 @@ import * as Actions from './store/actions'
 import ControlPanel from './components/ControlPanel'
 import Messages from './components/Messages'
 import MessageInput from './components/MessageInput'
-import PrivatePanel from './components/PrivatePanel'
 
 const core = electron.remote.getGlobal('core')
 
@@ -27,7 +26,6 @@ class App extends Component {
     return (
       <div className='main'>
         <ControlPanel />
-        <PrivatePanel />
         <div className='message-view'>
           <Messages />
           <MessageInput />
