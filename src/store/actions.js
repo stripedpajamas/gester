@@ -55,6 +55,8 @@ export const setupCore = () => (dispatch) => {
     dispatch({
       type: Types.SET_RECIPIENTS,
       recipients: recipients.toJS()
+        .filter(r => r !== core.me.get())
+        .map(core.authors.getName)
     })
   })
 
