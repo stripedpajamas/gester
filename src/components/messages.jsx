@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Message from './Message'
-import { createUserColors } from '../helpers/randomColor'
 
 class Messages extends Component {
   componentDidMount () {
@@ -16,7 +15,6 @@ class Messages extends Component {
   }
   render () {
     const { messages, authors } = this.props
-    const colors = createUserColors(messages)
     return (
       <div className='messages' ref={el => { this.messagesDiv = el }}>
         {messages.map((message) => {
@@ -26,7 +24,6 @@ class Messages extends Component {
             author={author}
             key={message.key}
             message={message}
-            color={colors[message.authorName]}
           />)
         })}
       </div>

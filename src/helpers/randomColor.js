@@ -12,20 +12,19 @@ export const generateRandomColor = () => {
 
 // gets a random color from our premade list of colors
 const getRandomColor = (colors) => {
-  const rnd = [Math.floor(Math.random() * colors.length - 1)]
-  return colors[rnd]
+  const rnd = [Math.floor(Math.random() * colors.everyone.length - 1)]
+  return colors.everyone[rnd]
 }
 
 // creates an object of users/colors
 // a user has a color assigned to them
 // dont want to make it unique because we may not have enough colors
-export const createUserColors = (messages) => {
-  const colorMap = {}
-  messages.forEach((message) => {
-    if (!colorMap[message.authorName]) {
-      colorMap[message.authorName] = getRandomColor(colors)
-    }
-  })
-
-  return colorMap
+const colorMap = {}
+export const getAuthorColor = (author) => {
+  if (!colorMap[author]) {
+    colorMap[author] = getRandomColor(colors)
+  }
+  return colorMap[author]
 }
+
+export const getMeColor = () => colors.me

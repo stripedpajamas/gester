@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import format from 'date-fns/format'
+import { getAuthorColor, getMeColor } from '../helpers/randomColor'
 
 class Message extends Component {
   render () {
@@ -8,12 +9,13 @@ class Message extends Component {
     const { timestamp, author: id, text } = message
 
     const time = format(timestamp, 'MMM DD HH:mm')
+    const color = message.fromMe ? getMeColor() : getAuthorColor(author)
 
     return (
       <div className='message'>
         <span className='message-time'>{time}</span>
         <span
-          style={{ color: this.props.color }}
+          style={{ color }}
           className='message-author'
           title={id}
         >
@@ -27,8 +29,7 @@ class Message extends Component {
 
 Message.propTypes = {
   message: PropTypes.object.isRequired,
-  author: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired
+  author: PropTypes.string.isRequired
 }
 
 export default Message
