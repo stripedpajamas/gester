@@ -102,8 +102,8 @@ class ControlPanel extends Component {
                 .map(core.authors.getName)
                 .join(', ')
               const className = isCurrent
-                ? 'control-panel__users__item__active'
-                : 'control-panel__users__item'
+                ? 'recents-item__active'
+                : 'recents-item'
               return (
                 <p
                   className={className}
