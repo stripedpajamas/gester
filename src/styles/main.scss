@@ -83,12 +83,17 @@ button {
             p {
                 padding: 5px 0;
             }
+
+            &-item {
+                &__active {
+                    background-color: $theme-highlight;
+                    color: $theme-secondary;
+                    
+                }
+            }
             
             &__item {
                 cursor: pointer;
-                &__active {
-                    background-color: $theme-highlight;
-                }
             }
         }
     }
