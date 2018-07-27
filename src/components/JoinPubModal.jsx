@@ -36,15 +36,15 @@ class JoinPubModal extends Component {
       <div>
         <div className='join-pub modal'>
           <input
-            className='join-pub__input'
+            className='modal-input'
             type='text'
             placeholder={`Paste pub invite code here...`}
             onKeyPress={this.handleKeyPress}
             onChange={this.handleChange}
             ref={el => { this.pubInput = el }}
           />
-          <button className='button' onClick={this.handleCancel}>cancel</button>
-          <button className='button' onClick={this.handleSubmit}>join</button>
+          <button className='modal-button button' onClick={this.handleCancel}>cancel</button>
+          <button className='modal-button button' onClick={this.handleSubmit}>join</button>
         </div>
         <div className='modal-overlay' onClick={this.handleCancel} />
       </div>
