@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Message from './Message'
+import { createUserColors } from '../helpers/randomColor'
 
 class Messages extends Component {
   render () {
+    const { messages } = this.props
+    const colors = createUserColors(messages)
     return (
       <div className='messages'>
-        {this.props.messages.map((message) => (
-          <Message key={message.key} message={message} />
+        {messages.map((message) => (
+          <Message key={message.key} message={message} color={colors[message.authorName]} />
         ))}
       </div>
     )

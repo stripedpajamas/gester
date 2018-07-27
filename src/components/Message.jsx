@@ -15,7 +15,7 @@ class Message extends Component {
     return (
       <div className='message'>
         <span className='message-time'>{time}</span>
-        <span className='message-author' title={id}>{name}</span>
+        <span style={{ color: this.props.color }}className='message-author' title={id}>{name}</span>
         <span className='message-text'>{text}</span>
       </div>
     )
@@ -23,7 +23,8 @@ class Message extends Component {
 }
 
 Message.propTypes = {
-  message: PropTypes.object
+  message: PropTypes.object.isRequired,
+  color: PropTypes.string.isRequired
 }
 
 export default Message
