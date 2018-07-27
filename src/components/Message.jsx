@@ -4,18 +4,21 @@ import format from 'date-fns/format'
 
 class Message extends Component {
   render () {
-    const { timestamp, authorName: name, author: id, text } = this.props.message
-
-    if (typeof name === 'function') {
-      console.log('wtf', this.props.message)
-    }
+    const { author, message } = this.props
+    const { timestamp, author: id, text } = message
 
     const time = format(timestamp, 'MMM DD HH:mm')
 
     return (
       <div className='message'>
         <span className='message-time'>{time}</span>
-        <span style={{ color: this.props.color }}className='message-author' title={id}>{name}</span>
+        <span
+          style={{ color: this.props.color }}
+          className='message-author'
+          title={id}
+        >
+          {author}
+        </span>
         <span className='message-text'>{text}</span>
       </div>
     )
@@ -24,6 +27,7 @@ class Message extends Component {
 
 Message.propTypes = {
   message: PropTypes.object.isRequired,
+  author: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired
 }
 

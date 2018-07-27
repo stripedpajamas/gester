@@ -19,7 +19,7 @@ class MessageInput extends Component {
   }
 
   render () {
-    const mode = this.props.private ? 'private' : 'public'
+    const mode = this.props.mode.toLowerCase()
     return (
       <div className='messenger'>
         <input
@@ -36,11 +36,11 @@ class MessageInput extends Component {
 }
 
 const mapStateToProps = state => ({
-  private: state.private
+  mode: state.mode
 })
 
 MessageInput.propTypes = {
-  private: PropTypes.bool.isRequired
+  mode: PropTypes.string.isRequired
 }
 
-export default connect(mapStateToProps, null)(MessageInput)
+export default connect(mapStateToProps)(MessageInput)

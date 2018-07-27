@@ -1,7 +1,10 @@
 export const SET_MESSAGES = 'SET_MESSAGES'
-
-export const SET_PRIVATE = 'SET_PRIVATE'
-export const SET_PUBLIC = 'SET_PUBLIC'
+export const SET_AUTHORS = 'SET_AUTHORS'
+export const SET_RECIPIENTS = 'SET_RECIPIENTS'
+export const SET_MODE = 'SET_MODE'
+export const SET_RECENTS = 'SET_RECENTS'
+export const SET_UNREADS = 'SET_UNREADS'
+export const SET_ME = 'SET_ME'
 
 export const SET_ERROR = 'SET_ERROR'
 export const SET_NOTIFICATION = 'SET_NOTIFICATION'

@@ -5,23 +5,41 @@ import Message from './Message'
 import { createUserColors } from '../helpers/randomColor'
 
 class Messages extends Component {
+  componentDidMount () {
+    this.scrollToBottom()
+  }
+  componentDidUpdate () {
+    this.scrollToBottom()
+  }
+  scrollToBottom () {
+    this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight
+  }
   render () {
-    const { messages } = this.props
+    const { messages, authors } = this.props
     const colors = createUserColors(messages)
     return (
-      <div className='messages'>
-        {messages.map((message) => (
-          <Message key={message.key} message={message} color={colors[message.authorName]} />
-        ))}
+      <div className='messages' ref={el => { this.messagesDiv = el }}>
+        {messages.map((message) => {
+          const id = message.author
+          const author = (authors[id] || {}).name || id
+          return (<Message
+            author={author}
+            key={message.key}
+            message={message}
+            color={colors[message.authorName]}
+          />)
+        })}
       </div>
     )
   }
 }
 
 Messages.propTypes = {
-  messages: PropTypes.arrayOf(PropTypes.object).isRequired
+  messages: PropTypes.array.isRequired,
+  authors: PropTypes.object.isRequired
 }
 const mapStateToProps = state => ({
+  authors: state.authors,
   messages: state.messages
 })
 

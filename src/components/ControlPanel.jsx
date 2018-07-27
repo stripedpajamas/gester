@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
-import electron from 'electron'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import JoinPubModal from './JoinPubModal'
 import * as Actions from '../store/actions'
-
-const core = electron.remote.getGlobal('core')
 
 class ControlPanel extends Component {
   constructor () {
@@ -30,41 +27,33 @@ class ControlPanel extends Component {
         .split(',')
         .map(x => x.trim())
       this.recipientsInput.value = ''
-      core.commands.private(recipients)
-        .then(() => { this.props.setPrivate() })
-        .catch((e) => this.props.setError(e))
+      this.props.goPrivate(recipients)
     }
   }
 
-  handleModeButton (e) {
-    e.preventDefault()
-    this.props.setPublic()
-    core.commands.quit()
-      .then(({ result }) => this.props.setNotification(result))
-      .catch((e) => this.props.setError(e))
+  handleModeButton () {
+    this.props.goPublic()
   }
 
-  handlePubButton (e) {
+  handlePubButton () {
     this.setState({ joiningPub: true })
   }
 
-  handlePubCancel (e) {
+  handlePubCancel () {
     this.setState({ joiningPub: false })
   }
 
   handlePubSubmit (invite) {
-    core.commands.pub(invite)
-      .then(({ result }) => this.props.setNotification(result))
-      .catch((e) => this.props.setError(e))
+    this.props.joinPub(invite)
   }
 
   handleRecentClick (recipients) {
-    core.commands.private(recipients)
-      .then(() => { this.props.setPrivate() })
-      .catch((e) => this.props.setError(e))
+    this.props.goPrivate(recipients.split(', '))
   }
 
   render () {
+    const privateMode = this.props.mode === 'PRIVATE'
+
     return (
       <div className='control-panel'>
         <div>
@@ -86,21 +75,16 @@ class ControlPanel extends Component {
           />
         </div>
         <div>
-          {this.props.private &&
+          {privateMode &&
             <button className='button' onClick={this.handleModeButton}>public</button>
           }
         </div>
         <div className='control-panel__users'>
           <h1>Recents</h1>
           <div className='recents'>
-            {core.recents.get().map((recent, idx) => {
-              const me = core.me.get()
-              const current = core.recipients.get().toArray().join(',')
-              const isCurrent = current === recent.join(',')
-              const notMeNames = recent
-                .filter(r => r !== me)
-                .map(core.authors.getName)
-                .join(', ')
+            {this.props.recents.map((recent, idx) => {
+              const current = this.props.recipients.join(', ')
+              const isCurrent = current === recent
               const className = isCurrent
                 ? 'recents-item__active'
                 : 'recents-item'
@@ -109,10 +93,9 @@ class ControlPanel extends Component {
                   className={className}
                   onClick={() => this.handleRecentClick(recent)}
                   key={idx}
-                >{notMeNames}</p>
+                >{recent}</p>
               )
-            })
-            }
+            })}
           </div>
         </div>
       </div>
@@ -121,22 +104,24 @@ class ControlPanel extends Component {
 }
 
 const mapStateToProps = state => ({
-  private: state.private
+  mode: state.mode,
+  recents: state.recents,
+  recipients: state.recipients
 })
 
 const mapDispatchToProps = dispatch => ({
-  setPrivate: bindActionCreators(Actions.setPrivate, dispatch),
-  setPublic: bindActionCreators(Actions.setPublic, dispatch),
-  setNotification: bindActionCreators(Actions.setNotification, dispatch),
-  setError: bindActionCreators(Actions.setError, dispatch)
+  goPrivate: bindActionCreators(Actions.goPrivate, dispatch),
+  goPublic: bindActionCreators(Actions.goPublic, dispatch),
+  joinPub: bindActionCreators(Actions.joinPub, dispatch)
 })
 
 ControlPanel.propTypes = {
-  setNotification: PropTypes.func.isRequired,
-  setError: PropTypes.func.isRequired,
-  setPrivate: PropTypes.func.isRequired,
-  setPublic: PropTypes.func.isRequired,
-  private: PropTypes.bool.isRequired
+  goPublic: PropTypes.func.isRequired,
+  goPrivate: PropTypes.func.isRequired,
+  joinPub: PropTypes.func.isRequired,
+  recents: PropTypes.array,
+  recipients: PropTypes.array,
+  mode: PropTypes.string
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ControlPanel)
