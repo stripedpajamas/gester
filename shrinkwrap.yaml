@@ -10,7 +10,7 @@ dependencies:
   redux: 4.0.0
   redux-devtools-extension: 2.13.5
   redux-thunk: 2.3.0
-  ssb-chat-core: 1.0.10
+  ssb-chat-core: 1.0.12
 devDependencies:
   babel-plugin-transform-async-to-generator: 6.24.1
   babel-plugin-transform-object-rest-spread: 6.26.0
@@ -72,10 +72,10 @@ packages:
   /@types/node/7.0.67:
     resolution:
       integrity: sha512-DUioEWBd0NG30G1/wI0amNN/sSJ/xuX4/YWm4nNa+bUU6swuS7CF+sH/nifu+SPy5BFqRzQEyEWvi9zIDVP+Lw==
-  /@types/node/8.10.21:
+  /@types/node/8.10.22:
     dev: true
     resolution:
-      integrity: sha512-87XkD9qDXm8fIax+5y7drx84cXsu34ZZqfB7Cial3Q/2lxSoJ/+DRaWckkCbxP41wFSIrrb939VhzaNxj4eY1w==
+      integrity: sha512-HCJ1dUJEQVFRekwBAlyv9pJ+2rzxq9uimSmsK2q7YDYMbXR3b4BXcO9rsN+36ZBwSWQ5BNh5o8xdZijDSonS5A==
   /abab/1.0.4:
     dev: true
     optional: true
@@ -2693,7 +2693,7 @@ packages:
       integrity: sha512-EniMpjYKizQ8fGiv5L6ef68ahZtqaDCqIQONiHiPx0PKCTZ1qfhpiMRLidZ+d2PBkMksgQuSYpI0N9AzRR5+cg==
   /electron/2.0.0:
     dependencies:
-      '@types/node': 8.10.21
+      '@types/node': 8.10.22
       electron-download: 3.3.0
       extract-zip: 1.6.7
     dev: true
@@ -7820,7 +7820,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-DeeInkFU8oN1mYlPVrqrm9tupf6wze4HuowK7N2vv/O+UeSLuYPU1p4HrxSqdAPvUabr0OtvbFA6z1T4nw+9fw==
-  /ssb-chat-core/1.0.10:
+  /ssb-chat-core/1.0.12:
     dependencies:
       immutable: 3.8.2
       nanobus: 4.3.3
@@ -7846,7 +7846,7 @@ packages:
       ssb-ws: 2.1.1
     dev: false
     resolution:
-      integrity: sha512-hw5Gm70d27N/sequ1OfGp8s2k4pZvzzT5v5moxFovhFBwjN8K182uxoV3fCK+O/LzUFK90zYgvAMBWakclriaw==
+      integrity: sha512-o/8m/2RJb5hN1XyJyFH/bS8T1Y3P9cSa4Rmpw2Gw+YpCPADC4HFmRiSNluxMXOPqNdTY0sT8xT9CUULT7iSPmg==
   /ssb-client/4.5.7:
     dependencies:
       explain-error: 1.0.4
@@ -9229,5 +9229,5 @@ specifiers:
   redux: ^4.0.0
   redux-devtools-extension: ^2.13.5
   redux-thunk: ^2.3.0
-  ssb-chat-core: ^1.0.6
+  ssb-chat-core: ^1.0.12
   standard: ^11.0.1
