@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
+import * as Actions from '../store/actions'
 
 class MessageInput extends Component {
   constructor (props) {
@@ -12,8 +14,7 @@ class MessageInput extends Component {
   handleKeyPress (e) {
     const msg = e.target.value
     if (e.key === 'Enter') {
-      // TODO this will be replaced with sending a message
-      console.log(msg)
+      this.props.sendMessage(msg)
       this.messageInput.value = ''
     }
   }
@@ -39,8 +40,13 @@ const mapStateToProps = state => ({
   mode: state.mode
 })
 
+const mapDispatchToProps = dispatch => ({
+  sendMessage: bindActionCreators(Actions.sendMessage, dispatch)
+})
+
 MessageInput.propTypes = {
-  mode: PropTypes.string.isRequired
+  mode: PropTypes.string.isRequired,
+  sendMessage: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps)(MessageInput)
+export default connect(mapStateToProps, mapDispatchToProps)(MessageInput)

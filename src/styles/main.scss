@@ -1,4 +1,4 @@
-$theme-secondary: #424242;
+$theme-secondary: white;
 $theme-primary: #212121;
 $theme-buttons: #23ABF6;
 $theme-buttons-hover: #1091d6;
@@ -164,10 +164,11 @@ button {
     margin-left: 10px;
     padding: 10px;
     margin-bottom: 15px;
+    border: 1px solid gray;
 }
 
 .messages {
-    height: 90vh;
+    height: 93vh;
     overflow: scroll;
 }
 
@@ -177,11 +178,45 @@ button {
     padding: 0 10px;
     margin: 10px auto;
     display: grid;
-    grid-template-columns: 110px 125px auto;
+    grid-template-columns: 40px auto; // 90px was author
+    &:hover {
+        background-color: #FAFAFA;
+    }
     &-author {
+        font-weight: bold;
         overflow: hidden;
     }
-    &-text {
-        padding-left: 10px;
+    &-time {
+        color: lightgray;
+        font-size: 12px;
+        padding-top: 2px;
+        &-top {
+            color: lightgray;
+            font-size: 12px;
+            padding-top: 18px;
+        }
+        &-top-emoji {
+            color: lightgray;
+            font-size: 12px;
+            padding-top: 23px;
+        }
+        &-emoji {
+            color: lightgray;
+            font-size: 12px;
+            padding-top: 9px;
+        }
+    }
+    div, p {
+        color: $theme-primary;
+        .emoji {
+            font-size: 30px;
+            vertical-align: middle;
+            line-height: 2;
+        }
+    }
+    code {
+        color: $theme-primary;
+        font-family: Monospace;
+        background-color: lightgray;
     }
 }

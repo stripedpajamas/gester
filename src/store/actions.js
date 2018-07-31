@@ -119,4 +119,8 @@ export const joinPub = (invite) => (dispatch) => {
     .then(({ result }) => dispatch(setNotification(result)))
     .catch((e) => dispatch(setError(e)))
 }
+export const sendMessage = (msg) => (dispatch) => {
+  core.messenger.sendMessage(msg)
+    .catch((e) => dispatch(setError(e)))
+}
 // #endregion
