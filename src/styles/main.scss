@@ -1,14 +1,16 @@
 $theme-secondary: white;
-// $theme-primary: #fafafa;
 $theme-primary: #ECF0F1;
-// $theme-buttons: #ECF0F1;
 $theme-buttons: #577399;
-$theme-buttons-hover: #1091d6;
-$theme-buttons-click: #0a81c2;
+$theme-buttons-hover: #415876;
+$theme-buttons-click: #6586b2;
+$theme-buttons-secondary: #52B788;
+$theme-buttons-secondary-hover: #459b73;
+$theme-buttons-secondary-click: #67dfa7;
 $theme-border: #4D5061;
 $theme-font: black;
 $theme-font-secondary: #fafafa;
-$theme-highlight: #23ABF6;
+$theme-highlight: #fafafa;
+$theme-active: #d3d3d3;
 
 $control-panel-width: 225px;
 
@@ -70,6 +72,23 @@ button {
     height: 100vh;
     width: $control-panel-width;
 
+    .button {
+        padding: 10px 25px;
+        margin-top: 10px;
+    }
+
+    .public-button {
+        background-color: $theme-buttons-secondary;
+
+        &:hover {
+            background-color: $theme-buttons-secondary-hover;
+        }
+
+        &:focus {
+            background-color: $theme-buttons-secondary-click;
+        }
+    }
+
     &__input {
         margin-top: 10px;
         padding: 5px 10px;
@@ -79,20 +98,19 @@ button {
 
     &__users {
         .recents {
-            // text-align: left;
-            // width: 50%;
-            // margin: 0 auto;
+            text-align: left;
             margin-top: 7px;
 
             p {
-                padding: 5px 0;
+                padding: 7px 20px;
             }
 
             &-item {
-                &__active {
+                &:hover {
                     background-color: $theme-highlight;
-                    color: $theme-secondary;
-                    
+                }
+                &__active {
+                    background-color: $theme-active;
                 }
             }
             
@@ -100,10 +118,6 @@ button {
                 cursor: pointer;
             }
         }
-    }
-
-    .button {
-        padding: 10px 20px;
     }
 }
 
@@ -180,9 +194,6 @@ button {
     margin: 10px auto;
     display: grid;
     grid-template-columns: 40px auto; // 90px was author
-    &:hover {
-        background-color: $theme-primary;
-    }
     &-author {
         font-weight: bold;
         overflow: hidden;
