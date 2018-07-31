@@ -74,7 +74,7 @@ button {
 
     .button {
         padding: 10px 25px;
-        margin-top: 10px;
+        margin-top: 20px;
     }
 
     .public-button {
@@ -90,7 +90,7 @@ button {
     }
 
     &__input {
-        margin-top: 10px;
+        margin-top: 25px;
         padding: 5px 10px;
         width: 75%;
         height: 40%;
@@ -99,7 +99,7 @@ button {
     &__users {
         .recents {
             text-align: left;
-            margin-top: 7px;
+            margin-top: 20px;
 
             p {
                 padding: 7px 20px;
@@ -136,7 +136,7 @@ button {
 
     &-input {
         width: 80%;
-        border: 2px solid $theme-border;
+        border: 1px solid $theme-border;
         margin-top: 60px;
         padding: 10px;
     }
