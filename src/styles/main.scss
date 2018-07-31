@@ -1,11 +1,13 @@
 $theme-secondary: white;
-$theme-primary: #212121;
-$theme-buttons: #23ABF6;
+// $theme-primary: #fafafa;
+$theme-primary: #ECF0F1;
+// $theme-buttons: #ECF0F1;
+$theme-buttons: #577399;
 $theme-buttons-hover: #1091d6;
 $theme-buttons-click: #0a81c2;
 $theme-border: #4D5061;
-$theme-font: #fafafa;
-$theme-font-secondary: #23ABF6;
+$theme-font: black;
+$theme-font-secondary: #fafafa;
 $theme-highlight: #23ABF6;
 
 $control-panel-width: 225px;
@@ -35,16 +37,17 @@ h1 {
 
 input {
     outline: none;
-    // border: 3px solid $theme-border;
-    border: none;
+    border: 1px solid $theme-border;
     border-radius: 5px;
-    color: $theme-primary;
+    color: $theme-font;
     font-size: 12px;
 }
 
 button {
+    border-radius: 6px;
     background-color: $theme-buttons;
     border: none;
+    color: $theme-font-secondary;
 
     &:hover {
         background-color: $theme-buttons-hover;
@@ -75,11 +78,10 @@ button {
     }
 
     &__users {
-        h1 {
-            padding-bottom: 7px;
-            border-bottom: 2px solid $theme-border;
-        }
         .recents {
+            // text-align: left;
+            // width: 50%;
+            // margin: 0 auto;
             margin-top: 7px;
 
             p {
@@ -164,7 +166,6 @@ button {
     margin-left: 10px;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid gray;
 }
 
 .messages {
@@ -180,7 +181,7 @@ button {
     display: grid;
     grid-template-columns: 40px auto; // 90px was author
     &:hover {
-        background-color: #FAFAFA;
+        background-color: $theme-primary;
     }
     &-author {
         font-weight: bold;
@@ -190,24 +191,22 @@ button {
         color: lightgray;
         font-size: 12px;
         padding-top: 2px;
-        &-top {
+        span {
             color: lightgray;
             font-size: 12px;
+        }
+        &-top {
             padding-top: 18px;
         }
         &-top-emoji {
-            color: lightgray;
-            font-size: 12px;
             padding-top: 23px;
         }
         &-emoji {
-            color: lightgray;
-            font-size: 12px;
             padding-top: 9px;
         }
     }
     div, p {
-        color: $theme-primary;
+        color: $theme-font;
         .emoji {
             font-size: 30px;
             vertical-align: middle;
@@ -215,7 +214,7 @@ button {
         }
     }
     code {
-        color: $theme-primary;
+        color: $theme-font;
         font-family: Monospace;
         background-color: lightgray;
     }
