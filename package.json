@@ -61,6 +61,7 @@
     "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
     "remark": "^9.0.0",
+    "remark-html": "^7.0.0",
     "remark-react": "^4.0.3",
     "ssb-chat-core": "^1.0.12"
   },

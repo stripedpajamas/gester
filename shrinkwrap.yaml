@@ -12,6 +12,7 @@ dependencies:
   redux-devtools-extension: 2.13.5
   redux-thunk: 2.3.0
   remark: 9.0.0
+  remark-html: 7.0.0
   remark-react: 4.0.3
   ssb-chat-core: 1.0.12
 devDependencies:
@@ -520,7 +521,7 @@ packages:
   /autoprefixer/6.7.7:
     dependencies:
       browserslist: 1.7.7
-      caniuse-db: 1.0.30000871
+      caniuse-db: 1.0.30000872
       normalize-range: 0.1.2
       num2fraction: 1.2.2
       postcss: 5.2.18
@@ -537,7 +538,7 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha1-5yzx/caQFb2f0r3z07iMFlB9Jo4=
-  /aws-sdk/2.282.1:
+  /aws-sdk/2.283.1:
     dependencies:
       buffer: 4.9.1
       events: 1.1.1
@@ -552,7 +553,7 @@ packages:
     engines:
       node: '>= 0.8.0'
     resolution:
-      integrity: sha512-2/QFnzANnU/Fy4hdCz93bq8ERG2gANfGytt4cZGEPC0V6ePx22JqYGZMYUmBEGsWDCKbKc8l8QZDDer4r/0QBw==
+      integrity: sha512-UZmiWboO0WgZUKcTDSa5v6xuHqfNr9PQrOoilWUBnWpWO4s6h9LlSvIm06qyA3XQjEpXVmetHAMl9GmiHk51qw==
   /aws-sign2/0.6.0:
     dev: true
     resolution:
@@ -1268,7 +1269,7 @@ packages:
       integrity: sha1-eee7FKmrunf3KsklgiAkKo/TkZ0=
   /browserslist/1.7.7:
     dependencies:
-      caniuse-db: 1.0.30000871
+      caniuse-db: 1.0.30000872
       electron-to-chromium: 1.3.52
     deprecated: Browserslist 2 could fail on reading Browserslist >3.0 config used in other tools.
     dev: true
@@ -1317,9 +1318,9 @@ packages:
     optional: true
     resolution:
       integrity: sha512-RiWIenusJsmI2KcvqQABB83tLxCByE3upSP8QU3rJDMVFGPWLvPQJt/O1Su9moRWeH7d+Q2HYb68f6+v+tw2vg==
-  /buffer-from/1.1.0:
+  /buffer-from/1.1.1:
     resolution:
-      integrity: sha512-c5mRlguI/Pe2dSZmpER62rSCu0ryKmWddzRYsuXc50U2/g8jMOulc31VZMa4mYx31U5xsmSOpDCgH88Vl9cDGQ==
+      integrity: sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
   /buffer/4.9.1:
     dependencies:
       base64-js: 1.3.0
@@ -1400,16 +1401,16 @@ packages:
   /caniuse-api/1.6.1:
     dependencies:
       browserslist: 1.7.7
-      caniuse-db: 1.0.30000871
+      caniuse-db: 1.0.30000872
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: true
     resolution:
       integrity: sha1-tTTnxzTE+B7F++isoq0kNUuWLGw=
-  /caniuse-db/1.0.30000871:
+  /caniuse-db/1.0.30000872:
     dev: true
     resolution:
-      integrity: sha1-8ZlcH+MYkmSadgWVeoDJJRhCPU0=
+      integrity: sha1-P25Ttj03N2i/meiWEz1m74nEmZk=
   /caniuse-lite/1.0.30000865:
     dev: true
     resolution:
@@ -1777,7 +1778,7 @@ packages:
       integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
   /concat-stream/1.6.2:
     dependencies:
-      buffer-from: 1.1.0
+      buffer-from: 1.1.1
       inherits: 2.0.3
       readable-stream: 2.3.6
       typedarray: 0.0.6
@@ -2313,13 +2314,14 @@ packages:
       node: '>=0.10'
     resolution:
       integrity: sha1-LDXkPqCGUW95l8+At6pk1VpKRIQ=
-  /ecc-jsbn/0.1.1:
+  /ecc-jsbn/0.1.2:
     dependencies:
       jsbn: 0.1.1
+      safer-buffer: 2.1.2
     dev: true
     optional: true
     resolution:
-      integrity: sha1-D8c6ntXw1Tw4GTOYUj735UN3dQU=
+      integrity: sha1-OoOpBOVDUyh4dMVkt1SThoSamMk=
   /ed2curve/0.1.4:
     dependencies:
       tweetnacl: 0.14.5
@@ -2381,7 +2383,7 @@ packages:
       stylus: 0.54.5
       stylus-lookup: 1.0.2
       toutsuite: 0.6.0
-      typescript: 2.9.2
+      typescript: 3.0.1
     dev: true
     engines:
       node: '>= 5.0'
@@ -2447,7 +2449,7 @@ packages:
   /electron-forge/5.2.2:
     dependencies:
       '@octokit/rest': 15.9.4
-      aws-sdk: 2.282.1
+      aws-sdk: 2.283.1
       babel-register: 6.26.0
       bluebird: 3.5.1
       colors: 1.3.1
@@ -2459,7 +2461,7 @@ packages:
       electron-forge-template-react-typescript: 1.0.6
       electron-forge-template-vue: 1.0.3
       electron-packager: 11.2.0
-      electron-rebuild: 1.8.1
+      electron-rebuild: 1.8.2
       exact-version: 1.0.2
       form-data: 2.3.2
       fs-extra: 5.0.0
@@ -2644,7 +2646,7 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-4TneXzW4XMi1vC4MKtB/asZ7rh/W2ogOJAH2oV0z9isVGYAE0faN1MWuRfHoqFU73Ip02oGTn7Cecd8px56kIQ==
-  /electron-rebuild/1.8.1:
+  /electron-rebuild/1.8.2:
     dependencies:
       colors: 1.3.1
       debug: 2.6.9
@@ -2661,7 +2663,7 @@ packages:
       node: '>=6.0.0'
     hasBin: true
     resolution:
-      integrity: sha512-aCNKjlHyY4yqmavth/BVbmYhuL/3hrLIhg5P0fIQzGrlFA4V9TmA8FTlhjq4fT+FgDOynPBhHS5ZWLMU6ZUh3A==
+      integrity: sha512-EeR4dgb6NN7ybxduUWMeeLhU/EuF+FzwFZJfMJXD0bx96K+ttAieCXOn9lTO5nA9Qn3hiS7pEpk8pZ9StpGgSg==
   /electron-squirrel-startup/1.0.0:
     dependencies:
       debug: 2.6.9
@@ -4005,12 +4007,36 @@ packages:
     dev: false
     resolution:
       integrity: sha512-4kOn4ihjDJTQg7B53ZcZ6NyExtTeG3hLNZv6rSKhq4haQvD52zCllE+49iLiC1VWuc4DbHmt96FHPGlHbslZqQ==
+  /hast-util-is-element/1.0.1:
+    dev: false
+    resolution:
+      integrity: sha512-s/ggaNehYVqmLgTXEv12Lbb72bsOD2r5DhAqPgtDdaI/YFNXVzz0zHFVJnhjIjn7Nak8GbL4nzT2q0RA5div+A==
   /hast-util-sanitize/1.2.0:
     dependencies:
       xtend: 4.0.1
     dev: false
     resolution:
       integrity: sha512-VwCTqjt6fbMGacxGB1FKV5sBJaVVkyCGVMDwb4nnqvCW2lkqscA2GEpOyBx4ZWRXty1eAZF58MHBrllEoQEoBg==
+  /hast-util-to-html/3.1.0:
+    dependencies:
+      ccount: 1.0.3
+      comma-separated-tokens: 1.0.5
+      hast-util-is-element: 1.0.1
+      hast-util-whitespace: 1.0.1
+      html-void-elements: 1.0.3
+      kebab-case: 1.0.0
+      property-information: 3.2.0
+      space-separated-tokens: 1.1.2
+      stringify-entities: 1.3.2
+      unist-util-is: 2.1.2
+      xtend: 4.0.1
+    dev: false
+    resolution:
+      integrity: sha1-iCyZhJ5AEw6ZHAQuRW1FPZXDbP8=
+  /hast-util-whitespace/1.0.1:
+    dev: false
+    resolution:
+      integrity: sha512-Mfx2ZnmVMTAopZ8as42nKrNt650tCZYhy/MPeO1Imdg/cmCWK6GUSnFrrE3ezGjVifn7x5zMfu8jrjwIGyImSw==
   /hawk/3.1.3:
     dependencies:
       boom: 2.10.1
@@ -4074,6 +4100,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-ZouTd26q5V696POtRkswekljYl4=
+  /html-void-elements/1.0.3:
+    dev: false
+    resolution:
+      integrity: sha512-SaGhCDPXJVNrQyKMtKy24q6IMdXg5FCPN3z+xizxw9l+oXQw5fOoaj/ERU5KqWhSYhXtW5bWthlDbTDLBhJQrA==
   /htmlparser2/3.8.3:
     dependencies:
       domelementtype: 1.3.0
@@ -7182,6 +7212,15 @@ packages:
     dev: false
     resolution:
       integrity: sha1-WSo0e909WIH08IDJi1sVL7FAepI=
+  /remark-html/7.0.0:
+    dependencies:
+      hast-util-sanitize: 1.2.0
+      hast-util-to-html: 3.1.0
+      mdast-util-to-hast: 3.0.1
+      xtend: 4.0.1
+    dev: false
+    resolution:
+      integrity: sha512-jqRzkZXCkM12gIY2ibMLTW41m7rfanliMTVQCFTezHJFsbH00YaTox/BX4gU+f/zCdzfhFJONtebFByvpMv37w==
   /remark-parse/5.0.0:
     dependencies:
       collapse-white-space: 1.0.4
@@ -8208,7 +8247,7 @@ packages:
     hasBin: true
     optionalDependencies:
       bcrypt-pbkdf: 1.0.2
-      ecc-jsbn: 0.1.1
+      ecc-jsbn: 0.1.2
       jsbn: 0.1.1
       tweetnacl: 0.14.5
     resolution:
@@ -8777,13 +8816,13 @@ packages:
   /typedarray/0.0.6:
     resolution:
       integrity: sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
-  /typescript/2.9.2:
+  /typescript/3.0.1:
     dev: true
     engines:
       node: '>=4.2.0'
     hasBin: true
     resolution:
-      integrity: sha512-Gr4p6nFNaoufRIY4NMdpQRNmgxVIGMs4Fcu/ujdYk3nAZqk7supzBE9idmvfZIlH/Cuj//dvi+019qEue9lV0w==
+      integrity: sha512-zQIMOmC+372pC/CCVLqnQ0zSBiY7HHodU7mpQdjiZddek4GMj31I3dUJ7gAs9o65X7mnRma6OokOkc6f9jjfBg==
   /typewise-core/1.2.0:
     dev: false
     resolution:
@@ -9500,6 +9539,7 @@ specifiers:
   redux-devtools-extension: ^2.13.5
   redux-thunk: ^2.3.0
   remark: ^9.0.0
+  remark-html: ^7.0.0
   remark-react: ^4.0.3
   ssb-chat-core: ^1.0.12
   standard: ^11.0.1
