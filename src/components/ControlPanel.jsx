@@ -66,6 +66,11 @@ class ControlPanel extends Component {
           }
         </div>
         <div>
+          {privateMode &&
+            <button className='button public-button' onClick={this.handleModeButton}>public</button>
+          }
+        </div>
+        <div>
           <input
             className='control-panel__input'
             type='text'
@@ -74,13 +79,7 @@ class ControlPanel extends Component {
             ref={el => { this.recipientsInput = el }}
           />
         </div>
-        <div>
-          {privateMode &&
-            <button className='button' onClick={this.handleModeButton}>public</button>
-          }
-        </div>
         <div className='control-panel__users'>
-          <h1>Recents</h1>
           <div className='recents'>
             {this.props.recents.map((recent, idx) => {
               const current = this.props.recipients.join(', ')
