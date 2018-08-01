@@ -7,7 +7,8 @@ $theme-buttons-secondary: #52B788;
 $theme-buttons-secondary-hover: #459b73;
 $theme-buttons-secondary-click: #65c498;
 $theme-border: #4D5061;
-$theme-font: black;
+$theme-font: #323232;
+$theme-font-dark: black;
 $theme-font-secondary: #fafafa;
 $theme-highlight: #fafafa;
 $theme-active: #dddddd;
@@ -114,6 +115,10 @@ button {
                 &__active {
                     background-color: $theme-active;
                 }
+            }
+            .unread {
+                color: $theme-font-dark;
+                font-weight: bold;
             }
             
             &__item {

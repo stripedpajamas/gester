@@ -66,17 +66,23 @@ class ControlPanel extends Component {
         <div className='control-panel__users'>
           <div className='recents'>
             {this.props.recents.map((recent, idx) => {
-              const current = this.props.recipients.join(', ')
-              const isCurrent = current === recent
-              const className = isCurrent
+              const currentHuman = this.props.recipients.join(', ')
+              const isCurrent = currentHuman === recent.human
+              const isUnread = this.props.unreads.some((unread) => {
+                return unread.join(', ') === recent.ids.join(', ')
+              })
+              let className = isCurrent
                 ? 'recents-item__active'
                 : 'recents-item'
+              if (isUnread) {
+                className += ' unread'
+              }
               return (
                 <p
                   className={className}
-                  onClick={() => this.handleRecentClick(recent)}
+                  onClick={() => this.handleRecentClick(recent.human)}
                   key={idx}
-                >{recent}</p>
+                >{recent.human}</p>
               )
             })}
           </div>
@@ -94,6 +100,7 @@ class ControlPanel extends Component {
 const mapStateToProps = state => ({
   mode: state.mode,
   recents: state.recents,
+  unreads: state.unreads,
   recipients: state.recipients
 })
 
@@ -110,6 +117,7 @@ ControlPanel.propTypes = {
   joinPub: PropTypes.func.isRequired,
   setJoinPub: PropTypes.func.isRequired,
   recents: PropTypes.array,
+  unreads: PropTypes.array,
   recipients: PropTypes.array,
   mode: PropTypes.string
 }
