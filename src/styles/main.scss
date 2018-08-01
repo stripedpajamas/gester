@@ -46,7 +46,7 @@ input {
 }
 
 button {
-    border-radius: 6px;
+    border-radius: 5px;
     background-color: $theme-buttons;
     border: none;
     color: $theme-font-secondary;
@@ -66,7 +66,7 @@ button {
 .control-panel {
     background-color: $theme-primary;
     display: grid;
-    grid-template-rows: 60px 50px 60px auto;
+    grid-template-rows: 60px 60px auto 50px;
     text-align: center;
     position: fixed;
     height: 100vh;
@@ -78,6 +78,8 @@ button {
     }
 
     .public-button {
+        width: 75%;
+        margin: 0;
         background-color: $theme-buttons-secondary;
 
         &:hover {
@@ -129,20 +131,22 @@ button {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    max-width: 400px;
     height: 250px;
-    max-height: 250px;
     background-color: white;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
 
-    &-input {
-        width: 80%;
-        border: 1px solid $theme-border;
-        margin-top: 60px;
-        padding: 10px;
+    div {
+        input {
+            width: 80%;
+            border: 1px solid $theme-border;
+            margin-top: 60px;
+            padding: 10px;
+        }
     }
-    &-button {
-        margin: 35px 10px 0 10px;
-        padding: 0 10px;
+    button {
+        margin: 100px 10px 0 10px;
+        padding: 0 40px;
         text-align: center;
     }
 }
@@ -176,7 +180,7 @@ button {
 }
 
 .messenger-input {
-    width: calc(100% - 50px);
+    width: calc(100% - 42px);
     margin-left: 10px;
     padding: 10px;
     margin-bottom: 15px;
