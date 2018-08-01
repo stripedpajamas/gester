@@ -5,12 +5,12 @@ $theme-buttons-hover: #415876;
 $theme-buttons-click: #6586b2;
 $theme-buttons-secondary: #52B788;
 $theme-buttons-secondary-hover: #459b73;
-$theme-buttons-secondary-click: #67dfa7;
+$theme-buttons-secondary-click: #65c498;
 $theme-border: #4D5061;
 $theme-font: black;
 $theme-font-secondary: #fafafa;
 $theme-highlight: #fafafa;
-$theme-active: #d3d3d3;
+$theme-active: #dddddd;
 
 $control-panel-width: 225px;
 
@@ -131,23 +131,45 @@ button {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    height: 250px;
-    background-color: white;
+    height: 225px;
+    background-color: $theme-secondary;
     display: grid;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: auto 70px;
+    border-radius: 5px;
+
 
     div {
+        text-align: center;
         input {
             width: 80%;
             border: 1px solid $theme-border;
-            margin-top: 60px;
+            margin-top: 65px;
             padding: 10px;
         }
     }
-    button {
-        margin: 100px 10px 0 10px;
-        padding: 0 40px;
-        text-align: center;
+
+    div:nth-child(2) {
+        text-align: right;
+        border-top: 1px solid $theme-primary;
+
+        button {
+            padding: 10px 20px;
+            margin: 15px 10px 0 10px;
+            text-align: center;
+        }
+    
+        .join-button {
+            margin-right: 30px;
+            background-color: $theme-buttons-secondary;
+    
+            &:hover {
+                background-color: $theme-buttons-secondary-hover;
+            }
+    
+            &:focus {
+                background-color: $theme-buttons-secondary-click;
+            }
+        }
     }
 }
 
