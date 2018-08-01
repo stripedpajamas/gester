@@ -29,7 +29,7 @@ $control-panel-width: 225px;
 .main {
     display: grid;
     // 2 columns: the control bar on the left and the message box
-    grid-template-columns: $control-panel-width auto;
+    grid-template-columns: $control-panel-width auto auto;
 }
 
 h1 {
@@ -188,28 +188,27 @@ button {
 
 /* ------ Message View ------ */
 .message-view {
+    height: 100vh;
     grid-column-start: 2;
     background-color: $theme-secondary;
+    display: grid;
+    grid-template-rows: auto 60px;
 
     .messenger {
-        width: calc(100% - #{$control-panel-width});
-        float: right;
-        position: fixed;
-        bottom: 0;
-        right: 0
+        grid-row-start: 2;
+        padding: 10px;
     }
 
 }
 
 .messenger-input {
-    width: calc(100% - 42px);
-    margin-left: 10px;
+    width: calc(100% - 21px);
     padding: 10px;
     margin-bottom: 15px;
 }
 
 .messages {
-    height: 93vh;
+    grid-row-start: 1;
     overflow: scroll;
 }
 
@@ -253,6 +252,13 @@ button {
     code {
         color: $theme-font;
         font-family: Monospace;
-        background-color: lightgray;
+        background-color: $theme-active;
     }
+}
+
+/* ------ Author Drawer ------ */
+.author-drawer {
+    height: 100vh;
+    border-left: 1px solid $theme-active;
+    width: 300px;
 }
