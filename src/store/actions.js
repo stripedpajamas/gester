@@ -103,6 +103,12 @@ export const setError = (e) => {
     error: e
   }
 }
+export const setJoinPub = (join) => {
+  return {
+    type: Types.SET_JOIN_PUB,
+    joiningPub: join
+  }
+}
 // #endregion
 
 // #region Interacting with the core

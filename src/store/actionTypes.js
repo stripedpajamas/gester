@@ -8,3 +8,4 @@ export const SET_ME = 'SET_ME'
 
 export const SET_ERROR = 'SET_ERROR'
 export const SET_NOTIFICATION = 'SET_NOTIFICATION'
+export const SET_JOIN_PUB = 'SET_JOIN_PUB'
