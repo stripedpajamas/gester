@@ -5,12 +5,12 @@ $theme-buttons-hover: #415876;
 $theme-buttons-click: #6586b2;
 $theme-buttons-secondary: #52B788;
 $theme-buttons-secondary-hover: #459b73;
-$theme-buttons-secondary-click: #67dfa7;
+$theme-buttons-secondary-click: #65c498;
 $theme-border: #4D5061;
 $theme-font: black;
 $theme-font-secondary: #fafafa;
 $theme-highlight: #fafafa;
-$theme-active: #d3d3d3;
+$theme-active: #dddddd;
 
 $control-panel-width: 225px;
 
@@ -46,7 +46,7 @@ input {
 }
 
 button {
-    border-radius: 6px;
+    border-radius: 5px;
     background-color: $theme-buttons;
     border: none;
     color: $theme-font-secondary;
@@ -66,7 +66,7 @@ button {
 .control-panel {
     background-color: $theme-primary;
     display: grid;
-    grid-template-rows: 60px 50px 60px auto;
+    grid-template-rows: 60px 60px auto 50px;
     text-align: center;
     position: fixed;
     height: 100vh;
@@ -78,6 +78,8 @@ button {
     }
 
     .public-button {
+        width: 75%;
+        margin: 0;
         background-color: $theme-buttons-secondary;
 
         &:hover {
@@ -129,21 +131,45 @@ button {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    max-width: 400px;
-    height: 250px;
-    max-height: 250px;
-    background-color: white;
+    height: 225px;
+    background-color: $theme-secondary;
+    display: grid;
+    grid-template-rows: auto 70px;
+    border-radius: 5px;
 
-    &-input {
-        width: 80%;
-        border: 1px solid $theme-border;
-        margin-top: 60px;
-        padding: 10px;
-    }
-    &-button {
-        margin: 35px 10px 0 10px;
-        padding: 0 10px;
+
+    div {
         text-align: center;
+        input {
+            width: 80%;
+            border: 1px solid $theme-border;
+            margin-top: 65px;
+            padding: 10px;
+        }
+    }
+
+    div:nth-child(2) {
+        text-align: right;
+        border-top: 1px solid $theme-primary;
+
+        button {
+            padding: 10px 20px;
+            margin: 15px 10px 0 10px;
+            text-align: center;
+        }
+    
+        .join-button {
+            margin-right: 30px;
+            background-color: $theme-buttons-secondary;
+    
+            &:hover {
+                background-color: $theme-buttons-secondary-hover;
+            }
+    
+            &:focus {
+                background-color: $theme-buttons-secondary-click;
+            }
+        }
     }
 }
 
@@ -176,7 +202,7 @@ button {
 }
 
 .messenger-input {
-    width: calc(100% - 50px);
+    width: calc(100% - 42px);
     margin-left: 10px;
     padding: 10px;
     margin-bottom: 15px;

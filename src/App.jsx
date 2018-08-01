@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import * as Actions from './store/actions'
 import ControlPanel from './components/ControlPanel'
+import JoinPubModal from './components/JoinPubModal'
 import Messages from './components/Messages'
 import MessageInput from './components/MessageInput'
 
@@ -15,6 +16,9 @@ class App extends Component {
   render () {
     return (
       <div className='main'>
+        {this.props.joiningPub &&
+          <JoinPubModal />
+        }
         <ControlPanel />
         <div className='message-view'>
           <Messages />
@@ -26,11 +30,16 @@ class App extends Component {
 }
 
 App.propTypes = {
-  setupCore: PropTypes.func.isRequired
+  setupCore: PropTypes.func.isRequired,
+  joiningPub: PropTypes.bool.isRequired
 }
+
+const mapStateToProps = state => ({
+  joiningPub: state.joiningPub
+})
 
 const mapDispatchToProps = dispatch => ({
   setupCore: bindActionCreators(Actions.setupCore, dispatch)
 })
 
-export default connect(null, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

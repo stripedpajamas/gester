@@ -29,6 +29,9 @@ export default (state = initialState, action) => (
       case Types.SET_ERROR:
         draft.error = action.error
         break
+      case Types.SET_JOIN_PUB:
+        draft.joiningPub = action.joiningPub
+        break
       case Types.SET_NOTIFICATION:
         draft.notification = action.notification
         break

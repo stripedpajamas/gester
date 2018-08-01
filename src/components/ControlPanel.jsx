@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
-import JoinPubModal from './JoinPubModal'
 import * as Actions from '../store/actions'
 
 class ControlPanel extends Component {
@@ -14,10 +13,6 @@ class ControlPanel extends Component {
     this.handlePubCancel = this.handlePubCancel.bind(this)
     this.handlePubSubmit = this.handlePubSubmit.bind(this)
     this.handleRecentClick = this.handleRecentClick.bind(this)
-
-    this.state = {
-      joiningPub: false
-    }
   }
 
   handleKeyPress (e) {
@@ -36,11 +31,11 @@ class ControlPanel extends Component {
   }
 
   handlePubButton () {
-    this.setState({ joiningPub: true })
+    this.props.setJoinPub(true)
   }
 
   handlePubCancel () {
-    this.setState({ joiningPub: false })
+    this.props.setJoinPub(false)
   }
 
   handlePubSubmit (invite) {
@@ -58,17 +53,6 @@ class ControlPanel extends Component {
       <div className='control-panel'>
         <div>
           <button className='button' onClick={this.handlePubButton}>+ join pub</button>
-          {this.state.joiningPub &&
-            <JoinPubModal
-              onCancel={this.handlePubCancel}
-              onSubmit={this.handlePubSubmit}
-            />
-          }
-        </div>
-        <div>
-          {privateMode &&
-            <button className='button public-button' onClick={this.handleModeButton}>public</button>
-          }
         </div>
         <div>
           <input
@@ -97,6 +81,11 @@ class ControlPanel extends Component {
             })}
           </div>
         </div>
+        <div>
+          {privateMode &&
+            <button className='button public-button' onClick={this.handleModeButton}>back to public</button>
+          }
+        </div>
       </div>
     )
   }
@@ -111,13 +100,15 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   goPrivate: bindActionCreators(Actions.goPrivate, dispatch),
   goPublic: bindActionCreators(Actions.goPublic, dispatch),
-  joinPub: bindActionCreators(Actions.joinPub, dispatch)
+  joinPub: bindActionCreators(Actions.joinPub, dispatch),
+  setJoinPub: bindActionCreators(Actions.setJoinPub, dispatch)
 })
 
 ControlPanel.propTypes = {
   goPublic: PropTypes.func.isRequired,
   goPrivate: PropTypes.func.isRequired,
   joinPub: PropTypes.func.isRequired,
+  setJoinPub: PropTypes.func.isRequired,
   recents: PropTypes.array,
   recipients: PropTypes.array,
   mode: PropTypes.string
