@@ -34,11 +34,15 @@ export const setupCore = () => (dispatch) => {
     dispatch({
       type: Types.SET_RECENTS,
       recents: recents
-        .map((recent) => recent
-          .filter(id => id !== core.me.get())
-          .map(core.authors.getName)
-          .join(', '))
-        .sort()
+        .map((recent) => ({
+          human: recent
+            .filter(id => id !== core.me.get())
+            .map(core.authors.getName)
+            .join(', '),
+          ids: recent
+            .filter(id => id !== core.me.get())
+        }))
+        .sort((a, b) => a.human > b.human)
     })
   })
 
@@ -78,11 +82,15 @@ export const setupCore = () => (dispatch) => {
   dispatch({
     type: Types.SET_RECENTS,
     recents: core.recents.get()
-      .map((recent) => recent
-        .filter(id => id !== core.me.get())
-        .map(core.authors.getName)
-        .join(', '))
-      .sort()
+      .map((recent) => ({
+        human: recent
+          .filter(id => id !== core.me.get())
+          .map(core.authors.getName)
+          .join(', '),
+        ids: recent
+          .filter(id => id !== core.me.get())
+      }))
+      .sort((a, b) => a.human > b.human)
   })
   dispatch({
     type: Types.SET_ME,

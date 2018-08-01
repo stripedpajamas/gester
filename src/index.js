@@ -65,7 +65,7 @@ const createWindows = async () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-  core.start({ debug: true }, (err) => {
+  core.start({ debug: true, timeWindow: 1209600000 }, (err) => {
     if (err) {
       console.log(err)
       quit()
