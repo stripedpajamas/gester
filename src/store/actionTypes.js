@@ -5,6 +5,8 @@ export const SET_MODE = 'SET_MODE'
 export const SET_RECENTS = 'SET_RECENTS'
 export const SET_UNREADS = 'SET_UNREADS'
 export const SET_ME = 'SET_ME'
+export const OPEN_AUTHOR_DRAWER = 'OPEN_AUTHOR_DRAWER'
+export const CLOSE_AUTHOR_DRAWER = 'CLOSE_AUTHOR_DRAWER'
 
 export const SET_ERROR = 'SET_ERROR'
 export const SET_NOTIFICATION = 'SET_NOTIFICATION'

@@ -24,6 +24,7 @@ class Message extends Component {
       hasEmoji: msg !== emojified
     })
   }
+
   render () {
     const { author, message, skipAuthor } = this.props
     const { timestamp, author: id } = message
@@ -53,6 +54,7 @@ class Message extends Component {
             style={{ color }}
             className={authorClass}
             title={id}
+            onClick={() => this.props.onClick(id)}
           >
             {author}
           </span>}
@@ -64,6 +66,7 @@ class Message extends Component {
 }
 
 Message.propTypes = {
+  onClick: PropTypes.func.isRequired,
   message: PropTypes.object.isRequired,
   author: PropTypes.string.isRequired,
   skipAuthor: PropTypes.bool.isRequired
