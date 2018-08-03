@@ -32,8 +32,13 @@ $control-panel-width: 225px;
 
 .main {
     display: grid;
-    // 2 columns: the control bar on the left and the message box
-    grid-template-columns: $control-panel-width auto auto;
+}
+
+.drawer-closed {
+    grid-template-columns: $control-panel-width auto;
+}
+.drawer-open {
+    grid-template-columns: $control-panel-width auto minmax(auto, 300px);
 }
 
 h1 {
@@ -268,6 +273,7 @@ button {
     height: 100vh;
     border-left: 1px solid $theme-active;
     width: 300px;
+    max-width: 300px;
     padding: 0 20px;
     display: grid;
     grid-template-rows: 175px 100px 60px 60px auto;
@@ -289,7 +295,7 @@ button {
         }
 
         &:focus {
-            background-color: $theme-buttons-secondary-click;
+            background-color: $theme-buttons-error-click;
         }
     }
 

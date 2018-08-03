@@ -16,7 +16,7 @@ class App extends Component {
 
   render () {
     return (
-      <div className='main'>
+      <div className={this.props.authorDrawerOpen ? 'main drawer-open' : 'main drawer-closed'}>
         {this.props.joiningPub &&
           <JoinPubModal />
         }
