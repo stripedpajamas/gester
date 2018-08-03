@@ -18,7 +18,7 @@ dependencies:
   remark-bracketed-spans: 3.0.0
   remark-html: 7.0.0
   remark-react: 4.0.3
-  ssb-chat-core: 1.0.13
+  ssb-chat-core: 1.0.15
 devDependencies:
   babel-plugin-transform-async-to-generator: 6.24.1
   babel-plugin-transform-object-rest-spread: 6.26.0
@@ -8130,7 +8130,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-DeeInkFU8oN1mYlPVrqrm9tupf6wze4HuowK7N2vv/O+UeSLuYPU1p4HrxSqdAPvUabr0OtvbFA6z1T4nw+9fw==
-  /ssb-chat-core/1.0.13:
+  /ssb-chat-core/1.0.15:
     dependencies:
       immutable: 3.8.2
       nanobus: 4.3.3
@@ -8156,7 +8156,7 @@ packages:
       ssb-ws: 2.1.1
     dev: false
     resolution:
-      integrity: sha512-v6GZFwpgtEMdnTgpmmBEnj4sYY0q5PjWmVLBzSJycWijOAjr6ysj17prRfYrjqYm84lo0RKaT3X00aILkpvHcg==
+      integrity: sha512-phZENAwknLHiE4/BjjgXT3CCSKUPDrMteq40I1PDHunrGMLAbGtAZ4v9Rfu7nQC+MnEjf6V52Tc0oNFTiscRHg==
   /ssb-client/4.5.7:
     dependencies:
       explain-error: 1.0.4
