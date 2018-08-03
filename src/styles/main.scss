@@ -6,6 +6,9 @@ $theme-buttons-click: #6586b2;
 $theme-buttons-secondary: #52B788;
 $theme-buttons-secondary-hover: #459b73;
 $theme-buttons-secondary-click: #65c498;
+$theme-buttons-error: #b75252;
+$theme-buttons-error-hover: #a74747;
+$theme-buttons-error-click: #ca5d5d;
 $theme-border: #4D5061;
 $theme-font: #323232;
 $theme-font-dark: black;
@@ -34,7 +37,6 @@ $control-panel-width: 225px;
 }
 
 h1 {
-    color: $theme-font-secondary;
     font-size: 20px;
 }
 
@@ -48,6 +50,7 @@ input {
 
 button {
     border-radius: 5px;
+    padding: 10px 20px;
     background-color: $theme-buttons;
     border: none;
     color: $theme-font-secondary;
@@ -60,6 +63,10 @@ button {
         outline: none;
         background-color: $theme-buttons-click;
     }
+}
+
+.button-close {
+    cursor: pointer;
 }
 
 /* ------ Control Panel ------ */
@@ -103,6 +110,7 @@ button {
         .recents {
             text-align: left;
             margin-top: 20px;
+            overflow: scroll;
 
             p {
                 padding: 7px 20px;
@@ -158,7 +166,6 @@ button {
         border-top: 1px solid $theme-primary;
 
         button {
-            padding: 10px 20px;
             margin: 15px 10px 0 10px;
             text-align: center;
         }
@@ -266,4 +273,37 @@ button {
     height: 100vh;
     border-left: 1px solid $theme-active;
     width: 300px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-rows: 175px 100px 60px 60px auto;
+
+    div {
+        text-align: center;
+
+        h1 {
+            font-size: 28px;
+        }
+    }
+
+    .button-block {
+        margin-right: 20px;
+        background-color: $theme-buttons-error;
+
+        &:hover {
+            background-color: $theme-buttons-error-hover;
+        }
+
+        &:focus {
+            background-color: $theme-buttons-secondary-click;
+        }
+    }
+
+    .button-close {
+        margin-top: 20px;
+    }
+
+    p {
+        word-wrap: break-word;
+    }
+
 }
