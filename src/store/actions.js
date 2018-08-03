@@ -189,6 +189,17 @@ export const setJoinPub = (join) => {
     joiningPub: join
   }
 }
+export const openAuthorDrawer = (id) => {
+  return {
+    type: Types.OPEN_AUTHOR_DRAWER,
+    currentAuthorId: id
+  }
+}
+export const closeAuthorDrawer = () => {
+  return {
+    type: Types.CLOSE_AUTHOR_DRAWER
+  }
+}
 // #endregion
 
 // #region Interacting with the core

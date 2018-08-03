@@ -15,5 +15,7 @@ export default {
   myNames: [],
   recents: [],
   mode: constants.MODE.PUBLIC,
-  joiningPub: false
+  joiningPub: false,
+  currentAuthorId: '',
+  authorDrawerOpen: false
 }
