@@ -1,46 +1,49 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import format from 'date-fns/format'
-import emoji from 'node-emoji'
 import remark from 'remark'
-import remarkReact from 'remark-react'
+import toHTML from 'remark-html'
+import spanStuff from 'remark-bracketed-spans'
+import { Parser } from 'html-to-react'
+import emoji from 'node-emoji'
 import { getAuthorColor, getMeColor } from '../helpers/randomColor'
 
+const toReact = new Parser()
+
 class Message extends Component {
-  constructor () {
-    super()
-    this.state = { hasEmoji: false, text: '' }
-  }
-  componentDidMount () {
-    const { message } = this.props
-    const { text } = message
-    this.process(text)
+  markMentions (text) {
+    let highlighted = text
+    this.props.myNames.forEach((name) => {
+      const re = new RegExp(`(${name})`, 'g')
+      highlighted = highlighted.replace(re, `[$1]{.mention}`)
+    })
+    return highlighted
   }
   process (msg) {
     // process markdown and emojis
-    const emojified = emoji.emojify(msg)
-    this.setState({
-      text: remark().use(remarkReact).processSync(emojified).contents,
-      hasEmoji: msg !== emojified
-    })
+    const emojified = emoji.emojify(msg, null, (e) => `[${e}]{.emoji}`)
+    const input = this.markMentions(emojified)
+    const marked = remark()
+      .use(spanStuff)
+      .use(toHTML)
+      .processSync(input)
+      .toString()
+    return toReact.parse(`<div>${marked}</div>`)
   }
   render () {
     const { author, message, skipAuthor } = this.props
-    const { timestamp, author: id } = message
+    const { timestamp, author: id, text } = message
 
     const tinyTime = format(timestamp, 'HH:mm')
     const fullTime = format(timestamp, 'MMM DD HH:mm')
     const color = message.fromMe ? getMeColor() : getAuthorColor(author)
+    const processedText = this.process(text)
 
     const timeClass = ['message-time']
-    if (!skipAuthor && this.state.hasEmoji) {
-      timeClass.push('message-time-top-emoji')
-    } else if (!skipAuthor) {
+    if (!skipAuthor) {
+      // we are rendering the author, so push the time down a bit
       timeClass.push('message-time-top')
-    } else if (this.state.hasEmoji) {
-      timeClass.push('message-time-emoji')
     }
-    const authorClass = skipAuthor ? 'message-author' : 'message-author'
 
     return (
       <span className='message'>
@@ -51,12 +54,12 @@ class Message extends Component {
         <span>
           {!skipAuthor && <span
             style={{ color }}
-            className={authorClass}
+            className='message-author'
             title={id}
           >
             {author}
           </span>}
-          {this.state.text}
+          {processedText}
         </span>
       </span>
     )
@@ -65,6 +68,7 @@ class Message extends Component {
 
 Message.propTypes = {
   message: PropTypes.object.isRequired,
+  myNames: PropTypes.array.isRequired,
   author: PropTypes.string.isRequired,
   skipAuthor: PropTypes.bool.isRequired
 }

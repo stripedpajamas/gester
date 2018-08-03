@@ -14,7 +14,7 @@ class Messages extends Component {
     this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight
   }
   render () {
-    const { messages, authors } = this.props
+    const { messages, authors, myNames } = this.props
     return (
       <div className='messages' ref={el => { this.messagesDiv = el }}>
         {messages.map((message, idx) => {
@@ -28,6 +28,7 @@ class Messages extends Component {
             author={author}
             key={message.key}
             message={message}
+            myNames={myNames}
             skipAuthor={skipAuthor}
           />)
         })}
@@ -37,11 +38,13 @@ class Messages extends Component {
 }
 
 Messages.propTypes = {
+  myNames: PropTypes.array.isRequired,
   messages: PropTypes.array.isRequired,
   authors: PropTypes.object.isRequired
 }
 const mapStateToProps = state => ({
   authors: state.authors,
+  myNames: state.myNames,
   messages: state.messages
 })
 

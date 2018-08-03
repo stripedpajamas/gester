@@ -1,4 +1,5 @@
-import electron from 'electron'
+import electron, { ipcRenderer } from 'electron'
+import debounce from 'lodash.debounce'
 import * as Types from './actionTypes'
 
 const core = electron.remote.getGlobal('core')
@@ -20,6 +21,34 @@ export const setupCore = () => (dispatch) => {
       authors: authors.toJS()
     })
   })
+
+  // keep a copy of people i follow in redux and keep them up to date
+  // debounce it because following can update a lot initially
+  const debouncedFollowingUpdate = debounce((following) => {
+    dispatch({
+      type: Types.SET_FOLLOWING,
+      following: following.toJS()
+    })
+  }, 3000)
+  core.events.on('following-changed', debouncedFollowingUpdate)
+
+  // keep a copy of people following me in redux and keep them up to date
+  const debouncedFollowingMeUpdate = debounce((followingMe) => {
+    dispatch({
+      type: Types.SET_FOLLOWING_ME,
+      followingMe: followingMe.toJS()
+    })
+  }, 3000)
+  core.events.on('following-me-changed', debouncedFollowingMeUpdate)
+
+  // keep a copy of people i blocked in redux and keep them up to date
+  const debouncedBlockedUpdate = debounce((blocked) => {
+    dispatch({
+      type: Types.SET_BLOCKED,
+      blocked: blocked.toJS()
+    })
+  }, 3000)
+  core.events.on('blocked-changed', debouncedBlockedUpdate)
 
   // keep a record of what mode we are in in redux and keep it up to date
   core.events.on('mode-changed', (mode) => {
@@ -48,9 +77,17 @@ export const setupCore = () => (dispatch) => {
 
   // keep a record of unread private chats in redux and keep them up to date
   core.events.on('unreads-changed', (unreads) => {
+    const unreadsJS = unreads.toJS()
+    if (unreadsJS.length) {
+      // send to app to update badge
+      ipcRenderer.send('unread')
+    } else {
+      // send to app to remove badge
+      ipcRenderer.send('no-unread')
+    }
     dispatch({
       type: Types.SET_UNREADS,
-      unreads: unreads.toJS()
+      unreads: unreadsJS
     })
   })
 
@@ -61,6 +98,14 @@ export const setupCore = () => (dispatch) => {
       recipients: recipients.toJS()
         .filter(r => r !== core.me.get())
         .map(core.authors.getName)
+    })
+  })
+
+  // keep a record of who is the current private recipients in redux
+  core.events.on('my-names-changed', (myNames) => {
+    dispatch({
+      type: Types.SET_MY_NAMES,
+      myNames: myNames.toJS()
     })
   })
 
@@ -75,6 +120,33 @@ export const setupCore = () => (dispatch) => {
     type: Types.SET_AUTHORS,
     authors: core.authors.get().toJS()
   })
+  dispatch({
+    type: Types.SET_MY_NAMES,
+    myNames: core.me.names().toJS()
+  })
+  dispatch({
+    type: Types.SET_FOLLOWING,
+    authors: core.authors.getFollowing().toJS()
+  })
+  dispatch({
+    type: Types.SET_FOLLOWING_ME,
+    authors: core.authors.getFollowingMe().toJS()
+  })
+  dispatch({
+    type: Types.SET_BLOCKED,
+    authors: core.authors.getBlocked().toJS()
+  })
+
+  // initial unreads
+  const unreads = core.unreads.get().toJS()
+  if (unreads.length) {
+    // send to app to update badge
+    ipcRenderer.send('unread')
+  } else {
+    // send to app to remove badge
+    ipcRenderer.send('no-unread')
+  }
+
   dispatch({
     type: Types.SET_UNREADS,
     unreads: core.unreads.get().toJS()

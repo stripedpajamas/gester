@@ -232,27 +232,22 @@ button {
     &-time {
         color: lightgray;
         font-size: 12px;
-        padding-top: 2px;
-        span {
-            color: lightgray;
-            font-size: 12px;
-        }
+        padding-top: 4px;
         &-top {
-            padding-top: 18px;
+            padding-top: 20px;
         }
-        &-top-emoji {
-            padding-top: 23px;
-        }
-        &-emoji {
-            padding-top: 9px;
-        }
+    }
+    .mention {
+        background-color: $theme-buttons-secondary-hover;
+        color: $theme-secondary;
     }
     div, p {
         color: $theme-font;
+        line-height: 1.5;
         .emoji {
-            font-size: 30px;
+            font-size: 20px;
             vertical-align: middle;
-            line-height: 2;
+            line-height: 1;
         }
     }
     code {

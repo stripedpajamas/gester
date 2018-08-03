@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS
@@ -97,3 +97,15 @@ const quit = () => {
   core.stop()
   app.quit()
 }
+
+ipcMain.on('unread', () => {
+  if (app && app.dock) {
+    app.dock.setBadge('\u2022') // bullet symbol
+  }
+})
+
+ipcMain.on('no-unread', () => {
+  if (app && app.dock) {
+    app.dock.setBadge('')
+  }
+})
