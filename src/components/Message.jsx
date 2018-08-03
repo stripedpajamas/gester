@@ -30,6 +30,7 @@ class Message extends Component {
       .toString()
     return toReact.parse(`<div>${marked}</div>`)
   }
+
   render () {
     const { author, message, skipAuthor } = this.props
     const { timestamp, author: id, text } = message
@@ -56,6 +57,7 @@ class Message extends Component {
             style={{ color }}
             className='message-author'
             title={id}
+            onClick={() => this.props.onClick(id)}
           >
             {author}
           </span>}
@@ -67,6 +69,7 @@ class Message extends Component {
 }
 
 Message.propTypes = {
+  onClick: PropTypes.func.isRequired,
   message: PropTypes.object.isRequired,
   myNames: PropTypes.array.isRequired,
   author: PropTypes.string.isRequired,

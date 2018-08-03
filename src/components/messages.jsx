@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
+import * as Actions from '../store/actions'
 import Message from './Message'
 
 class Messages extends Component {
+  constructor () {
+    super()
+    this.handleNameClick = this.handleNameClick.bind(this)
+  }
   componentDidMount () {
     this.scrollToBottom()
   }
@@ -13,6 +19,11 @@ class Messages extends Component {
   scrollToBottom () {
     this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight
   }
+
+  handleNameClick (id) {
+    this.props.openAuthorDrawer(id)
+  }
+
   render () {
     const { messages, authors, myNames } = this.props
     return (
@@ -30,6 +41,7 @@ class Messages extends Component {
             message={message}
             myNames={myNames}
             skipAuthor={skipAuthor}
+            onClick={this.handleNameClick}
           />)
         })}
       </div>
@@ -40,7 +52,8 @@ class Messages extends Component {
 Messages.propTypes = {
   myNames: PropTypes.array.isRequired,
   messages: PropTypes.array.isRequired,
-  authors: PropTypes.object.isRequired
+  authors: PropTypes.object.isRequired,
+  openAuthorDrawer: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
   authors: state.authors,
@@ -48,4 +61,8 @@ const mapStateToProps = state => ({
   messages: state.messages
 })
 
-export default connect(mapStateToProps)(Messages)
+const mapDispatchToProps = dispatch => ({
+  openAuthorDrawer: bindActionCreators(Actions.openAuthorDrawer, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Messages)
