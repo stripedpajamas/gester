@@ -126,15 +126,15 @@ export const setupCore = () => (dispatch) => {
   })
   dispatch({
     type: Types.SET_FOLLOWING,
-    authors: core.authors.getFollowing().toJS()
+    following: core.authors.getFollowing().toJS()
   })
   dispatch({
     type: Types.SET_FOLLOWING_ME,
-    authors: core.authors.getFollowingMe().toJS()
+    followingMe: core.authors.getFollowingMe().toJS()
   })
   dispatch({
     type: Types.SET_BLOCKED,
-    authors: core.authors.getBlocked().toJS()
+    blocked: core.authors.getBlocked().toJS()
   })
 
   // initial unreads
@@ -218,6 +218,26 @@ export const joinPub = (invite) => (dispatch) => {
 }
 export const sendMessage = (msg) => (dispatch) => {
   core.messenger.sendMessage(msg)
+    .catch((e) => dispatch(setError(e)))
+}
+export const follow = (id) => (dispatch) => {
+  core.commands.follow(id)
+    .then(({ result }) => dispatch(setNotification(result)))
+    .catch((e) => dispatch(setError(e)))
+}
+export const block = (id) => (dispatch) => {
+  core.commands.block(id)
+    .then(({ result }) => dispatch(setNotification(result)))
+    .catch((e) => dispatch(setError(e)))
+}
+export const unfollow = (id) => (dispatch) => {
+  core.commands.unfollow(id)
+    .then(({ result }) => dispatch(setNotification(result)))
+    .catch((e) => dispatch(setError(e)))
+}
+export const unblock = (id) => (dispatch) => {
+  core.commands.unblock(id)
+    .then(({ result }) => dispatch(setNotification(result)))
     .catch((e) => dispatch(setError(e)))
 }
 // #endregion
