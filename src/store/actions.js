@@ -15,12 +15,13 @@ export const setupCore = () => (dispatch) => {
   })
 
   // keep a copy of relevant authors in redux and keep them up to date
-  core.events.on('authors-changed', (authors) => {
+  const debouncedAuthorsUpdate = debounce((authors) => {
     dispatch({
       type: Types.SET_AUTHORS,
       authors: authors.toJS()
     })
-  })
+  }, 3000)
+  core.events.on('authors-changed', debouncedAuthorsUpdate)
 
   // keep a copy of people i follow in redux and keep them up to date
   // debounce it because following can update a lot initially
@@ -29,7 +30,7 @@ export const setupCore = () => (dispatch) => {
       type: Types.SET_FOLLOWING,
       following: following.toJS()
     })
-  }, 3000)
+  }, 2000)
   core.events.on('following-changed', debouncedFollowingUpdate)
 
   // keep a copy of people following me in redux and keep them up to date
@@ -38,7 +39,7 @@ export const setupCore = () => (dispatch) => {
       type: Types.SET_FOLLOWING_ME,
       followingMe: followingMe.toJS()
     })
-  }, 3000)
+  }, 2000)
   core.events.on('following-me-changed', debouncedFollowingMeUpdate)
 
   // keep a copy of people i blocked in redux and keep them up to date
@@ -47,7 +48,7 @@ export const setupCore = () => (dispatch) => {
       type: Types.SET_BLOCKED,
       blocked: blocked.toJS()
     })
-  }, 3000)
+  }, 2000)
   core.events.on('blocked-changed', debouncedBlockedUpdate)
 
   // keep a record of what mode we are in in redux and keep it up to date
