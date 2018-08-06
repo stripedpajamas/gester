@@ -112,6 +112,7 @@ button {
     }
 
     &__users {
+        max-width: $control-panel-width;
         .recents {
             text-align: left;
             margin-top: 20px;
