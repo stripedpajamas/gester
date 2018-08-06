@@ -7,6 +7,7 @@ import ControlPanel from './components/ControlPanel'
 import JoinPubModal from './components/JoinPubModal'
 import Messages from './components/Messages'
 import MessageInput from './components/MessageInput'
+import AuthorDrawer from './components/AuthorDrawer'
 
 class App extends Component {
   componentDidMount () {
@@ -15,7 +16,7 @@ class App extends Component {
 
   render () {
     return (
-      <div className='main'>
+      <div className={this.props.authorDrawerOpen ? 'main drawer-open' : 'main drawer-closed'}>
         {this.props.joiningPub &&
           <JoinPubModal />
         }
@@ -24,6 +25,7 @@ class App extends Component {
           <Messages />
           <MessageInput />
         </div>
+        {this.props.authorDrawerOpen && <AuthorDrawer />}
       </div>
     )
   }
@@ -31,11 +33,13 @@ class App extends Component {
 
 App.propTypes = {
   setupCore: PropTypes.func.isRequired,
-  joiningPub: PropTypes.bool.isRequired
+  joiningPub: PropTypes.bool.isRequired,
+  authorDrawerOpen: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
-  joiningPub: state.joiningPub
+  joiningPub: state.joiningPub,
+  authorDrawerOpen: state.authorDrawerOpen
 })
 
 const mapDispatchToProps = dispatch => ({
