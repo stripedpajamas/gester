@@ -48,6 +48,11 @@ class ControlPanel extends Component {
 
   render () {
     const privateMode = this.props.mode === 'PRIVATE'
+    const sortedRecents = this.props.recents.slice().sort((a, b) => {
+      const mappedA = a.map(id => (this.props.authors[id] || {}).name || id).join(', ')
+      const mappedB = b.map(id => (this.props.authors[id] || {}).name || id).join(', ')
+      return mappedA > mappedB
+    })
 
     return (
       <div className='control-panel'>
@@ -65,12 +70,18 @@ class ControlPanel extends Component {
         </div>
         <div className='control-panel__users'>
           <div className='recents'>
-            {this.props.recents.map((recent, idx) => {
-              const currentHuman = this.props.recipients.join(', ')
-              const isCurrent = currentHuman === recent.human
-              const isUnread = this.props.unreads.some((unread) => {
-                return unread.join(', ') === recent.ids.join(', ')
-              })
+            {sortedRecents.map((recent) => {
+              const currentRecps = this.props.recipients.join(', ')
+              const thisRecent = recent.join(', ')
+              const isCurrent = currentRecps === thisRecent
+              const isUnread = this.props.unreads.some((unread) => (
+                unread.join(', ') === thisRecent
+              ))
+
+              const humanNames = recent.map(id => (
+                (this.props.authors[id] || {}).name || id
+              )).join(', ')
+
               let className = isCurrent
                 ? 'recents-item__active'
                 : 'recents-item'
@@ -80,9 +91,9 @@ class ControlPanel extends Component {
               return (
                 <p
                   className={className}
-                  onClick={() => this.handleRecentClick(recent.human)}
-                  key={idx}
-                >{recent.human}</p>
+                  onClick={() => this.handleRecentClick(humanNames)}
+                  key={thisRecent}
+                >{humanNames}</p>
               )
             })}
           </div>
@@ -100,6 +111,7 @@ class ControlPanel extends Component {
 const mapStateToProps = state => ({
   mode: state.mode,
   recents: state.recents,
+  authors: state.authors,
   unreads: state.unreads,
   recipients: state.recipients
 })
@@ -116,10 +128,11 @@ ControlPanel.propTypes = {
   goPrivate: PropTypes.func.isRequired,
   joinPub: PropTypes.func.isRequired,
   setJoinPub: PropTypes.func.isRequired,
-  recents: PropTypes.array,
-  unreads: PropTypes.array,
-  recipients: PropTypes.array,
-  mode: PropTypes.string
+  recents: PropTypes.array.isRequired,
+  authors: PropTypes.object.isRequired,
+  unreads: PropTypes.array.isRequired,
+  recipients: PropTypes.array.isRequired,
+  mode: PropTypes.string.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ControlPanel)

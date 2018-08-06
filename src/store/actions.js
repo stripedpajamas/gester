@@ -63,15 +63,14 @@ export const setupCore = () => (dispatch) => {
     dispatch({
       type: Types.SET_RECENTS,
       recents: recents
-        .map((recent) => ({
-          human: recent
-            .filter(id => id !== core.me.get())
-            .map(core.authors.getName)
-            .join(', '),
-          ids: recent
-            .filter(id => id !== core.me.get())
+        .map((recent) => recent.filter(id => {
+          if (recent.length > 1) {
+            // if there's more than me, i don't want me
+            return id !== core.me.get()
+          }
+          // if it's just me, i want just me
+          return true
         }))
-        .sort((a, b) => a.human > b.human)
     })
   })
 
@@ -96,8 +95,12 @@ export const setupCore = () => (dispatch) => {
     dispatch({
       type: Types.SET_RECIPIENTS,
       recipients: recipients.toJS()
-        .filter(r => r !== core.me.get())
-        .map(core.authors.getName)
+        .filter((r, _, a) => {
+          if (a.length > 1) {
+            return r !== core.me.get()
+          }
+          return true
+        })
     })
   })
 
@@ -154,15 +157,14 @@ export const setupCore = () => (dispatch) => {
   dispatch({
     type: Types.SET_RECENTS,
     recents: core.recents.get()
-      .map((recent) => ({
-        human: recent
-          .filter(id => id !== core.me.get())
-          .map(core.authors.getName)
-          .join(', '),
-        ids: recent
-          .filter(id => id !== core.me.get())
+      .map((recent) => recent.filter(id => {
+        if (recent.length > 1) {
+          // if there's more than me, i don't want me
+          return id !== core.me.get()
+        }
+        // if it's just me, i want just me
+        return true
       }))
-      .sort((a, b) => a.human > b.human)
   })
   dispatch({
     type: Types.SET_ME,
