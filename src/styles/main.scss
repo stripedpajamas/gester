@@ -230,6 +230,17 @@ button {
     overflow: scroll;
 }
 
+.empty {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    height: 100%;
+    span {
+        margin: auto;
+        grid-row-start: 2;
+        font-size: 32px;
+    }
+}
+
 
 .message {
     width: calc(100% - 21px);

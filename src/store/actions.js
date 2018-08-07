@@ -1,26 +1,42 @@
 import electron, { ipcRenderer } from 'electron'
 import debounce from 'lodash.debounce'
 import * as Types from './actionTypes'
+import * as Util from './util'
 
 const core = electron.remote.getGlobal('core')
 window.core = core
 
-export const setupCore = () => (dispatch) => {
+export const setupCore = () => (dispatch, getState) => {
   // keep a copy of messages in redux and keep them up to date
   core.events.on('messages-changed', (messages) => {
+    const messagesArray = messages.toJS()
     dispatch({
       type: Types.SET_MESSAGES,
-      messages: messages.toJS()
+      messages: messagesArray
+    })
+    // need to get all authors of messages and make placeholders
+    const authors = Util.getMessageAuthors(messagesArray, getState())
+
+    dispatch({
+      type: Types.SET_AUTHORS,
+      authors
     })
   })
 
   // keep a copy of relevant authors in redux and keep them up to date
   const debouncedAuthorsUpdate = debounce((authors) => {
+    const state = getState()
+    const oldAuthors = state.authors // { @k9...: { name: '@squicc', setter: 'k9...' } }
+    const coreAuthors = authors.toJS()
+    const newAuthors = {}
+    Object.keys(oldAuthors).forEach((id) => {
+      newAuthors[id] = coreAuthors[id]
+    })
     dispatch({
       type: Types.SET_AUTHORS,
-      authors: authors.toJS()
+      authors: newAuthors
     })
-  }, 3000)
+  }, 1000)
   core.events.on('authors-changed', debouncedAuthorsUpdate)
 
   // keep a copy of people i follow in redux and keep them up to date
@@ -30,7 +46,7 @@ export const setupCore = () => (dispatch) => {
       type: Types.SET_FOLLOWING,
       following: following.toJS()
     })
-  }, 2000)
+  }, 1000)
   core.events.on('following-changed', debouncedFollowingUpdate)
 
   // keep a copy of people following me in redux and keep them up to date
@@ -39,7 +55,7 @@ export const setupCore = () => (dispatch) => {
       type: Types.SET_FOLLOWING_ME,
       followingMe: followingMe.toJS()
     })
-  }, 2000)
+  }, 1000)
   core.events.on('following-me-changed', debouncedFollowingMeUpdate)
 
   // keep a copy of people i blocked in redux and keep them up to date
@@ -48,7 +64,7 @@ export const setupCore = () => (dispatch) => {
       type: Types.SET_BLOCKED,
       blocked: blocked.toJS()
     })
-  }, 2000)
+  }, 1000)
   core.events.on('blocked-changed', debouncedBlockedUpdate)
 
   // keep a record of what mode we are in in redux and keep it up to date
@@ -73,6 +89,14 @@ export const setupCore = () => (dispatch) => {
           return true
         }))
     })
+
+    // make placeholders in state for any authors we don't know about
+    const authors = Util.getRecentAuthors(recents, getState())
+
+    dispatch({
+      type: Types.SET_AUTHORS,
+      authors
+    })
   })
 
   // keep a record of unread private chats in redux and keep them up to date
@@ -88,6 +112,14 @@ export const setupCore = () => (dispatch) => {
     dispatch({
       type: Types.SET_UNREADS,
       unreads: unreadsJS
+    })
+
+    // make placeholders in state for any authors we don't know about
+    const authors = Util.getUnreadAuthors(unreadsJS, getState())
+
+    dispatch({
+      type: Types.SET_AUTHORS,
+      authors
     })
   })
 
@@ -116,14 +148,12 @@ export const setupCore = () => (dispatch) => {
   // set to public mode initially in case this is a refresh
   core.mode.setPublic()
   // get messages, me, authors, unreads, and recents into redux immediately
+  const messages = core.messages.get().toJS()
   dispatch({
     type: Types.SET_MESSAGES,
-    messages: core.messages.get().toJS()
+    messages
   })
-  dispatch({
-    type: Types.SET_AUTHORS,
-    authors: core.authors.get().toJS()
-  })
+  let authors = Util.getMessageAuthors(messages, getState())
   dispatch({
     type: Types.SET_MY_NAMES,
     myNames: core.me.names().toJS()
@@ -153,11 +183,15 @@ export const setupCore = () => (dispatch) => {
 
   dispatch({
     type: Types.SET_UNREADS,
-    unreads: core.unreads.get().toJS()
+    unreads
   })
+  // add initial unread authors to initial message authors
+  Object.assign(authors, Util.getUnreadAuthors(unreads, getState()))
+
+  const recents = core.recents.get()
   dispatch({
     type: Types.SET_RECENTS,
-    recents: core.recents.get()
+    recents: recents
       .map((recent) => recent.filter(id => {
         if (recent.length > 1) {
           // if there's more than me, i don't want me
@@ -167,9 +201,24 @@ export const setupCore = () => (dispatch) => {
         return true
       }))
   })
+  // add initial recent authors to initial message + unreads authors
+  Object.assign(authors, Util.getRecentAuthors(recents, getState()))
+
   dispatch({
     type: Types.SET_ME,
     me: core.me.get()
+  })
+
+  // try to determine initial authors
+  const coreAuthors = core.authors.get().toJS()
+  Object.keys(authors).forEach((id) => {
+    if (coreAuthors[id]) {
+      authors[id] = coreAuthors[id]
+    }
+  })
+  dispatch({
+    type: Types.SET_AUTHORS,
+    authors
   })
 }
 
