@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import * as Actions from './store/actions'
 import ControlPanel from './components/ControlPanel'
 import JoinPubModal from './components/JoinPubModal'
-import Messages from './components/Messages'
+import MessageView from './components/MessageView'
 import MessageInput from './components/MessageInput'
 import AuthorDrawer from './components/AuthorDrawer'
 
@@ -22,7 +22,7 @@ class App extends Component {
         }
         <ControlPanel />
         <div className='message-view'>
-          <Messages />
+          <MessageView />
           <MessageInput />
         </div>
         {this.props.authorDrawerOpen && <AuthorDrawer />}
