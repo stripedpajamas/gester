@@ -15,6 +15,8 @@ $theme-font-dark: black;
 $theme-font-secondary: #fafafa;
 $theme-highlight: #fafafa;
 $theme-active: #dddddd;
+$theme-error: #c32f27;
+$theme-notification: #f7dba7;
 
 $control-panel-width: 225px;
 
@@ -118,8 +120,24 @@ button {
             margin-top: 20px;
             overflow: scroll;
 
-            p {
-                padding: 7px 20px;
+            div {
+                display: grid;
+                grid-template-columns: 190px 35px;
+                p {
+                    padding: 7px 20px;
+                }
+                span {
+                    width: 15px;
+                }
+                svg {
+                    margin: 7px 0;
+                    fill-opacity: .8;
+                }
+                .hover {
+                    * {
+                        fill: $theme-error;
+                    }
+                }
             }
 
             &-item {
@@ -277,6 +295,34 @@ button {
         color: $theme-font;
         font-family: Monospace;
         background-color: $theme-active;
+    }
+}
+
+/* ------- Toast ---------- */
+.toast {
+    position: absolute;
+    top: 0;
+    left: $control-panel-width;
+    width: calc(100% - 225px);
+    height: 40px;
+    display: grid;
+    grid-template-columns: 95% 5%;
+    * {
+        font-weight: bold;
+        line-height: 40px;
+        text-align: center;
+    }
+}
+.error {
+    background-color: $theme-error;
+    * {
+        color: $theme-font-secondary;
+    }
+}
+.notification {
+    background-color: $theme-notification;
+    * {
+        color: $theme-font;
     }
 }
 

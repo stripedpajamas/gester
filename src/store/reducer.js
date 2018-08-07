@@ -47,6 +47,10 @@ export default (state = initialState, action) => (
       case Types.SET_NOTIFICATION:
         draft.notification = action.notification
         break
+      case Types.CLEAR_NOTIFICATION:
+        delete draft.notification
+        delete draft.error
+        break
       case Types.OPEN_AUTHOR_DRAWER:
         draft.authorDrawerOpen = true
         draft.currentAuthorId = action.currentAuthorId

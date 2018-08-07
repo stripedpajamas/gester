@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import * as Actions from '../store/actions'
 
 class ControlPanel extends Component {
@@ -13,6 +15,16 @@ class ControlPanel extends Component {
     this.handlePubCancel = this.handlePubCancel.bind(this)
     this.handlePubSubmit = this.handlePubSubmit.bind(this)
     this.handleRecentClick = this.handleRecentClick.bind(this)
+    this.handleMouseOver = this.handleMouseOver.bind(this)
+    this.handleMouseLeave = this.handleMouseLeave.bind(this)
+    this.handleMouseOverButton = this.handleMouseOverButton.bind(this)
+    this.handleMouseLeaveButton = this.handleMouseLeaveButton.bind(this)
+    this.handleRemoveRecent = this.handleRemoveRecent.bind(this)
+
+    this.state = {
+      closeIcon: null,
+      closeIconHover: null
+    }
   }
 
   handleKeyPress (e) {
@@ -46,11 +58,31 @@ class ControlPanel extends Component {
     this.props.goPrivate(recipients.split(', '))
   }
 
+  handleRemoveRecent (recipients) {
+    this.props.removeRecent(recipients)
+  }
+
+  handleMouseOver (id) {
+    this.setState({ closeIcon: id })
+  }
+
+  handleMouseLeave () {
+    this.setState({ closeIcon: null })
+  }
+
+  handleMouseOverButton (id) {
+    this.setState({ closeIconHover: id })
+  }
+
+  handleMouseLeaveButton () {
+    this.setState({ closeIconHover: null })
+  }
+
   render () {
     const privateMode = this.props.mode === 'PRIVATE'
     const sortedRecents = this.props.recents.slice().sort((a, b) => {
-      const mappedA = a.map(id => (this.props.authors[id] || {}).name || id).join(', ')
-      const mappedB = b.map(id => (this.props.authors[id] || {}).name || id).join(', ')
+      const mappedA = a.filtered.map(id => (this.props.authors[id] || {}).name || id).join(', ')
+      const mappedB = b.filtered.map(id => (this.props.authors[id] || {}).name || id).join(', ')
       return mappedA > mappedB
     })
 
@@ -72,13 +104,13 @@ class ControlPanel extends Component {
           <div className='recents'>
             {sortedRecents.map((recent) => {
               const currentRecps = this.props.recipients.join(', ')
-              const thisRecent = recent.join(', ')
+              const thisRecent = recent.filtered.join(', ')
               const isCurrent = currentRecps === thisRecent
               const isUnread = this.props.unreads.some((unread) => (
                 unread.join(', ') === thisRecent
               ))
 
-              const humanNames = recent.map(id => (
+              const humanNames = recent.filtered.map(id => (
                 (this.props.authors[id] || {}).name || id
               )).join(', ')
 
@@ -88,12 +120,31 @@ class ControlPanel extends Component {
               if (isUnread) {
                 className += ' unread'
               }
+              const wantingToClose = this.state.closeIconHover === thisRecent
               return (
-                <p
+                <div
                   className={className}
-                  onClick={() => this.handleRecentClick(humanNames)}
+                  onMouseOver={() => this.handleMouseOver(thisRecent)}
+                  onMouseLeave={this.handleMouseLeave}
                   key={thisRecent}
-                >{humanNames}</p>
+                >
+                  <p onClick={() => this.handleRecentClick(humanNames)}>
+                    {humanNames}
+                  </p>
+                  {this.state.closeIcon === thisRecent &&
+                    <span
+                      className='recents-remove-icon'
+                      onMouseOver={() => this.handleMouseOverButton(thisRecent)}
+                      onMouseLeave={this.handleMouseLeaveButton}
+                      onClick={() => this.handleRemoveRecent(recent.raw)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faTimesCircle}
+                        className={wantingToClose ? 'hover' : ''}
+                      />
+                    </span>
+                  }
+                </div>
               )
             })}
           </div>
@@ -120,6 +171,7 @@ const mapDispatchToProps = dispatch => ({
   goPrivate: bindActionCreators(Actions.goPrivate, dispatch),
   goPublic: bindActionCreators(Actions.goPublic, dispatch),
   joinPub: bindActionCreators(Actions.joinPub, dispatch),
+  removeRecent: bindActionCreators(Actions.removeRecent, dispatch),
   setJoinPub: bindActionCreators(Actions.setJoinPub, dispatch)
 })
 
