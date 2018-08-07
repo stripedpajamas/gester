@@ -13,7 +13,7 @@ class AuthorDrawer extends Component {
     this.handleClickFollow = this.handleClickFollow.bind(this)
   }
 
-  startPrivateMessage (e, author) {
+  startPrivateMessage (author) {
     const recipient = [author]
     this.props.goPrivate(recipient)
     this.props.closeAuthorDrawer()
@@ -38,7 +38,6 @@ class AuthorDrawer extends Component {
   render () {
     const { authors, currentAuthorId, following, blocked } = this.props
     const author = (authors[currentAuthorId] || {}).name || currentAuthorId
-    console.log(authors[currentAuthorId])
 
     const isBlocked = blocked.includes(currentAuthorId)
     const areFollowing = following.includes(currentAuthorId)

@@ -1,8 +1,8 @@
 {
-  "name": "stool",
-  "productName": "Stool",
+  "name": "gester",
+  "productName": "gester",
   "version": "1.0.0",
-  "description": "a higher ui for scat (scuttlebutt chat)",
+  "description": "scuttlebutt chat",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -33,21 +33,24 @@
         "packageManager": "yarn"
       },
       "electronWinstallerConfig": {
-        "name": "Stool"
+        "name": "Gester"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
       "github_repository": {
         "owner": "stripedpajamas",
-        "name": "stool"
+        "name": "gester"
       },
       "windowsStoreConfig": {
         "packageName": "",
-        "name": "Stool"
+        "name": "Gester"
       }
     }
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.0-14",
+    "@fortawesome/free-solid-svg-icons": "^5.1.0-11",
+    "@fortawesome/react-fontawesome": "^0.1.0-11",
     "date-fns": "^1.29.0",
     "electron-compile": "^6.4.2",
     "electron-squirrel-startup": "^1.0.0",

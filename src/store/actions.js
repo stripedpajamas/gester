@@ -80,13 +80,16 @@ export const setupCore = () => (dispatch, getState) => {
     dispatch({
       type: Types.SET_RECENTS,
       recents: recents
-        .map((recent) => recent.filter(id => {
-          if (recent.length > 1) {
-            // if there's more than me, i don't want me
-            return id !== core.me.get()
-          }
-          // if it's just me, i want just me
-          return true
+        .map((recent) => ({
+          filtered: recent.filter(id => {
+            if (recent.length > 1) {
+              // if there's more than me, i don't want me
+              return id !== core.me.get()
+            }
+            // if it's just me, i want just me
+            return true
+          }),
+          raw: recent
         }))
     })
 
@@ -192,13 +195,16 @@ export const setupCore = () => (dispatch, getState) => {
   dispatch({
     type: Types.SET_RECENTS,
     recents: recents
-      .map((recent) => recent.filter(id => {
-        if (recent.length > 1) {
-          // if there's more than me, i don't want me
-          return id !== core.me.get()
-        }
-        // if it's just me, i want just me
-        return true
+      .map((recent) => ({
+        filtered: recent.filter(id => {
+          if (recent.length > 1) {
+            // if there's more than me, i don't want me
+            return id !== core.me.get()
+          }
+          // if it's just me, i want just me
+          return true
+        }),
+        raw: recent
       }))
   })
   // add initial recent authors to initial message + unreads authors
@@ -233,6 +239,11 @@ export const setError = (e) => {
   return {
     type: Types.SET_ERROR,
     error: e
+  }
+}
+export const clearNotification = () => {
+  return {
+    type: Types.CLEAR_NOTIFICATION
   }
 }
 export const setJoinPub = (join) => {
@@ -291,5 +302,10 @@ export const unblock = (id) => (dispatch) => {
   core.commands.unblock(id)
     .then(({ result }) => dispatch(setNotification(result)))
     .catch((e) => dispatch(setError(e)))
+}
+export const removeRecent = (recents) => (dispatch, getState) => {
+  const state = getState()
+  const me = state.me
+  core.recents.remove(recents)
 }
 // #endregion

@@ -14,12 +14,9 @@ class JoinPubModal extends Component {
   }
 
   handleKeyPress (e) {
-    if (e.key === 'Escape') {
-      this.props.onCancel()
-    }
     if (e.key === 'Enter') {
       const inviteCode = e.target.value
-      this.props.onSubmit(inviteCode)
+      this.handleSubmit(inviteCode)
       this.pubInput.value = ''
     }
   }
