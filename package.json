@@ -1,8 +1,8 @@
 {
-  "name": "stool",
-  "productName": "Stool",
+  "name": "gester",
+  "productName": "gester",
   "version": "1.0.0",
-  "description": "a higher ui for scat (scuttlebutt chat)",
+  "description": "scuttlebutt chat",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -33,17 +33,17 @@
         "packageManager": "yarn"
       },
       "electronWinstallerConfig": {
-        "name": "Stool"
+        "name": "Gester"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
       "github_repository": {
         "owner": "stripedpajamas",
-        "name": "stool"
+        "name": "gester"
       },
       "windowsStoreConfig": {
         "packageName": "",
-        "name": "Stool"
+        "name": "Gester"
       }
     }
   },
