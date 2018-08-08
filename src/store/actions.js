@@ -27,10 +27,10 @@ export const setupCore = () => (dispatch, getState) => {
   const debouncedAuthorsUpdate = debounce((authors) => {
     const state = getState()
     const oldAuthors = state.authors // { @k9...: { name: '@squicc', setter: 'k9...' } }
-    const coreAuthors = authors.toJS()
     const newAuthors = {}
     Object.keys(oldAuthors).forEach((id) => {
-      newAuthors[id] = coreAuthors[id]
+      const coreAuthor = authors.get(id)
+      newAuthors[id] = (coreAuthor && coreAuthor.toJS()) || {}
     })
     dispatch({
       type: Types.SET_AUTHORS,
@@ -216,11 +216,9 @@ export const setupCore = () => (dispatch, getState) => {
   })
 
   // try to determine initial authors
-  const coreAuthors = core.authors.get().toJS()
   Object.keys(authors).forEach((id) => {
-    if (coreAuthors[id]) {
-      authors[id] = coreAuthors[id]
-    }
+    const coreAuthor = core.authors.get().get(id)
+    authors[id] = (coreAuthor && coreAuthor.toJS()) || {}
   })
   dispatch({
     type: Types.SET_AUTHORS,
