@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import * as Actions from '../store/actions'
 import Message from './Message'
 
-class Messages extends Component {
+class MessageView extends Component {
   constructor () {
     super()
     this.handleNameClick = this.handleNameClick.bind(this)
@@ -24,43 +24,32 @@ class Messages extends Component {
     this.props.openAuthorDrawer(id)
   }
 
-  renderMessages () {
-    const { messages, authors, myNames } = this.props
-    if (!messages.length) {
-      return (
-        <div className='empty'>
-          <span>Nothing to see here 🐥</span>
-        </div>
-      )
-    }
-    return messages.map((message, idx) => {
-      const id = message.author
-      const author = (authors[id] || {}).name || id
-      // so that we can group messages from the same author,
-      // tell our child component if the previous message
-      // was sent from the same author
-      const skipAuthor = !!(messages[idx - 1] && messages[idx - 1].author === message.author)
-      return (<Message
-        author={author}
-        key={message.key}
-        message={message}
-        myNames={myNames}
-        skipAuthor={skipAuthor}
-        onClick={this.handleNameClick}
-      />)
-    })
-  }
-
   render () {
+    const { messages, authors, myNames } = this.props
     return (
       <div className='messages' ref={el => { this.messagesDiv = el }}>
-        {this.renderMessages()}
+        {messages.map((message, idx) => {
+          const id = message.author
+          const author = (authors[id] || {}).name || id
+          // so that we can group messages from the same author,
+          // tell our child component if the previous message
+          // was sent from the same author
+          const skipAuthor = !!(messages[idx - 1] && messages[idx - 1].author === message.author)
+          return (<Message
+            author={author}
+            key={message.key}
+            message={message}
+            myNames={myNames}
+            skipAuthor={skipAuthor}
+            onClick={this.handleNameClick}
+          />)
+        })}
       </div>
     )
   }
 }
 
-Messages.propTypes = {
+MessageView.propTypes = {
   myNames: PropTypes.array.isRequired,
   messages: PropTypes.array.isRequired,
   authors: PropTypes.object.isRequired,
@@ -76,4 +65,4 @@ const mapDispatchToProps = dispatch => ({
   openAuthorDrawer: bindActionCreators(Actions.openAuthorDrawer, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Messages)
+export default connect(mapStateToProps, mapDispatchToProps)(MessageView)
