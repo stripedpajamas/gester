@@ -20,10 +20,24 @@ $theme-notification: #f7dba7;
 
 $control-panel-width: 225px;
 
+// font files
+@mixin font($font-family, $font-file) {
+    @font-face {
+        font-family: $font-family;
+        src: url($font-file+'.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+}
+  
+  
+@include font('MainFont', './fonts/Roboto-Regular');
+@include font('FontBold', './fonts/Roboto-Bold');
+
 * {
     margin: 0;
     padding: 0;
-    font-family: Helvetica, sans-serif;
+    font-family: MainFont, sans-serif;
     font-size:  14px;
     color: $theme-font;
 }
@@ -52,7 +66,6 @@ input {
     border: 1px solid $theme-border;
     border-radius: 5px;
     color: $theme-font;
-    font-size: 12px;
 }
 
 button {
@@ -152,7 +165,7 @@ button {
             }
             .unread {
                 color: $theme-font-dark;
-                font-weight: bold;
+                font-family: FontBold, sans-serif;
             }
             
             &__item {
@@ -270,7 +283,7 @@ button {
     grid-template-columns: 40px auto; // 90px was author
     &-author {
         width: min-content;
-        font-weight: bold;
+        font-family: FontBold, sans-serif;
         overflow: hidden;
         &:hover {
             text-decoration: underline;
@@ -302,7 +315,7 @@ button {
     }
     &-text-action {
         p {
-            font-weight: bold;
+            font-family: FontBold, sans-serif;
             color: inherit;
             line-height: normal;
         }
