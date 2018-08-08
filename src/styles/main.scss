@@ -269,8 +269,13 @@ button {
     display: grid;
     grid-template-columns: 40px auto; // 90px was author
     &-author {
+        width: min-content;
         font-weight: bold;
         overflow: hidden;
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
     }
     &-time {
         color: lightgray;
@@ -278,6 +283,9 @@ button {
         padding-top: 4px;
         &-top {
             padding-top: 20px;
+        }
+        &-action {
+            padding-top: 2px;
         }
     }
     .mention {
@@ -287,10 +295,19 @@ button {
     div, p {
         color: $theme-font;
         line-height: 1.5;
-        .emoji {
-            font-size: 20px;
-            vertical-align: middle;
-            line-height: 1;
+    }
+    .emoji {
+        vertical-align: middle;
+        line-height: 1;
+    }
+    &-text-action {
+        p {
+            font-weight: bold;
+            color: inherit;
+            line-height: normal;
+        }
+        p:before {
+            content: "\00a0 ";
         }
     }
     code {
@@ -298,6 +315,13 @@ button {
         font-family: Monospace;
         background-color: $theme-active;
     }
+}
+.message-action {
+    width: calc(100% - 21px);
+    padding: 0 10px;
+    margin: 10px auto;
+    display: grid;
+    grid-template-columns: 40px min-content auto;
 }
 
 /* ------- Toast ---------- */

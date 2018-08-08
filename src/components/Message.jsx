@@ -19,7 +19,7 @@ class Message extends Component {
     })
     return highlighted
   }
-  process (msg) {
+  process (msg, action, color) {
     // process markdown and emojis
     const emojified = emoji.emojify(msg, null, (e) => `[${e}]{.emoji}`)
     const input = this.markMentions(emojified)
@@ -28,17 +28,22 @@ class Message extends Component {
       .use(toHTML)
       .processSync(input)
       .toString()
-    return toReact.parse(`<div>${marked}</div>`)
+    const toProcess = action
+      ? `<span class='message-text-action' style='color: ${color};'>
+          ${marked}
+        </span>`
+      : `<div>${marked}</div>`
+    return toReact.parse(toProcess)
   }
 
   render () {
     const { author, message, skipAuthor } = this.props
-    const { timestamp, author: id, text } = message
+    const { timestamp, author: id, text, action } = message
 
     const tinyTime = format(timestamp, 'HH:mm')
     const fullTime = format(timestamp, 'MMM DD HH:mm')
     const color = message.fromMe ? getMeColor() : getAuthorColor(author)
-    const processedText = this.process(text)
+    const processedText = this.process(text, action, color)
 
     const timeClass = ['message-time']
     if (!skipAuthor) {
@@ -46,10 +51,28 @@ class Message extends Component {
       timeClass.push('message-time-top')
     }
 
+    if (action) {
+      return (
+        <span className='message message-action'>
+          <span className='message-time message-time-action' title={fullTime}>
+            {tinyTime}
+          </span>
+          <span
+            style={{ color }}
+            className='message-author'
+            title={id}
+            onClick={() => this.props.onClick(id)}
+          >
+            {author}
+          </span>
+          {processedText}
+        </span>
+      )
+    }
+
     return (
       <span className='message'>
         <span className={timeClass.join(' ')} title={fullTime}>
-          {!skipAuthor}
           {tinyTime}
         </span>
         <span>
