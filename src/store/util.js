@@ -1,10 +1,16 @@
+import electron from 'electron'
+
+const core = electron.remote.getGlobal('core')
+
 export const updateAuthors = (ids, state) => {
-  const newAuthors = state.authors
+  const newAuthors = Object.assign({}, state.authors)
   for (let id of ids) {
     if (!newAuthors[id]) {
+      // try to get the author directly from core, otherwise
       // make a placeholder so that when new authors come
       // in from core, it can replace the placeholder with content
-      newAuthors[id] = {}
+      const coreAuthor = core.authors.get().get(id)
+      newAuthors[id] = (coreAuthor && coreAuthor.toJS()) || {}
     }
   }
   return newAuthors
