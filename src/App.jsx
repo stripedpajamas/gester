@@ -72,7 +72,7 @@ class App extends Component {
     const hasNotification = this.props.error || this.props.notification
     return (
       <HotKeys keyMap={this.keyMap} handlers={this.hotKeyHandlers}>
-        <div className={this.props.authorDrawerOpen ? 'main drawer-open' : 'main drawer-closed'}>
+        <div className='main'>
           {hasNotification &&
             <Notification
               error={this.props.error}
@@ -88,7 +88,7 @@ class App extends Component {
             <MessageView />
             <MessageInput ref={this.messageInput} />
           </div>
-          {this.props.authorDrawerOpen && <AuthorDrawer />}
+          <AuthorDrawer />
         </div>
       </HotKeys>
     )
