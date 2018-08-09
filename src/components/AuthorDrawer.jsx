@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import * as Actions from '../store/actions'
 
 class AuthorDrawer extends Component {
@@ -11,6 +13,8 @@ class AuthorDrawer extends Component {
     this.startPrivateMessage = this.startPrivateMessage.bind(this)
     this.handleClickBlock = this.handleClickBlock.bind(this)
     this.handleClickFollow = this.handleClickFollow.bind(this)
+    this.handleOpen = this.handleOpen.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
 
   startPrivateMessage (author) {
@@ -35,9 +39,19 @@ class AuthorDrawer extends Component {
     return this.props.follow(id)
   }
 
+  handleOpen (id) {
+    this.props.openAuthorDrawer(id)
+  }
+
+  handleClose () {
+    this.props.closeAuthorDrawer()
+  }
+
   render () {
-    const { authors, currentAuthorId, following, blocked } = this.props
-    const author = (authors[currentAuthorId] || {}).name || currentAuthorId
+    const { authors, currentAuthorId, following, blocked, myNames } = this.props
+    const author = (authors[currentAuthorId] || {}).name || currentAuthorId || myNames[0]
+
+    console.log(author)
 
     const isBlocked = blocked.includes(currentAuthorId)
     const areFollowing = following.includes(currentAuthorId)
@@ -46,24 +60,47 @@ class AuthorDrawer extends Component {
     const followText = areFollowing ? 'unfollow' : 'follow'
     return (
       <div className='author-drawer'>
-        <span className='button-close' onClick={this.props.closeAuthorDrawer}>X</span>
-        <div>
-          <h1 className='author-drawer__header'>{author}</h1>
+        <div className='author-drawer__toggle'>
+          {!this.props.authorDrawerOpen
+            ? (
+              <button onClick={() => this.handleOpen(currentAuthorId)}>
+                <FontAwesomeIcon
+                  icon={faArrowLeft}
+                />
+              </button>
+            )
+            : (
+              <button onClick={() => this.handleClose()}>
+                <FontAwesomeIcon
+                  icon={faArrowRight}
+                />
+              </button>
+            )
+          }
         </div>
-        <div>
-          <button
-            className='button button-block'
-            onClick={() => this.handleClickBlock(isBlocked, currentAuthorId)}
-          >{blockText}</button>
-          <button
-            className='button button-follow'
-            onClick={() => this.handleClickFollow(areFollowing, currentAuthorId)}
-          >{followText}</button>
-        </div>
-        <div>
-          <button className='button button-private' onClick={() => this.startPrivateMessage(author)}>start private</button>
-        </div>
-
+        {this.props.authorDrawerOpen &&
+          <div className='author-drawer__content'>
+            <div>
+              <input />
+            </div>
+            <div>
+              <h1 className='author-drawer__header'>{author}</h1>
+            </div>
+            <div>
+              <button
+                className='button button-block'
+                onClick={() => this.handleClickBlock(isBlocked, currentAuthorId)}
+              >{blockText}</button>
+              <button
+                className='button button-follow'
+                onClick={() => this.handleClickFollow(areFollowing, currentAuthorId)}
+              >{followText}</button>
+            </div>
+            <div>
+              <button className='button button-private' onClick={() => this.startPrivateMessage(author)}>start private</button>
+            </div>
+          </div>
+        }
       </div>
     )
   }
@@ -79,7 +116,9 @@ AuthorDrawer.propTypes = {
   follow: PropTypes.func.isRequired,
   unfollow: PropTypes.func.isRequired,
   block: PropTypes.func.isRequired,
-  unblock: PropTypes.func.isRequired
+  unblock: PropTypes.func.isRequired,
+  authorDrawerOpen: PropTypes.bool.isRequired,
+  myNames: PropTypes.arrayOf(PropTypes.string).isRequired
 
 }
 
@@ -87,11 +126,14 @@ const mapStateToProps = state => ({
   currentAuthorId: state.currentAuthorId,
   authors: state.authors,
   following: state.following,
-  blocked: state.blocked
+  blocked: state.blocked,
+  authorDrawerOpen: state.authorDrawerOpen,
+  myNames: state.myNames
 })
 
 const mapDispatchToProps = dispatch => ({
   closeAuthorDrawer: bindActionCreators(Actions.closeAuthorDrawer, dispatch),
+  openAuthorDrawer: bindActionCreators(Actions.openAuthorDrawer, dispatch),
   goPrivate: bindActionCreators(Actions.goPrivate, dispatch),
   follow: bindActionCreators(Actions.follow, dispatch),
   unfollow: bindActionCreators(Actions.unfollow, dispatch),

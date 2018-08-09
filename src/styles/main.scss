@@ -10,6 +10,7 @@
 }
 
 $theme-secondary: white;
+$theme-secondary: #fafafa;
 $theme-primary: #ECF0F1;
 $theme-buttons: #38758f;
 $theme-buttons-hover: #224d5f;
@@ -47,13 +48,8 @@ $main-font: 'Roboto', Helvetica, sans-serif;
 
 .main {
     display: grid;
-}
+    grid-template-columns: $control-panel-width auto auto;
 
-.drawer-closed {
-    grid-template-columns: $control-panel-width auto;
-}
-.drawer-open {
-    grid-template-columns: $control-panel-width auto minmax(auto, 300px);
 }
 
 h1 {
@@ -374,40 +370,32 @@ button {
 /* ------ Author Drawer ------ */
 .author-drawer {
     height: 100vh;
-    border-left: 1px solid $theme-active;
-    width: 300px;
-    max-width: 300px;
-    padding: 0 20px;
+    border-left: 2px solid $theme-active;
     display: grid;
-    grid-template-rows: 175px 100px 60px 60px auto;
+    // width: 50px;
+    grid-template-columns: auto auto;
 
-    div {
+    &__toggle {
+        margin-top: 20px;
+        width: 50px;
         text-align: center;
 
-        h1 {
-            font-size: 28px;
+        button  {
+            background-color: $theme-secondary;
+            border: 1px solid $theme-active;
+            padding: 10px;
+            cursor: pointer;
         }
     }
 
-    .button-block {
-        margin-right: 20px;
-        background-color: $theme-buttons-error;
-
-        &:hover {
-            background-color: $theme-buttons-error-hover;
-        }
-
-        &:focus {
-            background-color: $theme-buttons-error-click;
+    &__content {
+        width: 205px;
+        padding: 20px;
+        display: grid;
+        grid-template-rows: auto auto auto auto;
+        
+        div {
+            border-left: 1px solid $theme-active;
         }
     }
-
-    .button-close {
-        margin-top: 20px;
-    }
-
-    p {
-        word-wrap: break-word;
-    }
-
 }
