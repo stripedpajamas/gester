@@ -4,6 +4,7 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS
 } from 'electron-devtools-installer'
+import notifier from 'node-notifier'
 const core = require('ssb-chat-core')
 
 global.core = core
@@ -107,6 +108,14 @@ ipcMain.on('unread', () => {
   if (app && app.dock) {
     app.dock.setBadge('\u2022') // bullet symbol
   }
+  // TODO figure out notifications
+  // notifier.notify({
+  //   title: 'Gester',
+  //   message: 'New message',
+  //   sound: true
+  // }, () => {
+  //   mainWindow.show()
+  // })
 })
 
 ipcMain.on('no-unread', () => {
