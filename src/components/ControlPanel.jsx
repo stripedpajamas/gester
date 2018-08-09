@@ -9,7 +9,7 @@ import * as Actions from '../store/actions'
 class ControlPanel extends Component {
   constructor () {
     super()
-    this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleModeButton = this.handleModeButton.bind(this)
     this.handlePubButton = this.handlePubButton.bind(this)
     this.handlePubCancel = this.handlePubCancel.bind(this)
@@ -20,21 +20,50 @@ class ControlPanel extends Component {
     this.handleMouseOverButton = this.handleMouseOverButton.bind(this)
     this.handleMouseLeaveButton = this.handleMouseLeaveButton.bind(this)
     this.handleRemoveRecent = this.handleRemoveRecent.bind(this)
+    this.handleFocusPMInput = this.handleFocusPMInput.bind(this)
+    this.handleInputFocus = this.handleInputFocus.bind(this)
+    this.handleInputBlur = this.handleInputBlur.bind(this)
 
     this.state = {
       closeIcon: null,
-      closeIconHover: null
+      closeIconHover: null,
+      pmInputFocused: false
     }
   }
 
-  handleKeyPress (e) {
+  handleFocusPMInput () {
+    if (!this.state.pmInputFocused) {
+      this.recipientsInput.focus()
+      this.setState({ pmInputFocused: true })
+      return true
+    }
+    return false
+  }
+
+  handleInputFocus () {
+    this.setState({ pmInputFocused: true })
+  }
+
+  handleInputBlur () {
+    this.setState({ pmInputFocused: false })
+  }
+
+  handleKeyDown (e) {
+    if (e.key === 'Escape') {
+      this.handleInputBlur()
+      return
+    }
     if (e.key === 'Enter') {
-      // this is a little to text based so we'll have to make it more fun
+      if (!e.target.value) {
+        this.props.goPublic()
+        return
+      }
       const recipients = e.target.value
         .split(',')
         .map(x => x.trim())
       this.recipientsInput.value = ''
       this.props.goPrivate(recipients)
+      this.handleInputBlur()
     }
   }
 
@@ -93,12 +122,17 @@ class ControlPanel extends Component {
         </div>
         <div>
           <input
-            className='control-panel__input'
+            className={`${this.state.pmInputFocused ? 'control-panel__input__focused' : ''} control-panel__input`}
             type='text'
             placeholder='New private message...'
-            onKeyPress={this.handleKeyPress}
+            onKeyDown={this.handleKeyDown}
+            onFocus={this.handleInputFocus}
+            onBlur={this.handleInputBlur}
             ref={el => { this.recipientsInput = el }}
           />
+          {this.state.pmInputFocused &&
+            <div className='modal-overlay' />
+          }
         </div>
         <div className='control-panel__users'>
           <div className='recents'>
@@ -187,4 +221,9 @@ ControlPanel.propTypes = {
   mode: PropTypes.string.isRequired
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ControlPanel)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  null,
+  { withRef: true }
+)(ControlPanel)

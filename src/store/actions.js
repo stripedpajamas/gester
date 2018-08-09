@@ -272,6 +272,17 @@ export const goPublic = () => (dispatch) => {
   core.commands.quit()
     .catch((e) => dispatch(setError(e)))
 }
+export const toggleMode = () => (dispatch, getState) => {
+  const state = getState()
+  if (state.mode === core.constants.MODE.PUBLIC) {
+    const recps = core.recipients.getLast()
+    if (recps) {
+      dispatch(goPrivate(recps.toJS()))
+    }
+  } else {
+    dispatch(goPublic())
+  }
+}
 export const joinPub = (invite) => (dispatch) => {
   core.commands.pub(invite)
     .then(({ result }) => dispatch(setNotification(result)))

@@ -9,6 +9,7 @@ class MessageInput extends Component {
     super(props)
 
     this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.handleFocusMessageInput = this.handleFocusMessageInput.bind(this)
   }
 
   handleKeyPress (e) {
@@ -19,11 +20,16 @@ class MessageInput extends Component {
     }
   }
 
+  handleFocusMessageInput () {
+    this.messageInput.focus()
+  }
+
   render () {
     const mode = this.props.mode.toLowerCase()
     return (
       <div className='messenger'>
         <input
+          autoFocus
           className='messenger-input'
           type='text'
           placeholder={`Send ${mode} message`}
@@ -49,4 +55,9 @@ MessageInput.propTypes = {
   sendMessage: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MessageInput)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  null,
+  { withRef: true }
+)(MessageInput)

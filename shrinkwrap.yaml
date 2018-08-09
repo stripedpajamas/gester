@@ -13,6 +13,7 @@ dependencies:
   prop-types: 15.6.2
   react: 16.4.2
   react-dom: 16.4.2
+  react-hotkeys: 1.1.4
   react-redux: 5.0.7
   redux: 4.0.0
   redux-devtools-extension: 2.13.5
@@ -5209,6 +5210,18 @@ packages:
     dev: true
     resolution:
       integrity: sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
+  /lodash.isboolean/3.0.3:
+    dev: false
+    resolution:
+      integrity: sha1-bC4XHbKiV82WgC/UOwGyDV9YcPY=
+  /lodash.isequal/4.5.0:
+    dev: false
+    resolution:
+      integrity: sha1-QVxEePK8wwEgwizhDtMib30+GOA=
+  /lodash.isobject/3.0.2:
+    dev: false
+    resolution:
+      integrity: sha1-PI+41bW/S/kK4G4U8qUwpO2TXh0=
   /lodash.memoize/4.1.2:
     dev: true
     resolution:
@@ -5586,6 +5599,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-W6Wtx6rIXh1853voRxYe0kazlgM=
+  /mousetrap/1.6.2:
+    dev: false
+    resolution:
+      integrity: sha512-jDjhi7wlHwdO6q6DS7YRmSHcuI+RVxadBkLt3KHrhd3C2b+w5pKefg3oj5beTcHZyVFA9Aksf+yEE1y5jxUjVA==
   /ms/2.0.0:
     resolution:
       integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
@@ -7119,6 +7136,19 @@ packages:
       react: ^16.0.0
     resolution:
       integrity: sha512-Usl73nQqzvmJN+89r97zmeUpQDKDlh58eX6Hbs/ERdDHzeBzWy+ENk7fsGQ+5KxArV1iOFPT46/VneklK9zoWw==
+  /react-hotkeys/1.1.4:
+    dependencies:
+      lodash.isboolean: 3.0.3
+      lodash.isequal: 4.5.0
+      lodash.isobject: 3.0.2
+      mousetrap: 1.6.2
+      prop-types: 15.6.2
+    dev: false
+    peerDependencies:
+      react: '>= 0.14.0'
+      react-dom: '>= 0.14.0'
+    resolution:
+      integrity: sha1-oHEqouDAOnWf14hYCFmEl6TaznI=
   /react-redux/5.0.7:
     dependencies:
       hoist-non-react-statics: 2.5.5
@@ -9681,6 +9711,7 @@ specifiers:
   prop-types: ^15.6.2
   react: ^16.4.1
   react-dom: ^16.4.1
+  react-hotkeys: ^1.1.4
   react-redux: ^5.0.7
   redux: ^4.0.0
   redux-devtools-extension: ^2.13.5

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS
@@ -39,6 +39,11 @@ const createWindows = async () => {
       console.log(e)
     }
   }
+
+  mainWindow.webContents.on('will-navigate', (e, url) => {
+    e.preventDefault()
+    shell.openExternal(url)
+  })
 
   mainWindow.on('close', (e) => {
     if (willQuitApp) {

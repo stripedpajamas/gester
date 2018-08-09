@@ -8,12 +8,16 @@ class JoinPubModal extends Component {
   constructor (props) {
     super(props)
 
-    this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleKeyPress (e) {
+  handleKeyDown (e) {
+    if (e.key === 'Escape') {
+      this.handleCancel()
+      return
+    }
     if (e.key === 'Enter') {
       const inviteCode = e.target.value
       this.handleSubmit(inviteCode)
@@ -41,7 +45,7 @@ class JoinPubModal extends Component {
               className='modal-input'
               type='text'
               placeholder={`Paste pub invite code here...`}
-              onKeyPress={this.handleKeyPress}
+              onKeyDown={this.handleKeyDown}
               onChange={this.handleChange}
               ref={el => { this.pubInput = el }}
             />

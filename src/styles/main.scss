@@ -124,6 +124,10 @@ button {
         padding: 5px 10px;
         width: 75%;
         height: 40%;
+        &__focused {
+            z-index: 1001;
+            position: sticky;
+        }
     }
 
     &__users {
@@ -233,7 +237,7 @@ button {
     width: 100%;
     height: 100%;
     background-color: black;
-    opacity: 0.75;
+    opacity: 0.5;
 }
 
 
