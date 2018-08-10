@@ -48,10 +48,8 @@ class AuthorDrawer extends Component {
   }
 
   render () {
-    const { authors, currentAuthorId, following, blocked, myNames } = this.props
-    const author = (authors[currentAuthorId] || {}).name || currentAuthorId || myNames[0]
-
-    console.log(author)
+    const { authors, currentAuthorId, following, blocked, me } = this.props
+    const author = (authors[currentAuthorId] || {}).name || currentAuthorId || (authors[me] || {}).name || me
 
     const isBlocked = blocked.includes(currentAuthorId)
     const areFollowing = following.includes(currentAuthorId)
@@ -81,7 +79,9 @@ class AuthorDrawer extends Component {
         {this.props.authorDrawerOpen &&
           <div className='author-drawer__content'>
             <div>
-              <input />
+              <input
+                placeholder='search for user'
+              />
             </div>
             <div>
               <h1 className='author-drawer__header'>{author}</h1>
@@ -118,7 +118,7 @@ AuthorDrawer.propTypes = {
   block: PropTypes.func.isRequired,
   unblock: PropTypes.func.isRequired,
   authorDrawerOpen: PropTypes.bool.isRequired,
-  myNames: PropTypes.arrayOf(PropTypes.string).isRequired
+  me: PropTypes.string.isRequired
 
 }
 
@@ -128,7 +128,7 @@ const mapStateToProps = state => ({
   following: state.following,
   blocked: state.blocked,
   authorDrawerOpen: state.authorDrawerOpen,
-  myNames: state.myNames
+  me: state.me
 })
 
 const mapDispatchToProps = dispatch => ({

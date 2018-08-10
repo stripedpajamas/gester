@@ -28,6 +28,7 @@ $theme-highlight: #fafafa;
 $theme-active: #dddddd;
 $theme-error: #c32f27;
 $theme-notification: #f7dba7;
+$color-white: #fff;
 
 $control-panel-width: 225px;
   
@@ -347,18 +348,27 @@ button {
     height: 40px;
     display: grid;
     grid-template-columns: 95% 5%;
+    transform: translateY(-70px);
+    animation: slideDown 4.5s 0s ease forwards;
     * {
         font-weight: bold;
         line-height: 40px;
         text-align: center;
     }
 }
+
+@keyframes slideDown {
+    0%, 100% { -webkit-transform: translateY(-70px); }
+    10%, 80% { -webkit-transform: translateY(0px); }
+}
+
 .error {
     background-color: $theme-error;
     * {
         color: $theme-font-secondary;
     }
 }
+
 .notification {
     background-color: $theme-notification;
     * {
@@ -380,7 +390,7 @@ button {
         text-align: center;
 
         button  {
-            background-color: $theme-secondary;
+            background-color: $color-white;
             border: 1px solid $theme-active;
             padding: 10px;
             cursor: pointer;
@@ -393,8 +403,9 @@ button {
         display: grid;
         grid-template-rows: auto auto auto auto;
         
-        div {
-            border-left: 1px solid $theme-active;
+        input {
+            padding: 5px 10px;
+            
         }
     }
 }
