@@ -2,18 +2,31 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
+import tabComplete from '../helpers/tabComplete'
 import * as Actions from '../store/actions'
 
 class MessageInput extends Component {
   constructor (props) {
     super(props)
 
-    this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.tabCompleter = null
+
+    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleFocusMessageInput = this.handleFocusMessageInput.bind(this)
   }
 
-  handleKeyPress (e) {
+  handleKeyDown (e) {
     const msg = e.target.value
+    if (e.key !== 'Tab') {
+      this.tabCompleter = null
+    }
+    if (e.key === 'Tab') {
+      if (!this.tabCompleter) {
+        this.tabCompleter = tabComplete(msg)
+      }
+      this.messageInput.value = this.tabCompleter()
+      e.preventDefault()
+    }
     if (e.key === 'Enter') {
       this.props.sendMessage(msg)
       this.messageInput.value = ''
@@ -33,7 +46,7 @@ class MessageInput extends Component {
           className='messenger-input'
           type='text'
           placeholder={`Send ${mode} message`}
-          onKeyPress={this.handleKeyPress}
+          onKeyDown={this.handleKeyDown}
           onChange={this.handleChange}
           ref={el => { this.messageInput = el }}
         />
