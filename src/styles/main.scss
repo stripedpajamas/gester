@@ -28,6 +28,7 @@ $theme-highlight: #fafafa;
 $theme-active: #dddddd;
 $theme-error: #c32f27;
 $theme-notification: #f7dba7;
+$color-white: #fff;
 
 $control-panel-width: 225px;
   
@@ -380,7 +381,7 @@ button {
         text-align: center;
 
         button  {
-            background-color: $theme-secondary;
+            background-color: $color-white;
             border: 1px solid $theme-active;
             padding: 10px;
             cursor: pointer;
@@ -393,8 +394,9 @@ button {
         display: grid;
         grid-template-rows: auto auto auto auto;
         
-        div {
-            border-left: 1px solid $theme-active;
+        input {
+            padding: 5px 10px;
+            
         }
     }
 }
