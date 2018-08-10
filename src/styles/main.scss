@@ -85,7 +85,11 @@ button {
 }
 
 /* ------ Control Panel ------ */
-
+.focused {
+    border: 2px solid $theme-buttons-click;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
 .control-panel {
     background-color: $theme-primary;
     display: grid;
@@ -119,10 +123,6 @@ button {
         padding: 5px 10px;
         width: 75%;
         height: 40%;
-        &__focused {
-            z-index: 1001;
-            position: sticky;
-        }
     }
 
     &__users {
