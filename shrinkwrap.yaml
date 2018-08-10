@@ -23,7 +23,7 @@ dependencies:
   remark-bracketed-spans: 3.0.0
   remark-html: 7.0.0
   remark-react: 4.0.3
-  ssb-chat-core: 1.0.23
+  ssb-chat-core: 1.0.24
 devDependencies:
   babel-plugin-transform-async-to-generator: 6.24.1
   babel-plugin-transform-object-rest-spread: 6.26.0
@@ -218,6 +218,7 @@ packages:
       co: 4.6.0
       json-stable-stringify: 1.0.1
     dev: true
+    optional: true
     resolution:
       integrity: sha1-gv+wKynmYq5TvcIK8VlHcGc5xTY=
   /ajv/5.5.2:
@@ -317,7 +318,7 @@ packages:
       fs-temp: 1.1.2
       fs-xattr: 0.1.17
       image-size: 0.5.5
-      is-my-json-valid: 2.17.2
+      is-my-json-valid: 2.18.0
       minimist: 1.2.0
       parse-color: 1.0.0
       repeat-string: 1.6.1
@@ -506,6 +507,7 @@ packages:
     dev: true
     engines:
       node: '>=0.8'
+    optional: true
     resolution:
       integrity: sha1-104bh+ev/A24qttwIfP+SBAasjQ=
   /assert-plus/1.0.0:
@@ -568,7 +570,7 @@ packages:
   /autoprefixer/6.7.7:
     dependencies:
       browserslist: 1.7.7
-      caniuse-db: 1.0.30000875
+      caniuse-db: 1.0.30000876
       normalize-range: 0.1.2
       num2fraction: 1.2.2
       postcss: 5.2.18
@@ -585,7 +587,7 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha1-5yzx/caQFb2f0r3z07iMFlB9Jo4=
-  /aws-sdk/2.288.0:
+  /aws-sdk/2.290.0:
     dependencies:
       buffer: 4.9.1
       events: 1.1.1
@@ -600,9 +602,10 @@ packages:
     engines:
       node: '>= 0.8.0'
     resolution:
-      integrity: sha512-kV0yLAP3DPfUpDfFOCvOn4s/69XqVH7D53Vnfgf6mgKO5bp1HVFpWfTJ/OZeiwRy7hfIi0xTiSEmPXaMG0ACkg==
+      integrity: sha512-4AiExL06NsjrYqec/GdZP6qsquppFhaJE9hKZNw1c4ApjiGCRucfSlMvaZ6aZw76MG9b2Mi8mboGXOYW8nTGJQ==
   /aws-sign2/0.6.0:
     dev: true
+    optional: true
     resolution:
       integrity: sha1-FDQt0428yU0OW4fXY81jYSwOeU8=
   /aws-sign2/0.7.0:
@@ -1284,6 +1287,7 @@ packages:
     dev: true
     engines:
       node: '>=0.10.40'
+    optional: true
     resolution:
       integrity: sha1-OciRjO/1eZ+D+UkqhI9iWt0Mdm8=
   /bplist-creator/0.0.7:
@@ -1316,8 +1320,8 @@ packages:
       integrity: sha1-eee7FKmrunf3KsklgiAkKo/TkZ0=
   /browserslist/1.7.7:
     dependencies:
-      caniuse-db: 1.0.30000875
-      electron-to-chromium: 1.3.55
+      caniuse-db: 1.0.30000876
+      electron-to-chromium: 1.3.57
     deprecated: Browserslist 2 could fail on reading Browserslist >3.0 config used in other tools.
     dev: true
     hasBin: true
@@ -1326,7 +1330,7 @@ packages:
   /browserslist/3.2.8:
     dependencies:
       caniuse-lite: 1.0.30000874
-      electron-to-chromium: 1.3.55
+      electron-to-chromium: 1.3.57
     dev: true
     hasBin: true
     resolution:
@@ -1445,16 +1449,16 @@ packages:
   /caniuse-api/1.6.1:
     dependencies:
       browserslist: 1.7.7
-      caniuse-db: 1.0.30000875
+      caniuse-db: 1.0.30000876
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: true
     resolution:
       integrity: sha1-tTTnxzTE+B7F++isoq0kNUuWLGw=
-  /caniuse-db/1.0.30000875:
+  /caniuse-db/1.0.30000876:
     dev: true
     resolution:
-      integrity: sha512-L1YQcIv8YPymJpbQyO8uM2KEkEVsuFcQRO2vNp0n4GNGAmq0f8GWQKUCTqZHvsyX2EeOO4aLWgc3qCH6zMWFag==
+      integrity: sha512-HJRyA+FjkMz8ir9q0STdq50HpzYQjGFhasZZA67y5rd6CfOI3O7PZxe6IXcx8bZhMbvugkO30WyPq5QewmE8KQ==
   /caniuse-lite/1.0.30000874:
     dev: true
     resolution:
@@ -1967,6 +1971,7 @@ packages:
     dev: true
     engines:
       node: '>=0.10.40'
+    optional: true
     resolution:
       integrity: sha1-O9/s3GCBR8HGcgL6KR59ylnqo7g=
   /cson-parser/1.3.5:
@@ -2513,7 +2518,7 @@ packages:
   /electron-forge/5.2.2:
     dependencies:
       '@octokit/rest': 15.9.5
-      aws-sdk: 2.288.0
+      aws-sdk: 2.290.0
       babel-register: 6.26.0
       bluebird: 3.5.1
       colors: 1.3.1
@@ -2536,7 +2541,7 @@ packages:
       log-symbols: 2.2.0
       mime-types: 2.1.19
       node-fetch: 2.2.0
-      node-gyp: 3.7.0
+      node-gyp: 3.8.0
       nugget: 2.0.1
       opn: 5.3.0
       ora: 2.1.0
@@ -2717,7 +2722,7 @@ packages:
       detect-libc: 1.0.3
       fs-extra: 3.0.1
       node-abi: 2.4.3
-      node-gyp: 3.7.0
+      node-gyp: 3.8.0
       ora: 1.4.0
       rimraf: 2.6.2
       spawn-rx: 2.0.12
@@ -2734,10 +2739,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-GbTlWTP6Dvj1VnhLnGYPdyVGoLg=
-  /electron-to-chromium/1.3.55:
+  /electron-to-chromium/1.3.57:
     dev: true
     resolution:
-      integrity: sha1-8VDhCyC3fZ1Br8yjEu/gw7Gn/c4=
+      integrity: sha512-YYpZlr6mzR8cK5VRmTZydEt5Mp+WMg1/syrO40PoQzl76vJ+oQchL2d3FmEcWzw3FYqJVYJP/kYYSzTa7FLXwg==
   /electron-windows-store/0.12.0:
     dependencies:
       chalk: 2.4.1
@@ -3382,7 +3387,7 @@ packages:
     dependencies:
       is-number: 2.1.0
       isobject: 2.1.0
-      randomatic: 3.0.0
+      randomatic: 3.1.0
       repeat-element: 1.1.2
       repeat-string: 1.6.1
     dev: false
@@ -3593,6 +3598,7 @@ packages:
     dev: true
     engines:
       node: '>= 0.12'
+    optional: true
     resolution:
       integrity: sha1-M8GDrPGTJ27KqYFDpp6Uv+4XUNE=
   /form-data/2.3.2:
@@ -3999,6 +4005,7 @@ packages:
     dev: true
     engines:
       node: '>=4'
+    optional: true
     resolution:
       integrity: sha1-0mMTX0MwfALGAq/I/pWXDAFRNp4=
   /har-schema/2.0.0:
@@ -4014,6 +4021,7 @@ packages:
     dev: true
     engines:
       node: '>=4'
+    optional: true
     resolution:
       integrity: sha1-M0gdDxu/9gDdID11gSpqX7oALio=
   /har-validator/5.0.3:
@@ -4117,6 +4125,7 @@ packages:
     dev: true
     engines:
       node: '>=0.10.32'
+    optional: true
     resolution:
       integrity: sha1-B4REvXwWQLD+VA0sm3PVlnjo4cQ=
   /he/0.5.0:
@@ -4133,6 +4142,7 @@ packages:
     dev: true
     engines:
       node: '>=0.10.40'
+    optional: true
     resolution:
       integrity: sha1-ILt0A9POo5jpHcRxCo/xuCdKJe0=
   /hoist-non-react-statics/2.5.5:
@@ -4226,6 +4236,7 @@ packages:
     engines:
       node: '>=0.8'
       npm: '>=1.3.7'
+    optional: true
     resolution:
       integrity: sha1-33LiZwZs0Kxn+3at+OE0qPvPkb8=
   /http-signature/1.2.0:
@@ -4548,7 +4559,7 @@ packages:
   /is-my-ip-valid/1.0.0:
     resolution:
       integrity: sha512-gmh/eWXROncUzRnIa1Ubrt5b8ep/MGSnfAUI3aRp+sqTCs1tv1Isl8d8F6JmkN3dXKc3ehZMrtiPN9eL03NuaQ==
-  /is-my-json-valid/2.17.2:
+  /is-my-json-valid/2.18.0:
     dependencies:
       generate-function: 2.0.0
       generate-object-property: 1.2.0
@@ -4556,7 +4567,7 @@ packages:
       jsonpointer: 4.0.1
       xtend: 4.0.1
     resolution:
-      integrity: sha512-IBhBslgngMQN8DDSppmgDv7RNrlFotuuDsKcrCP3+HbFaVivIBU7u9oiiErw8sH4ynx3+gOGQ3q2otkgiSi6kg==
+      integrity: sha512-DWT87JHCSdCPCxbqBpS6Z2ajAt+MvrJq8I4xrpQljCvzODO5/fiquBp20a3sN6yCJvFbCRyYvJOHjpzkPTKJyA==
   /is-nan/1.2.1:
     dependencies:
       define-properties: 1.1.2
@@ -4891,6 +4902,7 @@ packages:
     dependencies:
       jsonify: 0.0.0
     dev: true
+    optional: true
     resolution:
       integrity: sha1-mnWdOcXy/1A/1TAGRu1EX4jE+a8=
   /json-stringify-safe/5.0.1:
@@ -4922,6 +4934,7 @@ packages:
       integrity: sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=
   /jsonify/0.0.0:
     dev: true
+    optional: true
     resolution:
       integrity: sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
   /jsonpointer/4.0.1:
@@ -5812,7 +5825,7 @@ packages:
     optional: true
     resolution:
       integrity: sha512-YoviGBJYGrPdLOKDIQB0sKxuKy/EEsxzooNkOZak4vSTKT/qH0Pa6dj3t1MJjEQGsefih61IyHDmO1WW7xOFfw==
-  /node-gyp/3.7.0:
+  /node-gyp/3.8.0:
     dependencies:
       fstream: 1.0.11
       glob: 7.1.2
@@ -5821,7 +5834,7 @@ packages:
       nopt: 3.0.6
       npmlog: 4.1.2
       osenv: 0.1.5
-      request: 2.81.0
+      request: 2.87.0
       rimraf: 2.6.2
       semver: 5.3.0
       tar: 2.2.1
@@ -5831,7 +5844,7 @@ packages:
       node: '>= 0.8.0'
     hasBin: true
     resolution:
-      integrity: sha512-qDQE/Ft9xXP6zphwx4sD0t+VhwV7yFaloMpfbL2QnnDZcyaiakWlLdtFGGQfTAwpFHdpbRhRxVhIHN1OKAjgbg==
+      integrity: sha512-3g8lYefrRRzvGeSowdJKAKyks8oUpLEd/DyPV4eMhVlhJ0aNaZqIrNUIPuEWWTAoPqyFkfGrM67MC69baqn6vA==
   /node-notifier/5.2.1:
     dependencies:
       growly: 1.3.0
@@ -6347,6 +6360,7 @@ packages:
       integrity: sha1-elfrVQpng/kRUzH89GY9XI4AelA=
   /performance-now/0.2.0:
     dev: true
+    optional: true
     resolution:
       integrity: sha1-M+8wxcd9TqIcWlOGnZG1bY8lVeU=
   /performance-now/2.1.0:
@@ -7071,6 +7085,7 @@ packages:
     dev: true
     engines:
       node: '>=0.6'
+    optional: true
     resolution:
       integrity: sha1-E+JtKK1rD/qpExLNO/cI7TUecjM=
   /qs/6.5.2:
@@ -7106,7 +7121,7 @@ packages:
     optional: true
     resolution:
       integrity: sha1-+PTTb3WhNMoV/TnH11BfvxY7Y0w=
-  /randomatic/3.0.0:
+  /randomatic/3.1.0:
     dependencies:
       is-number: 4.0.0
       kind-of: 6.0.2
@@ -7115,7 +7130,7 @@ packages:
     engines:
       node: '>= 0.10.0'
     resolution:
-      integrity: sha512-VdxFOIEY3mNO5PtSRkkle/hPJDHvQhK21oa73K4yAc9qmp6N429gAyF1gZMOTMeS0/AYzaV/2Trcef+NaIonSA==
+      integrity: sha512-KnGPVE0lo2WoXxIZ7cPR8YBpiol4gsSuOwDSg410oHh80ZMp5EiypNqL2K4Z77vJn6lB5rap7IkAmcUlalcnBQ==
   /rc/0.5.5:
     dependencies:
       deep-extend: 0.2.11
@@ -7531,6 +7546,7 @@ packages:
     dev: true
     engines:
       node: '>= 4'
+    optional: true
     resolution:
       integrity: sha1-xpKJRqDgbF+Nb4qTM0af/aRimKA=
   /request/2.87.0:
@@ -7784,7 +7800,7 @@ packages:
     dev: true
     resolution:
       integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
-  /scuttlebot/11.4.1:
+  /scuttlebot/11.4.2:
     dependencies:
       atomic-file: 0.0.1
       bash-color: 0.0.4
@@ -7846,7 +7862,7 @@ packages:
     dev: false
     hasBin: true
     resolution:
-      integrity: sha512-2W3PPcm553TCChI9o3ntN2ke2Q8YT4+GPf/aaazgQfhBxmZm67gZhJWvduD3f8Uhn18SMUPHeG7Kru2w02sDFw==
+      integrity: sha512-JbOKdMFCyoALwpiK5FM8qikpFvEqCdRycbFGiOdhhQT0VrTWCO1PXDFuDAHnCBTDYvjjO88M9njq2BOXVypvAg==
   /secret-handshake/1.1.13:
     dependencies:
       chloride: 2.2.10
@@ -8027,6 +8043,7 @@ packages:
     dev: true
     engines:
       node: '>=0.8.0'
+    optional: true
     resolution:
       integrity: sha1-ZUEYTMkK7qbG57NeJlkIJEPGYZg=
   /socks/1.1.9:
@@ -8221,7 +8238,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-DeeInkFU8oN1mYlPVrqrm9tupf6wze4HuowK7N2vv/O+UeSLuYPU1p4HrxSqdAPvUabr0OtvbFA6z1T4nw+9fw==
-  /ssb-chat-core/1.0.23:
+  /ssb-chat-core/1.0.24:
     dependencies:
       immutable: 3.8.2
       nanobus: 4.3.3
@@ -8229,7 +8246,7 @@ packages:
       node-persist: 2.1.0
       pull-stream: 3.6.8
       punycode: 2.1.1
-      scuttlebot: 11.4.1
+      scuttlebot: 11.4.2
       ssb-about: 0.1.2
       ssb-backlinks: 0.7.3
       ssb-blobs: 1.1.5
@@ -8248,7 +8265,7 @@ packages:
       ssb-ws: 2.1.1
     dev: false
     resolution:
-      integrity: sha512-FF0A2jEEyidfLvqR+a1wZX3nE/kMs+zUPuDo+2VYMNp+IlZHCxdXPIO6a7g/5J1gQ/d5zMgVRt1Wmdi8GaLCiw==
+      integrity: sha512-W7CMFO5wIqNd17En3WsM6tJ8+q29/dBs0kuSJDKsyiWaSpauBS4li9jZfPQb7IXlTM6BtrwhH2+EnBttTbBMbA==
   /ssb-client/4.5.7:
     dependencies:
       explain-error: 1.0.4
@@ -8314,7 +8331,7 @@ packages:
   /ssb-meme/1.0.4:
     dependencies:
       flumeview-search: 1.0.4
-      is-my-json-valid: 2.17.2
+      is-my-json-valid: 2.18.0
       ssb-ref: 2.11.1
     dev: false
     resolution:
@@ -8528,6 +8545,7 @@ packages:
       integrity: sha512-nrBAQClJAPN2p+uGCVJRPIPakKeKWZ9GtBCmormE7pWOSlHat7+x5A8gx85M7HM5Dt0BP3pP5RhVW77WdbJJ3A==
   /stringstream/0.0.6:
     dev: true
+    optional: true
     resolution:
       integrity: sha512-87GEBAkegbBcweToUrdzf3eLhWNg06FJTebl4BVJz/JgWy8CvEr9dRtX5qWphiynMSQlxxi+QqN0z5T32SLlhA==
   /strip-ansi/3.0.1:

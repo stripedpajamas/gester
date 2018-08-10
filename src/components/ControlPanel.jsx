@@ -122,7 +122,7 @@ class ControlPanel extends Component {
         </div>
         <div>
           <input
-            className={`${this.state.pmInputFocused ? 'control-panel__input__focused' : ''} control-panel__input`}
+            className={`${this.state.pmInputFocused ? 'focused' : ''} control-panel__input`}
             type='text'
             placeholder='New private message...'
             onKeyDown={this.handleKeyDown}
@@ -130,9 +130,6 @@ class ControlPanel extends Component {
             onBlur={this.handleInputBlur}
             ref={el => { this.recipientsInput = el }}
           />
-          {this.state.pmInputFocused &&
-            <div className='modal-overlay' />
-          }
         </div>
         <div className='control-panel__users'>
           <div className='recents'>
