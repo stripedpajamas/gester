@@ -14,6 +14,7 @@ export default {
   unreads: [],
   myNames: [],
   recents: [],
+  me: '',
   mode: constants.MODE.PUBLIC,
   joiningPub: false,
   currentAuthorId: '',
