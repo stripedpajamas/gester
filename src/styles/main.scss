@@ -48,8 +48,14 @@ $main-font: 'Roboto', Helvetica, sans-serif;
 
 .main {
     display: grid;
-    grid-template-columns: $control-panel-width auto auto;
+}
 
+.drawer-closed {
+    grid-template-columns: $control-panel-width auto 50px;
+}
+
+.drawer-open {
+    grid-template-columns: $control-panel-width auto 255px;
 }
 
 h1 {
@@ -382,7 +388,7 @@ button {
     border-left: 2px solid $theme-active;
     display: grid;
     // width: 50px;
-    grid-template-columns: auto auto;
+    grid-template-columns: 50px auto;
 
     &__toggle {
         margin-top: 20px;

@@ -72,7 +72,7 @@ class App extends Component {
     const hasNotification = this.props.error || this.props.notification
     return (
       <HotKeys keyMap={this.keyMap} handlers={this.hotKeyHandlers}>
-        <div className='main'>
+        <div className={this.props.authorDrawerOpen ? 'main drawer-open' : 'main drawer-closed'}>
           {hasNotification &&
             <Notification
               error={this.props.error}
