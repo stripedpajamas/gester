@@ -58,29 +58,27 @@ class AuthorDrawer extends Component {
     const followText = areFollowing ? 'unfollow' : 'follow'
     return (
       <div className='author-drawer'>
-        <div className='author-drawer__toggle'>
-          {!this.props.authorDrawerOpen
-            ? (
-              <button onClick={() => this.handleOpen(currentAuthorId)}>
-                <FontAwesomeIcon
-                  icon={faArrowLeft}
-                />
-              </button>
-            )
-            : (
-              <button onClick={() => this.handleClose()}>
+        {!this.props.authorDrawerOpen &&
+          <div className='author-drawer__toggle'>
+            <button className='toggle-arrow' onClick={() => this.handleOpen(currentAuthorId)}>
+              <FontAwesomeIcon
+                icon={faArrowLeft}
+              />
+            </button>
+          </div>
+        }
+        {this.props.authorDrawerOpen &&
+          <div className='author-drawer__content'>
+            <div className='toggle'>
+              <button className='toggle-arrow' onClick={() => this.handleClose()}>
                 <FontAwesomeIcon
                   icon={faArrowRight}
                 />
               </button>
-            )
-          }
-        </div>
-        {this.props.authorDrawerOpen &&
-          <div className='author-drawer__content'>
+            </div>
             <div>
               <input
-                placeholder='search for user'
+                placeholder='Search for user'
               />
             </div>
             <div>
@@ -88,12 +86,16 @@ class AuthorDrawer extends Component {
             </div>
             <div>
               <button
-                className='button button-block'
+                className='button'
+                id='button-block'
                 onClick={() => this.handleClickBlock(isBlocked, currentAuthorId)}
+                disabled={author === authors[me].name}
               >{blockText}</button>
               <button
-                className='button button-follow'
+                className='button'
+                id='button-follow'
                 onClick={() => this.handleClickFollow(areFollowing, currentAuthorId)}
+                disabled={author === authors[me].name}
               >{followText}</button>
             </div>
             <div>

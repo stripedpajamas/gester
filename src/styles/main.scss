@@ -55,7 +55,7 @@ $main-font: 'Roboto', Helvetica, sans-serif;
 }
 
 .drawer-open {
-    grid-template-columns: $control-panel-width auto 255px;
+    grid-template-columns: $control-panel-width auto 247px;
 }
 
 h1 {
@@ -67,6 +67,12 @@ input {
     border: 1px solid $theme-border;
     border-radius: 5px;
     color: $theme-font;
+
+    &:focus {
+        border: 2px solid $theme-buttons-click;
+        outline: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+    }
 }
 
 button {
@@ -84,6 +90,10 @@ button {
         outline: none;
         background-color: $theme-buttons-click;
     }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
 }
 
 .button-close {
@@ -91,15 +101,10 @@ button {
 }
 
 /* ------ Control Panel ------ */
-.focused {
-    border: 2px solid $theme-buttons-click;
-    outline: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-}
 .control-panel {
     background-color: $theme-primary;
     display: grid;
-    grid-template-rows: 60px 60px auto 50px;
+    grid-template-rows: 60px 80px auto 50px;
     text-align: center;
     position: fixed;
     height: 100vh;
@@ -125,10 +130,9 @@ button {
     }
 
     &__input {
-        margin-top: 25px;
-        padding: 5px 10px;
+        margin-top: 35px;
+        padding: 7px 10px;
         width: 75%;
-        height: 40%;
     }
 
     &__users {
@@ -387,31 +391,58 @@ button {
     height: 100vh;
     border-left: 2px solid $theme-active;
     display: grid;
-    // width: 50px;
-    grid-template-columns: 50px auto;
+    grid-template-columns: auto auto;
 
     &__toggle {
         margin-top: 20px;
         width: 50px;
         text-align: center;
 
-        button  {
-            background-color: $color-white;
-            border: 1px solid $theme-active;
-            padding: 10px;
-            cursor: pointer;
-        }
     }
 
     &__content {
         width: 205px;
         padding: 20px;
         display: grid;
-        grid-template-rows: auto auto auto auto;
+        text-align: center;
+        grid-template-rows: 60px 125px 75px 100px auto;
         
         input {
-            padding: 5px 10px;
-            
+            width: calc(100% - 21px);
+            padding: 7px 10px;
+            margin-top: 15px;
+        }
+
+        #button-block {
+            margin-right: 20px;
+            background-color: $theme-buttons-error;
+
+            &:hover {
+                background-color: $theme-buttons-error-hover;                
+            }
+
+            &:focus {
+                background-color: $theme-buttons-error-click;
+            }
+        }
+
+        .toggle {
+            text-align: left;
+        }
+    }
+
+    .toggle-arrow {
+        background-color: $color-white;
+        border: 1px solid $theme-active;
+        padding: 10px;
+        cursor: pointer;
+
+        &:hover {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .25)
+        }
+
+        &:focus {
+            box-shadow: none;
         }
     }
 }
