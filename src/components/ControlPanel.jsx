@@ -122,7 +122,7 @@ class ControlPanel extends Component {
         </div>
         <div>
           <input
-            className={`${this.state.pmInputFocused ? 'focused' : ''} control-panel__input`}
+            className='control-panel__input'
             type='text'
             placeholder='New private message...'
             onKeyDown={this.handleKeyDown}
