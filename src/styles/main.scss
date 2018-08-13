@@ -58,6 +58,11 @@ $main-font: 'Roboto', Helvetica, sans-serif;
     grid-template-columns: $control-panel-width auto 247px;
 }
 
+#author-id {
+    word-break: break-all;
+    font-family: monospace;
+}
+
 h1 {
     font-size: 20px;
 }
@@ -67,12 +72,6 @@ input {
     border: 1px solid $theme-border;
     border-radius: 5px;
     color: $theme-font;
-
-    &:focus {
-        border: 2px solid $theme-buttons-click;
-        outline: none;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-    }
 }
 
 button {
@@ -84,6 +83,7 @@ button {
 
     &:hover {
         background-color: $theme-buttons-hover;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .25)
     }
 
     &:focus {
@@ -133,6 +133,12 @@ button {
         margin-top: 35px;
         padding: 7px 10px;
         width: 75%;
+
+        &:focus {
+            border: 2px solid $theme-buttons-click;
+            outline: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+        }
     }
 
     &__users {
@@ -395,7 +401,7 @@ button {
 
     &__toggle {
         margin-top: 20px;
-        width: 50px;
+        width: 48px;
         text-align: center;
 
     }
@@ -405,16 +411,22 @@ button {
         padding: 20px;
         display: grid;
         text-align: center;
-        grid-template-rows: 60px 125px 75px 100px auto;
+        grid-template-rows: 60px 125px 150px 65px auto;
         
         input {
             width: calc(100% - 21px);
             padding: 7px 10px;
             margin-top: 15px;
+
+            &:focus {
+                border: 2px solid $theme-buttons-click;
+                outline: none;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+            }
         }
 
         #button-block {
-            margin-right: 20px;
+            margin-right: 25px;
             background-color: $theme-buttons-error;
 
             &:hover {
@@ -429,6 +441,16 @@ button {
         .toggle {
             text-align: left;
         }
+
+        .button {
+            padding: 10px 0;
+            width: 90px;
+        }
+
+        #button-private {
+            padding: 10px 0;
+            width: 100%;
+        }
     }
 
     .toggle-arrow {
@@ -436,10 +458,6 @@ button {
         border: 1px solid $theme-active;
         padding: 10px;
         cursor: pointer;
-
-        &:hover {
-            box-shadow: 0 1px 3px rgba(0, 0, 0, .25)
-        }
 
         &:focus {
             box-shadow: none;

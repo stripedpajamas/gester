@@ -58,6 +58,7 @@ export default (state = initialState, action) => (
       case Types.CLOSE_AUTHOR_DRAWER:
         draft.authorDrawerOpen = false
         draft.currentAuthorId = ''
+        break
     }
   })
 )

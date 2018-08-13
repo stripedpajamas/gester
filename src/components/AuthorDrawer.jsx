@@ -84,7 +84,7 @@ class AuthorDrawer extends Component {
             </div>
             <div>
               <h1 className='author-drawer__header'>{author}</h1>
-              <h2 className='author-drawer__id'>{currentAuthorId}</h2>
+              <p id='author-id'>{currentAuthorId || me}</p>
             </div>
             <div>
               <button
@@ -101,7 +101,11 @@ class AuthorDrawer extends Component {
               >{followText}</button>
             </div>
             <div>
-              <button className='button button-private' onClick={() => this.startPrivateMessage(author)}>start private</button>
+              <button
+                className='button'
+                id='button-private'
+                onClick={() => this.startPrivateMessage(author)}
+              >start private</button>
             </div>
           </div>
         }
