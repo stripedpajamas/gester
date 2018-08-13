@@ -38,3 +38,5 @@ export const getMessageAuthors = (messages, state) => {
 
   return updateAuthors(authorsIds, state)
 }
+
+export const getAuthorId = (name) => core.authors.getId(name)

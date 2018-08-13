@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import Input from './Input'
+import { getAuthorId } from '../store/util'
 import * as Actions from '../store/actions'
 
 class AuthorDrawer extends Component {
@@ -16,6 +17,12 @@ class AuthorDrawer extends Component {
     this.handleClickFollow = this.handleClickFollow.bind(this)
     this.handleOpen = this.handleOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleInputSubmit = this.handleInputSubmit.bind(this)
+  }
+
+  handleInputSubmit (author) {
+    const id = getAuthorId(author)
+    this.props.openAuthorDrawer(id)
   }
 
   startPrivateMessage (author) {
@@ -79,12 +86,13 @@ class AuthorDrawer extends Component {
             </div>
             <div>
               <Input
+                onSubmit={this.handleInputSubmit}
                 placeholder='Search for user'
               />
             </div>
             <div>
               <h1 className='author-drawer__header'>{author}</h1>
-              <p id='author-id'>{currentAuthorId || me}</p>
+              <h2 id='author-id'>{currentAuthorId || me}</h2>
             </div>
             <div>
               <button
