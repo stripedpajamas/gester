@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import Input from './Input'
 import * as Actions from '../store/actions'
 
 class AuthorDrawer extends Component {
@@ -77,12 +78,13 @@ class AuthorDrawer extends Component {
               </button>
             </div>
             <div>
-              <input
+              <Input
                 placeholder='Search for user'
               />
             </div>
             <div>
               <h1 className='author-drawer__header'>{author}</h1>
+              <h2 className='author-drawer__id'>{currentAuthorId}</h2>
             </div>
             <div>
               <button

@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { bindActionCreators } from 'redux'
 import tabComplete from '../helpers/tabComplete'
-import * as Actions from '../store/actions'
 
-class MessageInput extends Component {
+class Input extends Component {
   constructor (props) {
     super(props)
 
     this.tabCompleter = null
 
     this.handleKeyDown = this.handleKeyDown.bind(this)
-    this.handleFocusMessageInput = this.handleFocusMessageInput.bind(this)
+    this.handleFocusInput = this.handleFocusInput.bind(this)
   }
 
   handleKeyDown (e) {
     const msg = e.target.value
+    if (e.key === 'Escape') {
+      this.props.onBlur()
+      return
+    }
     if (e.key !== 'Tab') {
       this.tabCompleter = null
     }
@@ -28,49 +29,46 @@ class MessageInput extends Component {
       e.preventDefault()
     }
     if (e.key === 'Enter') {
-      this.props.sendMessage(msg)
+      this.props.onSubmit(msg)
       this.messageInput.value = ''
     }
   }
 
-  handleFocusMessageInput () {
+  handleFocusInput () {
     this.messageInput.focus()
   }
 
   render () {
-    const mode = this.props.mode.toLowerCase()
     return (
       <div className='messenger'>
         <input
-          autoFocus
-          className='messenger-input'
-          type='text'
-          placeholder={`Send ${mode} message`}
+          autoFocus={this.props.autoFocus}
+          className={this.props.className}
+          placeholder={this.props.placeholder}
+          onFocus={this.props.onFocus}
+          onBlur={this.props.onBlur}
           onKeyDown={this.handleKeyDown}
           onChange={this.handleChange}
           ref={el => { this.messageInput = el }}
+          type='text'
         />
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  mode: state.mode
-})
-
-const mapDispatchToProps = dispatch => ({
-  sendMessage: bindActionCreators(Actions.sendMessage, dispatch)
-})
-
-MessageInput.propTypes = {
-  mode: PropTypes.string.isRequired,
-  sendMessage: PropTypes.func.isRequired
+Input.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  placeholder: PropTypes.string,
+  className: PropTypes.string,
+  autoFocus: PropTypes.bool
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  null,
-  { withRef: true }
-)(MessageInput)
+Input.defaultProps = {
+  onFocus: () => {},
+  onBlur: () => {}
+}
+
+export default Input
