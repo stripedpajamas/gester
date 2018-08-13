@@ -313,8 +313,6 @@ export const unblock = (id) => (dispatch) => {
     .catch((e) => dispatch(setError(e)))
 }
 export const removeRecent = (recents) => (dispatch, getState) => {
-  const state = getState()
-  const me = state.me
   core.recents.remove(recents)
 }
 // #endregion
