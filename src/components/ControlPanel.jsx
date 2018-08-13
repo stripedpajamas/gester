@@ -4,12 +4,13 @@ import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import Input from './Input'
 import * as Actions from '../store/actions'
 
 class ControlPanel extends Component {
   constructor () {
     super()
-    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleInputSubmit = this.handleInputSubmit.bind(this)
     this.handleModeButton = this.handleModeButton.bind(this)
     this.handlePubButton = this.handlePubButton.bind(this)
     this.handlePubCancel = this.handlePubCancel.bind(this)
@@ -33,7 +34,7 @@ class ControlPanel extends Component {
 
   handleFocusPMInput () {
     if (!this.state.pmInputFocused) {
-      this.recipientsInput.focus()
+      this.recipientsInput.handleFocusInput()
       this.setState({ pmInputFocused: true })
       return true
     }
@@ -48,23 +49,16 @@ class ControlPanel extends Component {
     this.setState({ pmInputFocused: false })
   }
 
-  handleKeyDown (e) {
-    if (e.key === 'Escape') {
-      this.handleInputBlur()
+  handleInputSubmit (msg) {
+    if (!msg) {
+      this.props.goPublic()
       return
     }
-    if (e.key === 'Enter') {
-      if (!e.target.value) {
-        this.props.goPublic()
-        return
-      }
-      const recipients = e.target.value
-        .split(',')
-        .map(x => x.trim())
-      this.recipientsInput.value = ''
-      this.props.goPrivate(recipients)
-      this.handleInputBlur()
-    }
+    const recipients = msg
+      .split(',')
+      .map(x => x.trim())
+    this.props.goPrivate(recipients)
+    this.handleInputBlur()
   }
 
   handleModeButton () {
@@ -121,11 +115,10 @@ class ControlPanel extends Component {
           <button className='button' onClick={this.handlePubButton}>+ join pub</button>
         </div>
         <div>
-          <input
+          <Input
             className='control-panel__input'
-            type='text'
             placeholder='New private message...'
-            onKeyDown={this.handleKeyDown}
+            onSubmit={this.handleInputSubmit}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
             ref={el => { this.recipientsInput = el }}

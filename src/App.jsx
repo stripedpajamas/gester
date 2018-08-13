@@ -7,7 +7,7 @@ import * as Actions from './store/actions'
 import ControlPanel from './components/ControlPanel'
 import JoinPubModal from './components/JoinPubModal'
 import MessageView from './components/MessageView'
-import MessageInput from './components/MessageInput'
+import Input from './components/Input'
 import AuthorDrawer from './components/AuthorDrawer'
 import Notification from './components/Notification'
 
@@ -38,16 +38,12 @@ class App extends Component {
     const newRecps = this.props.recipients
     const oldRecps = prevProps.recipients
     if (newRecps.length !== oldRecps.length) {
-      this.messageInput.current
-        .getWrappedInstance()
-        .handleFocusMessageInput()
+      this.messageInput.current.handleFocusInput()
       return
     }
     for (let i = 0; i < newRecps.length; i++) {
       if (newRecps[i] !== oldRecps[i]) {
-        this.messageInput.current
-          .getWrappedInstance()
-          .handleFocusMessageInput()
+        this.messageInput.current.handleFocusInput()
         return
       }
     }
@@ -58,10 +54,12 @@ class App extends Component {
       .getWrappedInstance()
       .handleFocusPMInput()
     if (!pmInputFocused) {
-      this.messageInput.current
-        .getWrappedInstance()
-        .handleFocusMessageInput()
+      this.messageInput.current.handleFocusInput()
     }
+  }
+
+  handleInputSubmit (msg) {
+    this.props.sendMessage(msg)
   }
 
   handleToggleMode () {
@@ -70,6 +68,7 @@ class App extends Component {
 
   render () {
     const hasNotification = this.props.error || this.props.notification
+    const mode = this.props.mode.toLowerCase()
     return (
       <HotKeys keyMap={this.keyMap} handlers={this.hotKeyHandlers}>
         <div className={this.props.authorDrawerOpen ? 'main drawer-open' : 'main drawer-closed'}>
@@ -86,7 +85,13 @@ class App extends Component {
           <ControlPanel ref={this.controlPanel} />
           <div className='message-view'>
             <MessageView />
-            <MessageInput ref={this.messageInput} />
+            <Input
+              autoFocus
+              className='messenger-input'
+              placeholder={`Send ${mode} message`}
+              onSubmit={this.handleInputSubmit}
+              ref={this.messageInput}
+            />
           </div>
           <AuthorDrawer />
         </div>
@@ -105,6 +110,7 @@ App.propTypes = {
 }
 
 const mapStateToProps = state => ({
+  mode: state.mode,
   recipients: state.recipients,
   joiningPub: state.joiningPub,
   authorDrawerOpen: state.authorDrawerOpen,
@@ -115,6 +121,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   toggleMode: bindActionCreators(Actions.toggleMode, dispatch),
   setupCore: bindActionCreators(Actions.setupCore, dispatch),
+  sendMessage: bindActionCreators(Actions.sendMessage, dispatch),
   clearNotification: bindActionCreators(Actions.clearNotification, dispatch)
 })
 
