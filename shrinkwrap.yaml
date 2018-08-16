@@ -1,14 +1,16 @@
 dependencies:
   '@fortawesome/fontawesome-svg-core': 1.2.2
   '@fortawesome/free-solid-svg-icons': 5.2.0
-  '@fortawesome/react-fontawesome': 0.1.1
+  '@fortawesome/react-fontawesome': 0.1.2
   date-fns: 1.29.0
   electron-compile: 6.4.3
+  electron-devtools-installer: 2.2.4
   electron-squirrel-startup: 1.0.0
   emoji-regex: 7.0.0
   html-to-react: 1.3.3
   immer: 1.5.0
   lodash.debounce: 4.0.8
+  lodash.merge: 4.6.1
   node-emoji: 1.8.1
   node-notifier: 5.2.1
   prop-types: 15.6.2
@@ -23,19 +25,18 @@ dependencies:
   remark-bracketed-spans: 3.0.0
   remark-html: 7.0.0
   remark-react: 4.0.3
-  ssb-chat-core: 1.0.25
+  ssb-chat-core: 1.0.29
 devDependencies:
   babel-plugin-transform-async-to-generator: 6.24.1
   babel-plugin-transform-object-rest-spread: 6.26.0
   babel-preset-env: 1.7.0
   babel-preset-react: 6.24.1
-  electron-devtools-installer: 2.2.4
   electron-forge: 5.2.2
   electron-prebuilt-compile: 2.0.0
   standard: 11.0.1
 packages:
   /7zip/0.0.6:
-    dev: true
+    dev: false
     hasBin: true
     resolution:
       integrity: sha1-nK+xca+CMpSQNTtIFvAzR6oVCjA=
@@ -61,7 +62,7 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-ZgUtvhtdOMGaXSenAxzjVhn+Bz1tYKqUPIVeZ/40vrilOu8dF95EjRW1JcUJ938gNE8pjaB/G2AlJN8T0wcXxw==
-  /@fortawesome/react-fontawesome/0.1.1:
+  /@fortawesome/react-fontawesome/0.1.2:
     dependencies:
       humps: 2.0.1
       prop-types: 15.6.2
@@ -70,7 +71,7 @@ packages:
       '@fortawesome/fontawesome-svg-core': ^1.2.0-7
       react: 16.x
     resolution:
-      integrity: sha512-uswIQYzyRAz9LuV7RHbIhJmRMvXB6EqYd75vzTvaHVVNPH0cTSpJ2ihtgT4DAAl7Fm3at7T7fDTI6GoG6xUyog==
+      integrity: sha512-8SVkQ8tLfUYWKBEPPVUpohqOjtf5ix4yO0Z3c+vRwo9y1cM5rOBvuSQq7qUtoGwQTSvVF4NfXMYm3j0HSmV8Rg==
   /@mapbox/hast-util-table-cell-style/0.1.3:
     dependencies:
       unist-util-visit: 1.4.0
@@ -79,7 +80,7 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-QsEsh5YaDvHoMQ2YHdvZy2iDnU3GgKVBTcHf6cILyoWDZtPSdlG444pL/ioPYO/GpXSfODBb9sefEetfC4v9oA==
-  /@octokit/rest/15.9.5:
+  /@octokit/rest/15.9.6:
     dependencies:
       before-after-hook: 1.1.0
       btoa-lite: 1.0.0
@@ -93,7 +94,7 @@ packages:
     engines:
       node: '>=4'
     resolution:
-      integrity: sha512-vJEHSTnI4UAbCDTjVSQljPeX81zsQVNj2ruM5Oj5gxOttHD0TcfWeElcJYoITCMxQTgN6Y+bJFo6/+/0CqoacA==
+      integrity: sha512-8PLMqwgbe6zAlcSpK5HQcOB/ZSLJu2wPVA2GyyddaovF8oyPYpKcy7x2U2nF+oR2qay+P5QjHgKpgY+s72Oudg==
   /@paulcbetts/mime-db/1.22.4:
     engines:
       node: '>= 0.6'
@@ -125,10 +126,10 @@ packages:
   /@types/node/7.0.69:
     resolution:
       integrity: sha512-S5NC8HV6HnRipg8nC0j30TPl7ktXjRTKqgyINLNe8K/64UJUI8Lq0sRopXC0hProsV2F5ibj8IqPkl1xpGggrw==
-  /@types/node/8.10.24:
+  /@types/node/8.10.26:
     dev: true
     resolution:
-      integrity: sha512-5YaBKa6oFuWy7ptIFMATyftIcpZTZtvgrzPThEbs+kl4Uu41oUxiRunG0k32QZjD6MXMELls//ry/epNxc11aQ==
+      integrity: sha512-opk6bLLErLSwyVVJeSH5Ek7ZWOBSsN0JrvXTNVGLXLAXKB9xlTYajrplR44xVyMrmbut94H6uJ9jqzM/12jxkA==
   /abab/1.0.4:
     dev: true
     optional: true
@@ -318,7 +319,7 @@ packages:
       fs-temp: 1.1.2
       fs-xattr: 0.1.17
       image-size: 0.5.5
-      is-my-json-valid: 2.18.0
+      is-my-json-valid: 2.19.0
       minimist: 1.2.0
       parse-color: 1.0.0
       repeat-string: 1.6.1
@@ -394,7 +395,7 @@ packages:
       integrity: sha1-3wEKoSh+Fku9pvlyOwqWoexBh6E=
   /array-includes/3.0.3:
     dependencies:
-      define-properties: 1.1.2
+      define-properties: 1.1.3
       es-abstract: 1.12.0
     dev: true
     engines:
@@ -570,7 +571,7 @@ packages:
   /autoprefixer/6.7.7:
     dependencies:
       browserslist: 1.7.7
-      caniuse-db: 1.0.30000876
+      caniuse-db: 1.0.30000877
       normalize-range: 0.1.2
       num2fraction: 1.2.2
       postcss: 5.2.18
@@ -587,7 +588,7 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha1-5yzx/caQFb2f0r3z07iMFlB9Jo4=
-  /aws-sdk/2.290.0:
+  /aws-sdk/2.294.0:
     dependencies:
       buffer: 4.9.1
       events: 1.1.1
@@ -602,7 +603,7 @@ packages:
     engines:
       node: '>= 0.8.0'
     resolution:
-      integrity: sha512-4AiExL06NsjrYqec/GdZP6qsquppFhaJE9hKZNw1c4ApjiGCRucfSlMvaZ6aZw76MG9b2Mi8mboGXOYW8nTGJQ==
+      integrity: sha512-+QWSUuqNXQqNG3S6w4aI6E4Nf1UzJMMuHbuJ0HGxPRPc2D0xGc9en9nFYyBnais7/p8++4GWE5T6/k+7QMg2zg==
   /aws-sign2/0.6.0:
     dev: true
     optional: true
@@ -1320,8 +1321,8 @@ packages:
       integrity: sha1-eee7FKmrunf3KsklgiAkKo/TkZ0=
   /browserslist/1.7.7:
     dependencies:
-      caniuse-db: 1.0.30000876
-      electron-to-chromium: 1.3.57
+      caniuse-db: 1.0.30000877
+      electron-to-chromium: 1.3.58
     deprecated: Browserslist 2 could fail on reading Browserslist >3.0 config used in other tools.
     dev: true
     hasBin: true
@@ -1329,8 +1330,8 @@ packages:
       integrity: sha1-C9dnBCWL6CmyOYu1Dkti0aFmsLk=
   /browserslist/3.2.8:
     dependencies:
-      caniuse-lite: 1.0.30000874
-      electron-to-chromium: 1.3.57
+      caniuse-lite: 1.0.30000877
+      electron-to-chromium: 1.3.58
     dev: true
     hasBin: true
     resolution:
@@ -1449,20 +1450,20 @@ packages:
   /caniuse-api/1.6.1:
     dependencies:
       browserslist: 1.7.7
-      caniuse-db: 1.0.30000876
+      caniuse-db: 1.0.30000877
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: true
     resolution:
       integrity: sha1-tTTnxzTE+B7F++isoq0kNUuWLGw=
-  /caniuse-db/1.0.30000876:
+  /caniuse-db/1.0.30000877:
     dev: true
     resolution:
-      integrity: sha512-HJRyA+FjkMz8ir9q0STdq50HpzYQjGFhasZZA67y5rd6CfOI3O7PZxe6IXcx8bZhMbvugkO30WyPq5QewmE8KQ==
-  /caniuse-lite/1.0.30000874:
+      integrity: sha512-9RcqvE8HYgdZZzFW6xBmj/CeCaTyCJdUhgkueBCq47AK//w/Yzlg0zcfV1GTlh3jyYEbresGfY2vDEG/AaK/dQ==
+  /caniuse-lite/1.0.30000877:
     dev: true
     resolution:
-      integrity: sha512-29nr1EPiHwrJTAHHsEmTt2h+55L8j2GNFdAcYPlRy2NX6iFz7ZZiepVI7kP/QqlnHLq3KvfWpbmGa0d063U09w==
+      integrity: sha512-h04kV/lcuhItU1CZTJOxUEk/9R+1XeJqgc67E+XC8J9TjPM8kzVgOn27ZtRdDUo8O5F8U4QRCzDWJrVym3w3Cg==
   /caseless/0.12.0:
     dev: true
     resolution:
@@ -1962,7 +1963,7 @@ packages:
     resolution:
       integrity: sha1-6L0O/uWPz/b4+UUQoKVUu/ojVEk=
   /cross-unzip/0.0.2:
-    dev: true
+    dev: false
     resolution:
       integrity: sha1-UYO8R6CVWb78+YzEZXlkmZNZNy8=
   /cryptiles/2.0.5:
@@ -2211,14 +2212,13 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-ajbXqRPMXRlcdyt0TuWqknOJkp1JgQjGB7xOl2V+ebol7/U11E9h3/nCZAtN1M7djmAJEIhypCUc1tIWxdQAuQ==
-  /define-properties/1.1.2:
+  /define-properties/1.1.3:
     dependencies:
-      foreach: 2.0.5
       object-keys: 1.0.12
     engines:
       node: '>= 0.4'
     resolution:
-      integrity: sha1-g6c/L+pWmJj7c3GTyPhzyvbUXJQ=
+      integrity: sha512-3MqfYKj2lLzdMSf8ZIZE/V+Zuy+BgD6f164e8K2w7dgnpKArBDerGYpM46IYYcjnkdPNMjPk9A6VFB8+3SKlXQ==
   /defined/1.0.0:
     resolution:
       integrity: sha1-yY2bzvdWdBiOEQlpFRGZ45sfppM=
@@ -2464,7 +2464,7 @@ packages:
       cross-unzip: 0.0.2
       rimraf: 2.6.2
       semver: 5.5.0
-    dev: true
+    dev: false
     resolution:
       integrity: sha512-b5kcM3hmUqn64+RUcHjjr8ZMpHS2WJ5YO0pnG9+P/RTdx46of/JrEjuciHWux6pE+On6ynWhHJF53j/EDJN0PA==
   /electron-download/3.3.0:
@@ -2517,8 +2517,8 @@ packages:
       integrity: sha1-WKEeyXKg8FGOEwbaelc/uva0rFA=
   /electron-forge/5.2.2:
     dependencies:
-      '@octokit/rest': 15.9.5
-      aws-sdk: 2.290.0
+      '@octokit/rest': 15.9.6
+      aws-sdk: 2.294.0
       babel-register: 6.26.0
       bluebird: 3.5.1
       colors: 1.3.1
@@ -2739,10 +2739,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-GbTlWTP6Dvj1VnhLnGYPdyVGoLg=
-  /electron-to-chromium/1.3.57:
+  /electron-to-chromium/1.3.58:
     dev: true
     resolution:
-      integrity: sha512-YYpZlr6mzR8cK5VRmTZydEt5Mp+WMg1/syrO40PoQzl76vJ+oQchL2d3FmEcWzw3FYqJVYJP/kYYSzTa7FLXwg==
+      integrity: sha512-AGJxlBEn2wOohxqWZkISVsOjZueKTQljfEODTDSEiMqSpH0S+xzV+/5oEM9AGaqhu7DzrpKOgU7ocQRjj0nJmg==
   /electron-windows-store/0.12.0:
     dependencies:
       chalk: 2.4.1
@@ -2791,7 +2791,7 @@ packages:
       integrity: sha512-EniMpjYKizQ8fGiv5L6ef68ahZtqaDCqIQONiHiPx0PKCTZ1qfhpiMRLidZ+d2PBkMksgQuSYpI0N9AzRR5+cg==
   /electron/2.0.0:
     dependencies:
-      '@types/node': 8.10.24
+      '@types/node': 8.10.26
       electron-download: 3.3.0
       extract-zip: 1.6.7
     dev: true
@@ -3523,7 +3523,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-LKW+YdJGemOo7TnUwpFHq4cBBiYAIKtWk+G2CK7zrxbCIiAHemBRudohBOUKuSUZZ0CReR5fJ73peBHW02VerA==
-  /flumeview-query/6.2.0:
+  /flumeview-query/6.3.0:
     dependencies:
       deep-equal: 1.0.1
       flumeview-level: 3.0.5
@@ -3534,7 +3534,7 @@ packages:
       pull-stream: 3.6.8
     dev: false
     resolution:
-      integrity: sha512-tq7rD63gixBDOPegw10khz/d5Bnq9qW9IbURHbWuJkG5CUBm3JP4QQSIF/Phl99jz66MRuXoXjRrXXQLN89iNQ==
+      integrity: sha512-8QBannTFLICARmflhHpXNeR5hh6IzIyJz4XhKTofzmxq/hXEn1un7aF6P6dRQkOwthENDTbSB07eWKqwnYDKtw==
   /flumeview-reduce/1.3.13:
     dependencies:
       async-single: 1.0.5
@@ -3583,9 +3583,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-UmXGgaTylNq78XyVCbZ2OqhFEM4=
-  /foreach/2.0.5:
-    resolution:
-      integrity: sha1-C+4AUBiusmDQo6865ljdATbsG5k=
   /forever-agent/0.6.1:
     dev: true
     resolution:
@@ -4139,6 +4136,7 @@ packages:
     resolution:
       integrity: sha1-k0EP0hsAlzUVH4howvJx80J+I/0=
   /hoek/2.16.3:
+    deprecated: The major version is no longer supported. Please update to 4.x or newer
     dev: true
     engines:
       node: '>=0.10.40'
@@ -4559,7 +4557,7 @@ packages:
   /is-my-ip-valid/1.0.0:
     resolution:
       integrity: sha512-gmh/eWXROncUzRnIa1Ubrt5b8ep/MGSnfAUI3aRp+sqTCs1tv1Isl8d8F6JmkN3dXKc3ehZMrtiPN9eL03NuaQ==
-  /is-my-json-valid/2.18.0:
+  /is-my-json-valid/2.19.0:
     dependencies:
       generate-function: 2.0.0
       generate-object-property: 1.2.0
@@ -4567,10 +4565,10 @@ packages:
       jsonpointer: 4.0.1
       xtend: 4.0.1
     resolution:
-      integrity: sha512-DWT87JHCSdCPCxbqBpS6Z2ajAt+MvrJq8I4xrpQljCvzODO5/fiquBp20a3sN6yCJvFbCRyYvJOHjpzkPTKJyA==
+      integrity: sha512-mG0f/unGX1HZ5ep4uhRaPOS8EkAY8/j6mDRMJrutq4CqhoJWYp7qAlonIPy3TV7p3ju4TK9fo/PbnoksWmsp5Q==
   /is-nan/1.2.1:
     dependencies:
-      define-properties: 1.1.2
+      define-properties: 1.1.3
     dev: false
     engines:
       node: '>= 0.4'
@@ -5079,7 +5077,7 @@ packages:
       bytewise: 1.1.0
       levelup: 0.19.1
       ltgt: 2.1.3
-      pull-defer: 0.2.2
+      pull-defer: 0.2.3
       pull-level: 2.0.4
       pull-stream: 3.6.8
       typewiselite: 1.0.0
@@ -5245,7 +5243,6 @@ packages:
     resolution:
       integrity: sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
   /lodash.merge/4.6.1:
-    dev: true
     resolution:
       integrity: sha512-AOYza4+Hf5z1/0Hztxpm2/xiPZgi/cjMqdnKTUWTBSKchJlxXXuUSxCCl8rJlf4g6yww/j6mA8nC8Hw/EZWxKQ==
   /lodash.pad/4.5.1:
@@ -5638,7 +5635,7 @@ packages:
       explain-error: 1.0.4
       mkdirp: 0.5.1
       pull-cat: 1.1.11
-      pull-defer: 0.2.2
+      pull-defer: 0.2.3
       pull-file: 0.5.0
       pull-glob: 1.0.7
       pull-live: 1.0.1
@@ -6831,10 +6828,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-95lZVSF2eSEdOmUtlOBaD9p5YOvlYeCr5FBv2ySqcj/4rpaXI6d8OH+zPHHjKAf58R8QXJRZuyfHkcCX8TZbAg==
-  /pull-defer/0.2.2:
+  /pull-defer/0.2.3:
     dev: false
     resolution:
-      integrity: sha1-CIew/7MK8ypW2+z6csFnInHwexM=
+      integrity: sha512-/An3KE7mVjZCqNhZsr22k1Tx8MACnUnHZZNPSJ0S62td8JtYr/AiRG42Vz7Syu31SoTLUzVIe61jtT/pNdjVYA==
   /pull-file/0.5.0:
     dependencies:
       pull-utf8-decoder: 1.0.2
@@ -8222,7 +8219,7 @@ packages:
     dependencies:
       base64-url: 2.2.0
       deep-equal: 1.0.1
-      flumeview-query: 6.2.0
+      flumeview-query: 6.3.0
       pull-stream: 3.6.8
       ssb-keys: 7.0.16
       ssb-ref: 2.11.1
@@ -8242,7 +8239,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-DeeInkFU8oN1mYlPVrqrm9tupf6wze4HuowK7N2vv/O+UeSLuYPU1p4HrxSqdAPvUabr0OtvbFA6z1T4nw+9fw==
-  /ssb-chat-core/1.0.25:
+  /ssb-chat-core/1.0.29:
     dependencies:
       immutable: 3.8.2
       nanobus: 4.3.3
@@ -8269,7 +8266,7 @@ packages:
       ssb-ws: 2.1.1
     dev: false
     resolution:
-      integrity: sha512-NfqkWjReCWaPFlB7aD3Oi7yl9yXVG5ykRZ6TRh1ce4japY4gYezxpOC4syGAN4iFK8g4A+9knSTHa6oYdtnl8Q==
+      integrity: sha512-lObFbQ9lEe3nThpVbC9gK6FV219v0npI/IvGCPrHu5jsxGDmB+lnr+SMUs0ffXBWdzo5zJjVxQWrYNfJDG1aeA==
   /ssb-client/4.5.7:
     dependencies:
       explain-error: 1.0.4
@@ -8325,7 +8322,7 @@ packages:
       integrity: sha512-EhLkRzgF7YaRc47L8YZb+TcxEXZy9DPWCF+vCt5nSNm8Oj+Pz8pBVSOlrLKZVbcAKFjIJhqY32oTjknu3E1KVQ==
   /ssb-links/3.0.3:
     dependencies:
-      flumeview-query: 6.2.0
+      flumeview-query: 6.3.0
       map-filter-reduce: 2.2.1
       pull-stream: 3.6.8
       ssb-msgs: 5.2.0
@@ -8335,7 +8332,7 @@ packages:
   /ssb-meme/1.0.4:
     dependencies:
       flumeview-search: 1.0.4
-      is-my-json-valid: 2.18.0
+      is-my-json-valid: 2.19.0
       ssb-ref: 2.11.1
     dev: false
     resolution:
@@ -8373,7 +8370,7 @@ packages:
     dependencies:
       base64-url: 2.2.0
       explain-error: 1.0.4
-      flumeview-query: 6.2.0
+      flumeview-query: 6.3.0
       pull-stream: 3.6.8
       ssb-keys: 7.0.16
     dev: false
@@ -8382,7 +8379,7 @@ packages:
   /ssb-query/2.1.0:
     dependencies:
       explain-error: 1.0.4
-      flumeview-query: 6.2.0
+      flumeview-query: 6.3.0
       pull-stream: 3.6.8
     dev: false
     resolution:
@@ -8522,7 +8519,7 @@ packages:
       integrity: sha512-nOqH59deCq9SRHlxq1Aw85Jnt4w6KvLKqWVik6oA9ZklXLNIOlqg4F2yrT1MVaTjAqvVwdfeZ7w7aCvJD7ugkw==
   /string.prototype.trim/1.1.2:
     dependencies:
-      define-properties: 1.1.2
+      define-properties: 1.1.3
       es-abstract: 1.12.0
       function-bind: 1.1.1
     dev: false
@@ -9747,6 +9744,7 @@ specifiers:
   html-to-react: ^1.3.3
   immer: ^1.5.0
   lodash.debounce: ^4.0.8
+  lodash.merge: ^4.6.1
   node-emoji: ^1.8.1
   node-notifier: ^5.2.1
   prop-types: ^15.6.2
@@ -9761,5 +9759,5 @@ specifiers:
   remark-bracketed-spans: ^3.0.0
   remark-html: ^7.0.0
   remark-react: ^4.0.3
-  ssb-chat-core: ^1.0.24
+  ssb-chat-core: ^1.0.25
   standard: ^11.0.1

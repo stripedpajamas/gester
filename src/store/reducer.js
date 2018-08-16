@@ -1,4 +1,5 @@
 import produce from 'immer'
+import merge from 'lodash.merge'
 import * as Types from './actionTypes'
 import initialState from './initialState'
 
@@ -15,7 +16,7 @@ export default (state = initialState, action) => (
         draft.recipients = action.recipients
         break
       case Types.SET_AUTHORS:
-        draft.authors = action.authors
+        draft.authors = merge(state.authors, action.authors)
         break
       case Types.SET_MY_NAMES:
         draft.myNames = action.myNames

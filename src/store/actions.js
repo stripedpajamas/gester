@@ -9,18 +9,18 @@ window.core = core
 export const setupCore = () => (dispatch, getState) => {
   // keep a copy of messages in redux and keep them up to date
   core.events.on('messages-changed', (messages) => {
-    const messagesArray = messages.toJS()
     dispatch({
       type: Types.SET_MESSAGES,
-      messages: messagesArray
+      messages
     })
     // need to get all authors of messages and make placeholders
-    const authors = Util.getMessageAuthors(messagesArray, getState())
-
-    dispatch({
-      type: Types.SET_AUTHORS,
-      authors
-    })
+    const { somethingNew, authors } = Util.getMessageAuthors(messages, getState())
+    if (somethingNew) {
+      dispatch({
+        type: Types.SET_AUTHORS,
+        authors
+      })
+    }
   })
 
   // keep a copy of relevant authors in redux and keep them up to date
@@ -29,8 +29,7 @@ export const setupCore = () => (dispatch, getState) => {
     const oldAuthors = state.authors // { @k9...: { name: '@squicc', setter: 'k9...' } }
     const newAuthors = {}
     Object.keys(oldAuthors).forEach((id) => {
-      const coreAuthor = authors.get(id)
-      newAuthors[id] = (coreAuthor && coreAuthor.toJS()) || {}
+      newAuthors[id] = authors[id] || {}
     })
     dispatch({
       type: Types.SET_AUTHORS,
@@ -44,7 +43,7 @@ export const setupCore = () => (dispatch, getState) => {
   const debouncedFollowingUpdate = debounce((following) => {
     dispatch({
       type: Types.SET_FOLLOWING,
-      following: following.toJS()
+      following
     })
   }, 1000)
   core.events.on('following-changed', debouncedFollowingUpdate)
@@ -53,7 +52,7 @@ export const setupCore = () => (dispatch, getState) => {
   const debouncedFollowingMeUpdate = debounce((followingMe) => {
     dispatch({
       type: Types.SET_FOLLOWING_ME,
-      followingMe: followingMe.toJS()
+      followingMe
     })
   }, 1000)
   core.events.on('following-me-changed', debouncedFollowingMeUpdate)
@@ -62,7 +61,7 @@ export const setupCore = () => (dispatch, getState) => {
   const debouncedBlockedUpdate = debounce((blocked) => {
     dispatch({
       type: Types.SET_BLOCKED,
-      blocked: blocked.toJS()
+      blocked
     })
   }, 1000)
   core.events.on('blocked-changed', debouncedBlockedUpdate)
@@ -94,18 +93,18 @@ export const setupCore = () => (dispatch, getState) => {
     })
 
     // make placeholders in state for any authors we don't know about
-    const authors = Util.getRecentAuthors(recents, getState())
-
-    dispatch({
-      type: Types.SET_AUTHORS,
-      authors
-    })
+    const { somethingNew, authors } = Util.getRecentAuthors(recents, getState())
+    if (somethingNew) {
+      dispatch({
+        type: Types.SET_AUTHORS,
+        authors
+      })
+    }
   })
 
   // keep a record of unread private chats in redux and keep them up to date
   core.events.on('unreads-changed', (unreads) => {
-    const unreadsJS = unreads.toJS()
-    if (unreadsJS.length) {
+    if (unreads.length) {
       // send to app to update badge
       ipcRenderer.send('unread')
     } else {
@@ -114,23 +113,25 @@ export const setupCore = () => (dispatch, getState) => {
     }
     dispatch({
       type: Types.SET_UNREADS,
-      unreads: unreadsJS
+      unreads
     })
 
     // make placeholders in state for any authors we don't know about
-    const authors = Util.getUnreadAuthors(unreadsJS, getState())
+    const { somethingNew, authors } = Util.getUnreadAuthors(unreads, getState())
 
-    dispatch({
-      type: Types.SET_AUTHORS,
-      authors
-    })
+    if (somethingNew) {
+      dispatch({
+        type: Types.SET_AUTHORS,
+        authors
+      })
+    }
   })
 
   // keep a record of who is the current private recipients in redux
   core.events.on('recipients-changed', (recipients) => {
     dispatch({
       type: Types.SET_RECIPIENTS,
-      recipients: recipients.toJS()
+      recipients: recipients
         .filter((r, _, a) => {
           if (a.length > 1) {
             return r !== core.me.get()
@@ -144,52 +145,67 @@ export const setupCore = () => (dispatch, getState) => {
   core.events.on('my-names-changed', (myNames) => {
     dispatch({
       type: Types.SET_MY_NAMES,
-      myNames: myNames.toJS()
+      myNames
     })
   })
 
   // set to public mode initially in case this is a refresh
   core.mode.setPublic()
   // get messages, me, authors, unreads, and recents into redux immediately
-  const messages = core.messages.get().toJS()
+  const messages = core.messages.getJS()
   dispatch({
     type: Types.SET_MESSAGES,
     messages
   })
-  let authors = Util.getMessageAuthors(messages, getState())
+  let { authors } = Util.getMessageAuthors(messages, getState())
   dispatch({
     type: Types.SET_MY_NAMES,
-    myNames: core.me.names().toJS()
+    myNames: core.me.namesJS()
   })
   dispatch({
     type: Types.SET_FOLLOWING,
-    following: core.authors.getFollowing().toJS()
+    following: core.authors.getFollowingJS()
   })
   dispatch({
     type: Types.SET_FOLLOWING_ME,
-    followingMe: core.authors.getFollowingMe().toJS()
+    followingMe: core.authors.getFollowingMeJS()
   })
   dispatch({
     type: Types.SET_BLOCKED,
-    blocked: core.authors.getBlocked().toJS()
+    blocked: core.authors.getBlockedJS()
   })
 
   // initial unreads
-  const unreads = core.unreads.get().toJS()
+  const unreads = core.unreads.getJS()
   if (unreads.length) {
-    // send to app to update badge
-    ipcRenderer.send('unread')
+    if (Util.isReallyUnread(unreads)) {
+      // send to app to update badge
+      ipcRenderer.send('unread')
+    } else {
+      // we are in private mode with people
+      // that core considers 'unread', so tell core we saw the msg
+      // but only if the window is focused
+      if (Util.isFocused()) {
+        core.unreads.setAsRead(getState().recipients)
+      }
+    }
   } else {
     // send to app to remove badge
     ipcRenderer.send('no-unread')
   }
+
+  // when the app gains focus, mark whatever our view is as read
+  ipcRenderer.on('main-focused', () => {
+    core.unreads.setAsRead(getState().recipients)
+  })
 
   dispatch({
     type: Types.SET_UNREADS,
     unreads
   })
   // add initial unread authors to initial message authors
-  Object.assign(authors, Util.getUnreadAuthors(unreads, getState()))
+  const { authors: unreadAuthors } = Util.getUnreadAuthors(unreads, getState())
+  Object.assign(authors, unreadAuthors)
 
   const recents = core.recents.get()
   dispatch({
@@ -208,7 +224,8 @@ export const setupCore = () => (dispatch, getState) => {
       }))
   })
   // add initial recent authors to initial message + unreads authors
-  Object.assign(authors, Util.getRecentAuthors(recents, getState()))
+  const { authors: recentAuthors } = Util.getRecentAuthors(recents, getState())
+  Object.assign(authors, recentAuthors)
 
   dispatch({
     type: Types.SET_ME,
@@ -216,9 +233,9 @@ export const setupCore = () => (dispatch, getState) => {
   })
 
   // try to determine initial authors
+  const coreAuthors = core.authors.getJS()
   Object.keys(authors).forEach((id) => {
-    const coreAuthor = core.authors.get().get(id)
-    authors[id] = (coreAuthor && coreAuthor.toJS()) || {}
+    authors[id] = coreAuthors[id] || {}
   })
   dispatch({
     type: Types.SET_AUTHORS,
@@ -312,7 +329,7 @@ export const unblock = (id) => (dispatch) => {
     .then(({ result }) => dispatch(setNotification(result)))
     .catch((e) => dispatch(setError(e)))
 }
-export const removeRecent = (recents) => (dispatch, getState) => {
+export const removeRecent = (recents) => {
   core.recents.remove(recents)
 }
 // #endregion

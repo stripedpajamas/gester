@@ -20,6 +20,8 @@ process.on('uncaughtException', (e) => {
 let mainWindow
 let willQuitApp
 
+global.getMain = () => mainWindow
+
 const isDevMode = process.execPath.match(/[\\/]electron/)
 
 const createWindows = async () => {
@@ -65,6 +67,9 @@ const createWindows = async () => {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+  mainWindow.on('focus', () => {
+    ipcMain.emit('main-focused')
+  })
 }
 
 // This method will be called when Electron has finished
@@ -108,14 +113,15 @@ ipcMain.on('unread', () => {
   if (app && app.dock) {
     app.dock.setBadge('\u2022') // bullet symbol
   }
-  // TODO figure out notifications
-  // notifier.notify({
-  //   title: 'Gester',
-  //   message: 'New message',
-  //   sound: true
-  // }, () => {
-  //   mainWindow.show()
-  // })
+  if (!mainWindow.isFocused()) {
+    notifier.notify({
+      title: 'Gester',
+      message: 'New message',
+      sound: true
+    }, () => {
+      mainWindow.show()
+    })
+  }
 })
 
 ipcMain.on('no-unread', () => {
