@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import * as Actions from '../store/actions'
 import Message from './Message'
+import Loader from './Loader'
 
 class MessageView extends Component {
   constructor () {
@@ -35,9 +36,7 @@ class MessageView extends Component {
     }
     if (messages[0].loading) {
       return (
-        <div className='empty'>
-          <span>Loading... 🐥</span>
-        </div>
+        <Loader small />
       )
     }
     return messages.map((message, idx) => {
