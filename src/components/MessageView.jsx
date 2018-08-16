@@ -33,6 +33,13 @@ class MessageView extends Component {
         </div>
       )
     }
+    if (messages[0].loading) {
+      return (
+        <div className='empty'>
+          <span>Loading... 🐥</span>
+        </div>
+      )
+    }
     return messages.map((message, idx) => {
       const id = message.author
       const author = (authors[id] || {}).name || id
@@ -54,7 +61,9 @@ class MessageView extends Component {
   render () {
     return (
       <div className='messages' ref={el => { this.messagesDiv = el }}>
-        {this.renderMessages()}
+        {
+          this.renderMessages()
+        }
       </div>
     )
   }

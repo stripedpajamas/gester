@@ -18,6 +18,7 @@ process.on('uncaughtException', (e) => {
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let loaderWindow
 let willQuitApp
 
 global.getMain = () => mainWindow
@@ -28,11 +29,16 @@ const createWindows = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1024,
+    height: 768,
+    show: false
+  })
+  loaderWindow = new BrowserWindow({
+    width: 1024,
     height: 768
   })
-
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`)
+  loaderWindow.loadURL(`file://${__dirname}/loader.html`)
 
   if (isDevMode) {
     try {
@@ -69,6 +75,10 @@ const createWindows = async () => {
   })
   mainWindow.on('focus', () => {
     ipcMain.emit('main-focused')
+  })
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+    loaderWindow.close()
   })
 }
 

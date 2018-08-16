@@ -286,6 +286,18 @@ export const goPrivate = recipients => (dispatch) => {
     .catch((e) => dispatch(setError(e)))
 }
 export const goPublic = () => (dispatch) => {
+  dispatch({
+    type: Types.SET_MESSAGES,
+    messages: [{ loading: true }]
+  })
+  dispatch({
+    type: Types.SET_MODE,
+    mode: 'PUBLIC'
+  })
+  dispatch({
+    type: Types.SET_RECIPIENTS,
+    recipients: []
+  })
   core.commands.quit()
     .catch((e) => dispatch(setError(e)))
 }

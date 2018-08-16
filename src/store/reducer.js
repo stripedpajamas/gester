@@ -38,6 +38,7 @@ export default (state = initialState, action) => (
         break
       case Types.SET_MODE:
         draft.mode = action.mode
+        draft.loading = false
         break
       case Types.SET_ERROR:
         draft.error = action.error

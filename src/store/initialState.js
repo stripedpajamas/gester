@@ -18,5 +18,6 @@ export default {
   mode: constants.MODE.PUBLIC,
   joiningPub: false,
   currentAuthorId: '',
-  authorDrawerOpen: false
+  authorDrawerOpen: false,
+  loading: true
 }

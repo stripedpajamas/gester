@@ -67,6 +67,9 @@ class App extends Component {
   }
 
   render () {
+    if (this.props.loading) {
+      return <div className='modal-overlay daddy'>i am... loading?</div>
+    }
     const hasNotification = this.props.error || this.props.notification
     const mode = this.props.mode.toLowerCase()
     return (
@@ -106,7 +109,8 @@ App.propTypes = {
   authorDrawerOpen: PropTypes.bool.isRequired,
   recipients: PropTypes.array.isRequired,
   error: PropTypes.object,
-  notification: PropTypes.string
+  notification: PropTypes.string,
+  loading: PropTypes.bool
 }
 
 const mapStateToProps = state => ({
@@ -115,7 +119,8 @@ const mapStateToProps = state => ({
   joiningPub: state.joiningPub,
   authorDrawerOpen: state.authorDrawerOpen,
   error: state.error,
-  notification: state.notification
+  notification: state.notification,
+  loading: state.loading
 })
 
 const mapDispatchToProps = dispatch => ({
