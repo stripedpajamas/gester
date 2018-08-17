@@ -10,6 +10,7 @@ import MessageView from './components/MessageView'
 import Input from './components/Input'
 import AuthorDrawer from './components/AuthorDrawer'
 import Notification from './components/Notification'
+import Loader from './components/Loader'
 
 class App extends Component {
   constructor () {
@@ -68,7 +69,7 @@ class App extends Component {
 
   render () {
     if (this.props.loading) {
-      return <div className='modal-overlay daddy'>i am... loading?</div>
+      return <Loader />
     }
     const hasNotification = this.props.error || this.props.notification
     const mode = this.props.mode.toLowerCase()

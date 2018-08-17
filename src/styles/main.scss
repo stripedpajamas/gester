@@ -466,3 +466,71 @@ button {
         }
     }
 }
+
+
+/* ----------------------------- Loader ------------------------------ */
+
+.loader {
+
+    div {
+        height: 50px;
+        width: 50px;
+        margin: 0 10px;
+        float: left;
+        border-radius: 50px;
+      }
+      
+    &-1 {
+        background-color: $theme-buttons;
+        animation: move 1.4s ease-in-out 0s infinite both;
+    }
+    &-2 {
+        background-color: $theme-error;
+        animation: move 1.4s ease-in-out .20s infinite both;
+    }
+    &-3 {
+        background-color: $theme-buttons-secondary;
+        animation: move 1.4s ease-in-out .40s infinite both;
+    }
+    &-4 {
+        background-color: $theme-notification;
+        animation: move 1.4s ease-in-out .60s infinite both;
+    }
+      
+}
+
+.loader-large {
+    z-index: 1001;
+    position: fixed;
+    width: 280px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loader-small {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    height: 100%;
+    width: 50%;
+    margin: 0 auto;
+    
+    div {
+        height: 25px;
+        width: 25px;
+        border-radius: 25px;
+        margin: 90px 0;
+        grid-row-start: 2;
+    }
+}
+
+@keyframes move {
+    0%, 70%, 100% {
+      transform: scale(0)
+    }
+    
+    30% {
+      transform: scale(1)
+    }
+  }
