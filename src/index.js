@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { app, BrowserWindow, ipcMain, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, shell, ipcRenderer } from 'electron'
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS
@@ -119,23 +119,14 @@ const quit = () => {
   app.quit()
 }
 
-ipcMain.on('unread', () => {
+const setBadge = (show) => {
   if (app && app.dock) {
-    app.dock.setBadge('\u2022') // bullet symbol
+    if (show) {
+      app.dock.setBadge('\u2022') // bullet symbol
+    } else {
+      app.dock.setBadge('')
+    }
   }
-  if (!mainWindow.isFocused()) {
-    notifier.notify({
-      title: 'Gester',
-      message: 'New message',
-      sound: true
-    }, () => {
-      mainWindow.show()
-    })
-  }
-})
+}
 
-ipcMain.on('no-unread', () => {
-  if (app && app.dock) {
-    app.dock.setBadge('')
-  }
-})
+ipcMain.on('unread', setBadge)

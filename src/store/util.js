@@ -8,7 +8,7 @@ export const updateAuthors = (ids, state) => {
   const coreAuthors = core.authors.getJS()
   let somethingNew = false
   for (let id of ids) {
-    if (!newAuthors[id]) {
+    if (!newAuthors[id] || !Object.keys(newAuthors[id]).length) {
       somethingNew = true
       // try to get the author directly from core, otherwise
       // make a placeholder so that when new authors come
@@ -43,18 +43,14 @@ export const getMessageAuthors = (messages, state) => {
 
 export const getAuthorId = (name) => core.authors.getId(name)
 
-export const isReallyUnread = (unreads) => {
-  // we want to show a red dot if we are not currently talking
-  // to this 'unread' recipient list
-  return !core.mode.isPrivate() || unreads.some((unread) => {
-    // see if we're currently in private mode with these humyns
-    const currentRecipients = core.recipients.get()
-      .filter(r => r !== core.me.get())
-    const talkingToThem = core.recipients.compare(currentRecipients, unread)
-
-    // if we aren't talking to them, there's something unread
-    return !talkingToThem
-  })
-}
-
 export const isFocused = () => getMain().isFocused()
+
+export const compareArrays = (a, b) => {
+  if (a.length !== b.length) return false
+  for (let i = a.length - 1; i > 0; i--) {
+    if (a[i] !== b[i]) {
+      return false
+    }
+  }
+  return true
+}

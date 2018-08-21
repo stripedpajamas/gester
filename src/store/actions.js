@@ -29,7 +29,8 @@ export const setupCore = () => (dispatch, getState) => {
     const oldAuthors = state.authors // { @k9...: { name: '@squicc', setter: 'k9...' } }
     const newAuthors = {}
     Object.keys(oldAuthors).forEach((id) => {
-      newAuthors[id] = authors[id] || {}
+      const coreAuthor = authors.get(id)
+      newAuthors[id] = (coreAuthor && coreAuthor.toJS()) || {}
     })
     dispatch({
       type: Types.SET_AUTHORS,
@@ -105,12 +106,29 @@ export const setupCore = () => (dispatch, getState) => {
   // keep a record of unread private chats in redux and keep them up to date
   core.events.on('unreads-changed', (unreads) => {
     if (unreads.length) {
-      // send to app to update badge
-      ipcRenderer.send('unread')
-    } else {
-      // send to app to remove badge
-      ipcRenderer.send('no-unread')
+      // there are unreads...
+      // if we aren't focused, set the badge and pop a note
+      if (!Util.isFocused()) {
+        ipcRenderer.emit('unread', true)
+        window.Notification('Gester', {
+          body: 'New unread message'
+        })
+        return
+      }
+      // get the current private recps
+      const recps = core.recipients.getJS()
+      let shouldShowBadge = false
+      unreads.forEach((unread) => {
+        if (Util.compareArrays(unread, recps)) {
+          // window is focused and we are talking to these recps
+          core.unreads.setAsRead(core.recipients.get())
+        } else {
+          shouldShowBadge = true
+        }
+      })
+      ipcRenderer.emit('unread', shouldShowBadge)
     }
+
     dispatch({
       type: Types.SET_UNREADS,
       unreads
@@ -177,28 +195,6 @@ export const setupCore = () => (dispatch, getState) => {
 
   // initial unreads
   const unreads = core.unreads.getJS()
-  if (unreads.length) {
-    if (Util.isReallyUnread(unreads)) {
-      // send to app to update badge
-      ipcRenderer.send('unread')
-    } else {
-      // we are in private mode with people
-      // that core considers 'unread', so tell core we saw the msg
-      // but only if the window is focused
-      if (Util.isFocused()) {
-        core.unreads.setAsRead(getState().recipients)
-      }
-    }
-  } else {
-    // send to app to remove badge
-    ipcRenderer.send('no-unread')
-  }
-
-  // when the app gains focus, mark whatever our view is as read
-  ipcRenderer.on('main-focused', () => {
-    core.unreads.setAsRead(getState().recipients)
-  })
-
   dispatch({
     type: Types.SET_UNREADS,
     unreads

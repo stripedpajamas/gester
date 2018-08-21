@@ -20,6 +20,7 @@ class App extends Component {
     this.controlPanel = React.createRef()
     this.handleFocusPMInput = this.handleFocusPMInput.bind(this)
     this.handleToggleMode = this.handleToggleMode.bind(this)
+    this.handleInputSubmit = this.handleInputSubmit.bind(this)
 
     this.keyMap = {
       focusPMInput: 'command+k',
