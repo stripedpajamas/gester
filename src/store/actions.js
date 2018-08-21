@@ -4,6 +4,8 @@ import * as Types from './actionTypes'
 import * as Util from './util'
 
 const core = electron.remote.getGlobal('core')
+let notification
+
 window.core = core
 
 export const setupCore = () => (dispatch, getState) => {
@@ -109,24 +111,26 @@ export const setupCore = () => (dispatch, getState) => {
       // there are unreads...
       // if we aren't focused, set the badge and pop a note
       if (!Util.isFocused()) {
-        ipcRenderer.emit('unread', true)
-        window.Notification('Gester', {
+        ipcRenderer.send('unread', true)
+        notification = new window.Notification('Gester', { // eslint-disable-line
           body: 'New unread message'
         })
-        return
+      } else {
+        // get the current private recps
+        const recps = core.recipients.getJS()
+        let shouldShowBadge = false
+        unreads.forEach((unread) => {
+          if (Util.compareArrays(unread, recps)) {
+            // window is focused and we are talking to these recps
+            core.unreads.setAsRead(core.recipients.get())
+          } else {
+            shouldShowBadge = true
+          }
+        })
+        ipcRenderer.send('unread', shouldShowBadge)
       }
-      // get the current private recps
-      const recps = core.recipients.getJS()
-      let shouldShowBadge = false
-      unreads.forEach((unread) => {
-        if (Util.compareArrays(unread, recps)) {
-          // window is focused and we are talking to these recps
-          core.unreads.setAsRead(core.recipients.get())
-        } else {
-          shouldShowBadge = true
-        }
-      })
-      ipcRenderer.emit('unread', shouldShowBadge)
+    } else {
+      ipcRenderer.send('unread', false)
     }
 
     dispatch({
@@ -195,6 +199,9 @@ export const setupCore = () => (dispatch, getState) => {
 
   // initial unreads
   const unreads = core.unreads.getJS()
+  if (unreads.length) {
+    ipcRenderer.send('unread', true)
+  }
   dispatch({
     type: Types.SET_UNREADS,
     unreads

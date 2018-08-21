@@ -1,10 +1,9 @@
 #!/usr/bin/env node
-import { app, BrowserWindow, ipcMain, shell, ipcRenderer } from 'electron'
+import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS
 } from 'electron-devtools-installer'
-import notifier from 'node-notifier'
 const core = require('ssb-chat-core')
 
 global.core = core
@@ -129,4 +128,4 @@ const setBadge = (show) => {
   }
 }
 
-ipcMain.on('unread', setBadge)
+ipcMain.on('unread', (_, badge) => setBadge(badge))
