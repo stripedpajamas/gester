@@ -4,7 +4,6 @@ import * as Types from './actionTypes'
 import * as Util from './util'
 
 const core = electron.remote.getGlobal('core')
-let notification
 
 window.core = core
 

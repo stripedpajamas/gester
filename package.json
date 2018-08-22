@@ -9,7 +9,7 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "lint": "standard"
   },
   "keywords": [],
   "author": "Peter Squicciarini <stripedpajamas273@gmail.com>",
@@ -30,7 +30,8 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "yarn"
+        "packageManager": "yarn",
+        "icon": "./build/gester"
       },
       "electronWinstallerConfig": {
         "name": "Gester"
@@ -40,10 +41,6 @@
       "github_repository": {
         "owner": "stripedpajamas",
         "name": "gester"
-      },
-      "windowsStoreConfig": {
-        "packageName": "",
-        "name": "Gester"
       }
     }
   },
