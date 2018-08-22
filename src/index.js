@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import path from 'path'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
@@ -29,11 +30,13 @@ const createWindows = async () => {
   mainWindow = new BrowserWindow({
     width: 1024,
     height: 768,
-    show: false
+    show: false,
+    icon: path.join(__dirname, 'styles/gester.png')
   })
   loaderWindow = new BrowserWindow({
     width: 1024,
-    height: 768
+    height: 768,
+    icon: path.join(__dirname, 'styles/gester.png')
   })
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`)

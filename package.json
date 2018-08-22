@@ -21,7 +21,6 @@
           "squirrel"
         ],
         "darwin": [
-          "dmg",
           "zip"
         ],
         "linux": [
@@ -31,7 +30,7 @@
       },
       "electronPackagerConfig": {
         "packageManager": "yarn",
-        "icon": "./build/gester"
+        "icon": "build/gester"
       },
       "electronWinstallerConfig": {
         "name": "Gester"
