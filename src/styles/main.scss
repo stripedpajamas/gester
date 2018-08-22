@@ -413,7 +413,7 @@ button {
         padding: 20px;
         display: grid;
         text-align: center;
-        grid-template-rows: 60px 125px 150px 65px auto;
+        grid-template-rows: 60px 125px auto 65px 200px;
         
         input {
             width: calc(100% - 21px);
@@ -452,6 +452,12 @@ button {
         #button-private {
             padding: 10px 0;
             width: 100%;
+        }
+
+        div {
+            h1 {
+                word-break: break-all;
+            }
         }
     }
 
