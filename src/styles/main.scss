@@ -332,6 +332,12 @@ button {
         vertical-align: middle;
         line-height: 1;
     }
+    .extra-brackets:before {
+        content: '[';
+    }
+    .extra-brackets:after {
+        content: ']';
+    }
     &-text-action {
         p {
             font-family: $main-font;

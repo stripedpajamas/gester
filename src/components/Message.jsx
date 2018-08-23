@@ -19,10 +19,19 @@ class Message extends Component {
     })
     return highlighted
   }
+  makeSpansSafe (text) {
+    // bc remark-bracketed-spans throws for stuff like s[mile]cat
+    // yeah... if there are brackets but no braces it throws
+    // i am so sad
+    // in general
+    // and with this in particular
+    return text.replace(/(\[[^\]]+\])(?!\{)/g, '$1{.extra-brackets}')
+  }
   process (msg, action, color) {
     // process markdown and emojis
     const emojified = emoji.emojify(msg, null, (e) => `[${e}]{.emoji}`)
-    const input = this.markMentions(emojified)
+    let input = this.markMentions(emojified)
+    input = this.makeSpansSafe(input)
     const marked = remark()
       .use(spanStuff)
       .use(toHTML)
