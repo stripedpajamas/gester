@@ -7,6 +7,8 @@ potentially chat with friends on the same network without even being connected t
 
 this is just a more user friendly ui for [scat :mouse:](https://github.com/stripedpajamas/scat)
 
+### download binaries
+[here](https://github.com/stripedpajamas/gester/releases)
 
 ### install / run from source
 ```bash
