@@ -1,6 +1,4 @@
-const electron = require('electron')
-
-const core = electron.remote.getGlobal('core')
+import core from 'ssb-chat-core'
 
 const { constants } = core
 

@@ -104,8 +104,8 @@ class ControlPanel extends Component {
   render () {
     const privateMode = this.props.mode === 'PRIVATE'
     const sortedRecents = this.props.recents.slice().sort((a, b) => {
-      const mappedA = a.filtered.map(id => (this.props.authors[id] || {}).name || id).join(', ')
-      const mappedB = b.filtered.map(id => (this.props.authors[id] || {}).name || id).join(', ')
+      const mappedA = a.filtered.map(id => this.props.authors[id] || id).join(', ')
+      const mappedB = b.filtered.map(id => this.props.authors[id] || id).join(', ')
       return mappedA > mappedB
     })
 
@@ -134,9 +134,7 @@ class ControlPanel extends Component {
                 unread.join(', ') === thisRecent
               ))
 
-              const humanNames = recent.filtered.map(id => (
-                (this.props.authors[id] || {}).name || id
-              )).join(', ')
+              const humanNames = recent.filtered.map(id => (this.props.authors[id] || id)).join(', ')
 
               let className = isCurrent
                 ? 'recents-item__active'

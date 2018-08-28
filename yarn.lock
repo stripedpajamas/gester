@@ -6,21 +6,21 @@
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/7zip/-/7zip-0.0.6.tgz#9cafb171af82329490353b4816f03347aa150a30"
 
-"@fortawesome/fontawesome-common-types@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.2.tgz#7fd64eacf7f64e4d7619d21b0b2f2467f5a70611"
+"@fortawesome/fontawesome-common-types@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.3.tgz#bcdffc26f2289ada8f6beb7808b45b05439b6718"
 
 "@fortawesome/fontawesome-svg-core@^1.2.0-14":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.2.tgz#b431e7efb3e3a1887e596daa6ed0d241d2d1aea5"
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.3.tgz#e393f63e5e15da1f5af4601616a2cd58d1701a9e"
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.2"
+    "@fortawesome/fontawesome-common-types" "^0.2.3"
 
 "@fortawesome/free-solid-svg-icons@^5.1.0-11":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.2.0.tgz#b51c1d49278ef538a97c0ce9575a1b54cc1a52dc"
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.3.0.tgz#6aab98a8b5451489236e62654fe1d19b74b90fc6"
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.2"
+    "@fortawesome/fontawesome-common-types" "^0.2.3"
 
 "@fortawesome/react-fontawesome@^0.1.2":
   version "0.1.2"
@@ -87,8 +87,8 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.69.tgz#709629340708ec0e1845559bf5c0c88d26d31dca"
 
 "@types/node@^8.0.24":
-  version "8.10.26"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.26.tgz#950e3d4e6b316ba6e1ae4e84d9155aba67f88c2f"
+  version "8.10.28"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.28.tgz#03bf70dd7f1de7826251331ce57beddf7f9dd253"
 
 abab@^1.0.0:
   version "1.0.4"
@@ -139,8 +139,8 @@ acorn@^3.0.4:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-3.3.0.tgz#45e37fb39e8da3f25baee3ff5369e2bb5f22017a"
 
 acorn@^5.5.0:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.1.tgz#f095829297706a7c9776958c0afc8930a9b9d9d8"
+  version "5.7.2"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.2.tgz#91fa871883485d06708800318404e72bfb26dcc5"
 
 agent-base@4, agent-base@^4.1.0:
   version "4.2.1"
@@ -465,8 +465,8 @@ autoprefixer@^6.3.1:
     postcss-value-parser "^3.2.3"
 
 aws-sdk@^2.9.0:
-  version "2.298.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.298.0.tgz#53259d06ca3bcde69d11f3b24b1c05088939c67f"
+  version "2.303.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.303.0.tgz#b81ff532c04923e8ea9b7559db86f681a49f8f29"
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -1310,12 +1310,12 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000878"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000878.tgz#0d0c6d8500c3aea21441fad059bce4b8f3f509df"
+  version "1.0.30000880"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000880.tgz#e6d7ba9a6602086f6fc124b91eeacbb70c55b2c4"
 
 caniuse-lite@^1.0.30000844:
-  version "1.0.30000878"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000878.tgz#c644c39588dd42d3498e952234c372e5a40a4123"
+  version "1.0.30000880"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000880.tgz#b7b6ceaf739e17d0dda0d89426cba4be16d07bb0"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -1536,20 +1536,16 @@ collapse-white-space@^1.0.0, collapse-white-space@^1.0.2:
   resolved "https://registry.yarnpkg.com/collapse-white-space/-/collapse-white-space-1.0.4.tgz#ce05cf49e54c3277ae573036a26851ba430a0091"
 
 color-convert@^1.3.0, color-convert@^1.9.0:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.2.tgz#49881b8fba67df12a96bdf3f56c0aab9e7913147"
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
   dependencies:
-    color-name "1.1.1"
+    color-name "1.1.3"
 
 color-convert@~0.5.0:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-0.5.3.tgz#bdb6c69ce660fadffe0b0007cc447e1b9f7282bd"
 
-color-name@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.1.tgz#4b1415304cf50028ea81643643bd82ea05803689"
-
-color-name@^1.0.0:
+color-name@1.1.3, color-name@^1.0.0:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
 
@@ -1576,8 +1572,8 @@ colormin@^1.0.5:
     has "^1.0.1"
 
 colors@^1.1.2, colors@^1.2.0:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/colors/-/colors-1.3.1.tgz#4accdb89cf2cabc7f982771925e9468784f32f3d"
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/colors/-/colors-1.3.2.tgz#2df8ff573dfbf255af562f8ce7181d6b971a359b"
 
 colors@~0.6.2:
   version "0.6.2"
@@ -2455,8 +2451,8 @@ electron-squirrel-startup@^1.0.0:
     debug "^2.2.0"
 
 electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.47:
-  version "1.3.59"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.59.tgz#6377db04d8d3991d6286c72ed5c3fde6f4aaf112"
+  version "1.3.61"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.61.tgz#a8ac295b28d0f03d85e37326fd16b6b6b17a1795"
 
 electron-windows-store@^0.12.0:
   version "0.12.0"
@@ -3306,8 +3302,8 @@ gauge@~2.7.3:
     wide-align "^1.1.0"
 
 generate-function@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/generate-function/-/generate-function-2.0.0.tgz#6858fe7c0969b7d4e9093337647ac79f60dfbe74"
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/generate-function/-/generate-function-2.2.0.tgz#1aeac896147293d27bce65eb295ce5f3f094a292"
 
 generate-object-property@^1.1.0:
   version "1.2.0"
@@ -3408,8 +3404,8 @@ glob@^6.0.1, glob@^6.0.4:
     path-is-absolute "^1.0.0"
 
 glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@~7.1.2:
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.3.tgz#3960832d3f1574108342dafd3a67b332c0969df1"
   dependencies:
     fs.realpath "^1.0.0"
     inflight "^1.0.4"
@@ -3750,8 +3746,8 @@ humps@^2.0.1:
   resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
 
 iconv-lite@^0.4.17, iconv-lite@^0.4.4, iconv-lite@~0.4.13:
-  version "0.4.23"
-  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.23.tgz#297871f63be507adcfbfca715d0cd0eed84e9a63"
+  version "0.4.24"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
 
@@ -4230,8 +4226,8 @@ jmespath@0.15.0:
   resolved "https://registry.yarnpkg.com/jmespath/-/jmespath-0.15.0.tgz#a3f222a9aae9f966f5d27c796510e28091764217"
 
 js-base64@^2.1.9:
-  version "2.4.8"
-  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.8.tgz#57a9b130888f956834aa40c5b165ba59c758f033"
+  version "2.4.9"
+  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.9.tgz#748911fb04f48a60c4771b375cac45a80df11c03"
 
 js-string-escape@^1.0.1:
   version "1.0.1"
@@ -4878,15 +4874,15 @@ micromatch@^2.1.5:
     parse-glob "^3.0.4"
     regex-cache "^0.4.2"
 
-mime-db@~1.35.0:
-  version "1.35.0"
-  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.35.0.tgz#0569d657466491283709663ad379a99b90d9ab47"
+mime-db@~1.36.0:
+  version "1.36.0"
+  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.36.0.tgz#5020478db3c7fe93aad7bbcc4dcf869c43363397"
 
 mime-types@^2.1.12, mime-types@^2.1.17, mime-types@~2.1.19, mime-types@~2.1.7:
-  version "2.1.19"
-  resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.19.tgz#71e464537a7ef81c15f2db9d97e913fc0ff606f0"
+  version "2.1.20"
+  resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.20.tgz#930cb719d571e903738520f8470911548ca2cc19"
   dependencies:
-    mime-db "~1.35.0"
+    mime-db "~1.36.0"
 
 mime@^1.2.11:
   version "1.6.0"
@@ -5014,9 +5010,9 @@ multiline@^1.0.2:
   dependencies:
     strip-indent "^1.0.0"
 
-multiserver@^1.11.0, multiserver@^1.12.0, multiserver@^1.2.0, multiserver@^1.7.0:
-  version "1.13.2"
-  resolved "https://registry.yarnpkg.com/multiserver/-/multiserver-1.13.2.tgz#8682cab0d07a50154689d25d51e4496247be27b6"
+multiserver@^1.11.0, multiserver@^1.12.0, multiserver@^1.13.2, multiserver@^1.2.0:
+  version "1.13.3"
+  resolved "https://registry.yarnpkg.com/multiserver/-/multiserver-1.13.3.tgz#5775f3a042a730893c2590c0ca906972fd44210c"
   dependencies:
     pull-cat "~1.1.5"
     pull-stream "^3.6.1"
@@ -5084,7 +5080,11 @@ mz@^2.6.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@^2.3.2, nan@^2.4.0, nan@^2.9.2, nan@~2.10.0:
+nan@^2.3.2, nan@^2.4.0, nan@^2.9.2:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.11.0.tgz#574e360e4d954ab16966ec102c0c049fd961a099"
+
+nan@~2.10.0:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
 
@@ -5104,10 +5104,6 @@ nanoscheduler@^1.0.2:
   resolved "https://registry.yarnpkg.com/nanoscheduler/-/nanoscheduler-1.0.3.tgz#6ca027941bf3e04139ea4bab6227ea6ad803692f"
   dependencies:
     nanoassert "^1.1.0"
-
-nanotick@^1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/nanotick/-/nanotick-1.1.6.tgz#8d581b706f2fd79223fb58217461264b9d64b4c9"
 
 nanotiming@^7.2.0:
   version "7.3.1"
@@ -6256,8 +6252,8 @@ pull-stream@^2.28.3:
     pull-core "~1.1.0"
 
 pull-stream@^3.0.1, pull-stream@^3.1.0, pull-stream@^3.2.3, pull-stream@^3.3.0, pull-stream@^3.4.0, pull-stream@^3.4.3, pull-stream@^3.4.5, pull-stream@^3.5.0, pull-stream@^3.6.0, pull-stream@^3.6.1, pull-stream@^3.6.2, pull-stream@^3.6.7, pull-stream@^3.6.8:
-  version "3.6.8"
-  resolved "https://registry.yarnpkg.com/pull-stream/-/pull-stream-3.6.8.tgz#d63dee1c55ff2023fd380f724c387e931b752413"
+  version "3.6.9"
+  resolved "https://registry.yarnpkg.com/pull-stream/-/pull-stream-3.6.9.tgz#c774724cd63bc0984c3695f74c819aa02e977320"
 
 pull-stream@~3.5.0:
   version "3.5.0"
@@ -6334,12 +6330,13 @@ punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
 
 push-stream-to-pull-stream@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/push-stream-to-pull-stream/-/push-stream-to-pull-stream-1.0.1.tgz#e43519da6f0ede715044330dcb830ed408d5332c"
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/push-stream-to-pull-stream/-/push-stream-to-pull-stream-1.0.3.tgz#0124414d98dca1dfe1b189cd221fa088dbcc1701"
   dependencies:
     pull-looper "^1.0.0"
+    push-stream "^10.0.3"
 
-push-stream@^10.0.0:
+push-stream@^10.0.0, push-stream@^10.0.3:
   version "10.0.3"
   resolved "https://registry.yarnpkg.com/push-stream/-/push-stream-10.0.3.tgz#13d6aef4b506c65bbc3aa62409a8da6ce147ef87"
 
@@ -7406,12 +7403,11 @@ ssb-blobs@^1.1.4, ssb-blobs@^1.1.5:
     ssb-ref "^2.3.0"
 
 ssb-chat-core@^1.0.29:
-  version "1.0.32"
-  resolved "https://registry.yarnpkg.com/ssb-chat-core/-/ssb-chat-core-1.0.32.tgz#8a601098a06214ffab5eae18c830e8b4ec3d5d6d"
+  version "1.0.34"
+  resolved "https://registry.yarnpkg.com/ssb-chat-core/-/ssb-chat-core-1.0.34.tgz#b606eee972a732a088d2f48c84c793482a18722b"
   dependencies:
     immutable "^3.8.2"
     nanobus "^4.3.3"
-    nanotick "^1.1.6"
     node-persist "^2.1.0"
     pull-stream "^3.6.7"
     punycode "^2.1.1"
@@ -7434,12 +7430,12 @@ ssb-chat-core@^1.0.29:
     ssb-ws "^2.1.1"
 
 ssb-client@^4.5.7:
-  version "4.5.7"
-  resolved "https://registry.yarnpkg.com/ssb-client/-/ssb-client-4.5.7.tgz#89cf625a70ab8e17073e8971c9fb5b1c046bc8c1"
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/ssb-client/-/ssb-client-4.6.0.tgz#7352c3b1cebc028a3daaa4d00586462fbf913aec"
   dependencies:
     explain-error "^1.0.1"
     multicb "^1.2.1"
-    multiserver "^1.7.0"
+    multiserver "^1.13.2"
     muxrpc "^6.4.0"
     pull-hash "^1.0.0"
     pull-stream "^3.6.0"

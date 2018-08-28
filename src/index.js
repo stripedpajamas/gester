@@ -5,15 +5,6 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS
 } from 'electron-devtools-installer'
-const core = require('ssb-chat-core')
-
-global.core = core
-
-process.on('uncaughtException', (e) => {
-  console.log(e)
-  core.stop()
-  process.exit(1)
-})
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -84,18 +75,8 @@ const createWindows = async () => {
   })
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-  core.start({ debug: true, timeWindow: 1209600000 }, (err) => {
-    if (err) {
-      console.log(err)
-      quit()
-      process.exit(1)
-    }
-    createWindows()
-  })
+  createWindows()
 })
 
 // Quit when all windows are closed.
@@ -117,7 +98,6 @@ app.on('activate', () => {
 })
 
 const quit = () => {
-  core.stop()
   app.quit()
 }
 

@@ -41,7 +41,7 @@ class MessageView extends Component {
     }
     return messages.map((message, idx) => {
       const id = message.author
-      const author = (authors[id] || {}).name || id
+      const author = authors[id] || id
       // so that we can group messages from the same author,
       // tell our child component if the previous message
       // was sent from the same author

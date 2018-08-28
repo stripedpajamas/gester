@@ -1,7 +1,5 @@
 import emojis from 'node-emoji'
-import electron from 'electron'
-
-const core = electron.remote.getGlobal('core')
+import core from 'ssb-chat-core'
 
 const emojiList = Object.keys(emojis.emoji).map(e => `:${e}:`)
 

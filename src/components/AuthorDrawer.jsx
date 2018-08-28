@@ -57,7 +57,7 @@ class AuthorDrawer extends Component {
 
   render () {
     const { authors, currentAuthorId, following, blocked, me } = this.props
-    const author = (authors[currentAuthorId] || {}).name || currentAuthorId || (authors[me] || {}).name || me
+    const author = authors[currentAuthorId] || currentAuthorId || authors[me] || me
 
     const isBlocked = blocked.includes(currentAuthorId)
     const areFollowing = following.includes(currentAuthorId)
@@ -126,7 +126,7 @@ AuthorDrawer.propTypes = {
   closeAuthorDrawer: PropTypes.func.isRequired,
   goPrivate: PropTypes.func.isRequired,
   currentAuthorId: PropTypes.string.isRequired,
-  authors: PropTypes.objectOf(PropTypes.object).isRequired,
+  authors: PropTypes.objectOf(PropTypes.string).isRequired,
   following: PropTypes.arrayOf(PropTypes.string).isRequired,
   blocked: PropTypes.arrayOf(PropTypes.string).isRequired,
   follow: PropTypes.func.isRequired,
