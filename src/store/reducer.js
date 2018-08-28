@@ -23,9 +23,6 @@ export default (state = initialState, action) => (
       case Types.SET_FOLLOWING:
         draft.following = action.following
         break
-      case Types.SET_FOLLOWING_ME:
-        draft.followingMe = action.followingMe
-        break
       case Types.SET_BLOCKED:
         draft.blocked = action.blocked
         break

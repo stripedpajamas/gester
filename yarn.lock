@@ -7403,8 +7403,8 @@ ssb-blobs@^1.1.4, ssb-blobs@^1.1.5:
     ssb-ref "^2.3.0"
 
 ssb-chat-core@^1.0.29:
-  version "1.0.34"
-  resolved "https://registry.yarnpkg.com/ssb-chat-core/-/ssb-chat-core-1.0.34.tgz#b606eee972a732a088d2f48c84c793482a18722b"
+  version "1.0.35"
+  resolved "https://registry.yarnpkg.com/ssb-chat-core/-/ssb-chat-core-1.0.35.tgz#f99a4e5f880b1926e4879d91811dbe2cb7af3aa3"
   dependencies:
     immutable "^3.8.2"
     nanobus "^4.3.3"

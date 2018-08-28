@@ -6,7 +6,6 @@ export default {
   messages: [],
   authors: {},
   following: [],
-  followingMe: [],
   blocked: [],
   recipients: [],
   unreads: [],

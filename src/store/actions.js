@@ -68,6 +68,17 @@ export const setupCore = () => (dispatch, getState) => {
       type: Types.SET_AUTHORS,
       authors: core.authors.getJS()
     })
+
+    // initial friends/blocking
+    const friends = core.authors.getFriendsJS()
+    dispatch({
+      type: Types.SET_FOLLOWING,
+      following: friends.following || []
+    })
+    dispatch({
+      type: Types.SET_BLOCKED,
+      blocked: friends.blocking || []
+    })
   })
 
   // keep a copy of messages in redux and keep them up to date
@@ -89,6 +100,17 @@ export const setupCore = () => (dispatch, getState) => {
     })
   }, 300, { leading: true })
   core.events.on('authors-changed', debouncedAuthorsUpdate)
+
+  core.events.on('friends-changed', (friends) => {
+    dispatch({
+      type: Types.SET_FOLLOWING,
+      following: friends.following
+    })
+    dispatch({
+      type: Types.SET_BLOCKED,
+      blocked: friends.blocking
+    })
+  })
 
   // keep a record of what mode we are in in redux and keep it up to date
   core.events.on('mode-changed', (mode) => {
