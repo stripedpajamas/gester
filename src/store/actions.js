@@ -5,6 +5,7 @@ import * as Types from './actionTypes'
 import * as Util from './util'
 
 window.core = core
+let notification // eslint-disable-line
 
 export const setupCore = () => (dispatch, getState) => {
   // start up core
@@ -144,12 +145,16 @@ export const setupCore = () => (dispatch, getState) => {
 
   // keep a record of unread private chats in redux and keep them up to date
   core.events.on('unreads-changed', (unreads) => {
+    dispatch({
+      type: Types.SET_UNREADS,
+      unreads
+    })
     if (unreads.length) {
       // there are unreads...
       // if we aren't focused, set the badge and pop a note
       if (!Util.isFocused()) {
         ipcRenderer.send('unread', true)
-        notification = new window.Notification('Gester', { // eslint-disable-line
+        notification = new window.Notification('Gester', {
           body: 'New unread message'
         })
       } else {
@@ -170,13 +175,8 @@ export const setupCore = () => (dispatch, getState) => {
       ipcRenderer.send('unread', false)
     }
 
-    dispatch({
-      type: Types.SET_UNREADS,
-      unreads
-    })
-
     // make placeholders in state for any authors we don't know about
-    Util.getUnreadAuthors(unreads, getState())
+    Util.getUnreadAuthors(unreads)
   })
 
   // keep a record of who is the current private recipients in redux
