@@ -125,9 +125,18 @@ class ControlPanel extends Component {
         </div>
         <div className='control-panel__users'>
           <div className='recents'>
-            <div className='recents-item' onClick={this.handleModeButton}>
-              <p>#public</p>
-            </div>
+            {this.props.mode === 'PRIVATE'
+              ? (
+                <div className='recents-item' onClick={this.handleModeButton}>
+                  <p>#public</p>
+                </div>
+              )
+              : (
+                <div className='recents-item'>
+                  <p>#public</p>
+                </div>
+              )
+            }
             {sortedRecents.map((recent) => {
               const currentRecps = this.props.recipients.join(', ')
               const thisRecent = recent.filtered.join(', ')
