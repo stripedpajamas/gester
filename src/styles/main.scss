@@ -118,20 +118,6 @@ button {
         margin-top: 20px;
     }
 
-    .public-button {
-        width: 75%;
-        margin: 0;
-        background-color: $theme-buttons-secondary;
-
-        &:hover {
-            background-color: $theme-buttons-secondary-hover;
-        }
-
-        &:focus {
-            background-color: $theme-buttons-secondary-click;
-        }
-    }
-
     &__input {
         margin-top: 35px;
         padding: 7px 10px;
