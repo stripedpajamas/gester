@@ -102,7 +102,6 @@ class ControlPanel extends Component {
   }
 
   render () {
-    const privateMode = this.props.mode === 'PRIVATE'
     const sortedRecents = this.props.recents.slice().sort((a, b) => {
       const mappedA = a.filtered.map(id => this.props.authors[id] || id).join(', ')
       const mappedB = b.filtered.map(id => this.props.authors[id] || id).join(', ')
