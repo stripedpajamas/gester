@@ -102,7 +102,6 @@ class ControlPanel extends Component {
   }
 
   render () {
-    const privateMode = this.props.mode === 'PRIVATE'
     const sortedRecents = this.props.recents.slice().sort((a, b) => {
       const mappedA = a.filtered.map(id => this.props.authors[id] || id).join(', ')
       const mappedB = b.filtered.map(id => this.props.authors[id] || id).join(', ')
@@ -126,6 +125,18 @@ class ControlPanel extends Component {
         </div>
         <div className='control-panel__users'>
           <div className='recents'>
+            {this.props.mode === 'PRIVATE'
+              ? (
+                <div className='recents-item' onClick={this.handleModeButton}>
+                  <p>#public</p>
+                </div>
+              )
+              : (
+                <div className='recents-item'>
+                  <p>#public</p>
+                </div>
+              )
+            }
             {sortedRecents.map((recent) => {
               const currentRecps = this.props.recipients.join(', ')
               const thisRecent = recent.filtered.join(', ')
@@ -170,11 +181,6 @@ class ControlPanel extends Component {
               )
             })}
           </div>
-        </div>
-        <div>
-          {privateMode &&
-            <button className='button public-button' onClick={this.handleModeButton}>back to public</button>
-          }
         </div>
       </div>
     )
