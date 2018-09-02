@@ -112,14 +112,9 @@ class ControlPanel extends Component {
   }
 
   render () {
-    const { authors, currentAuthorId, following, blocked, me } = this.props
+    const { authors, currentAuthorId, me } = this.props
     const author = authors[currentAuthorId] || currentAuthorId || authors[me] || me
 
-    const isBlocked = blocked.includes(currentAuthorId)
-    const areFollowing = following.includes(currentAuthorId)
-
-    const blockText = isBlocked ? 'unblock' : 'block'
-    const followText = areFollowing ? 'unfollow' : 'follow'
     const sortedRecents = this.props.recents.slice().sort((a, b) => {
       const mappedA = a.filtered.map(id => this.props.authors[id] || id).join(', ')
       const mappedB = b.filtered.map(id => this.props.authors[id] || id).join(', ')
@@ -207,31 +202,6 @@ class ControlPanel extends Component {
                 icon={faTimes}
                 onClick={this.handleCloseDrawer}
               />
-              <div>
-                <h1 className='author-drawer__header'>{author}</h1>
-                <h2 id='author-id'>{currentAuthorId || me}</h2>
-              </div>
-              <div>
-                <button
-                  className='button'
-                  id='button-block'
-                  onClick={() => this.handleClickBlock(isBlocked, currentAuthorId)}
-                  disabled={author === authors[me].name}
-                >{blockText}</button>
-                <button
-                  className='button'
-                  id='button-follow'
-                  onClick={() => this.handleClickFollow(areFollowing, currentAuthorId)}
-                  disabled={author === authors[me].name}
-                >{followText}</button>
-              </div>
-              <div>
-                <button
-                  className='button'
-                  id='button-private'
-                  onClick={() => this.startPrivateMessage(author)}
-                >start private</button>
-              </div>
             </div>
           )
           : (
@@ -256,8 +226,6 @@ const mapStateToProps = state => ({
   recipients: state.recipients,
   authorDrawerOpen: state.authorDrawerOpen,
   currentAuthorId: state.currentAuthorId,
-  following: state.following,
-  blocked: state.blocked,
   me: state.me
 })
 
@@ -285,8 +253,6 @@ ControlPanel.propTypes = {
   openAuthorDrawer: PropTypes.func.isRequired,
   closeAuthorDrawer: PropTypes.func.isRequired,
   currentAuthorId: PropTypes.string.isRequired,
-  following: PropTypes.bool.isRequired,
-  blocked: PropTypes.bool.isRequired,
   me: PropTypes.string.isRequired
 }
 

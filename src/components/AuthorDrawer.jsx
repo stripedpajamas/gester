@@ -99,13 +99,13 @@ class AuthorDrawer extends Component {
                 className='button'
                 id='button-block'
                 onClick={() => this.handleClickBlock(isBlocked, currentAuthorId)}
-                disabled={author === authors[me].name}
+                // disabled={author === authors[me].name}
               >{blockText}</button>
               <button
                 className='button'
                 id='button-follow'
                 onClick={() => this.handleClickFollow(areFollowing, currentAuthorId)}
-                disabled={author === authors[me].name}
+                // disabled={author === authors[me].name}
               >{followText}</button>
             </div>
             <div>
