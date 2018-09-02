@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle, faTimes } from '@fortawesome/free-solid-svg-icons'
 import Input from './Input'
 import * as Actions from '../store/actions'
 
@@ -24,6 +24,8 @@ class ControlPanel extends Component {
     this.handleFocusPMInput = this.handleFocusPMInput.bind(this)
     this.handleInputFocus = this.handleInputFocus.bind(this)
     this.handleInputBlur = this.handleInputBlur.bind(this)
+    this.handleOpenDrawer = this.handleOpenDrawer.bind(this)
+    this.handleCloseDrawer = this.handleCloseDrawer.bind(this)
 
     this.state = {
       closeIcon: null,
@@ -101,6 +103,14 @@ class ControlPanel extends Component {
     this.setState({ closeIconHover: null })
   }
 
+  handleOpenDrawer () {
+    this.props.openAuthorDrawer(this.props.currentAuthorId)
+  }
+
+  handleCloseDrawer () {
+    this.props.closeAuthorDrawer()
+  }
+
   render () {
     const sortedRecents = this.props.recents.slice().sort((a, b) => {
       const mappedA = a.filtered.map(id => this.props.authors[id] || id).join(', ')
@@ -109,7 +119,7 @@ class ControlPanel extends Component {
     })
 
     return (
-      <div className='control-panel'>
+      <div className={`control-panel ${this.props.authorDrawerOpen ? 'authors-open' : 'authors-closed'}`}>
         <div>
           <button className='button' onClick={this.handlePubButton}>+ join pub</button>
         </div>
@@ -182,6 +192,24 @@ class ControlPanel extends Component {
             })}
           </div>
         </div>
+        {this.props.authorDrawerOpen
+          ? (
+            <div className='control-panel__authors'>
+              <FontAwesomeIcon
+                icon={faTimes}
+                onClick={this.handleCloseDrawer}
+              />
+            </div>
+          )
+          : (
+            <div className='control-panel__authors'>
+              <FontAwesomeIcon
+                icon={faTimes}
+                onClick={this.handleOpenDrawer}
+              />
+            </div>
+          )
+        }
       </div>
     )
   }
@@ -192,7 +220,9 @@ const mapStateToProps = state => ({
   recents: state.recents,
   authors: state.authors,
   unreads: state.unreads,
-  recipients: state.recipients
+  recipients: state.recipients,
+  authorDrawerOpen: state.authorDrawerOpen,
+  currentAuthorId: state.currentAuthorId
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -200,7 +230,9 @@ const mapDispatchToProps = dispatch => ({
   goPublic: bindActionCreators(Actions.goPublic, dispatch),
   joinPub: bindActionCreators(Actions.joinPub, dispatch),
   removeRecent: bindActionCreators(Actions.removeRecent, dispatch),
-  setJoinPub: bindActionCreators(Actions.setJoinPub, dispatch)
+  setJoinPub: bindActionCreators(Actions.setJoinPub, dispatch),
+  openAuthorDrawer: bindActionCreators(Actions.openAuthorDrawer, dispatch),
+  closeAuthorDrawer: bindActionCreators(Actions.closeAuthorDrawer, dispatch)
 })
 
 ControlPanel.propTypes = {
@@ -212,7 +244,11 @@ ControlPanel.propTypes = {
   authors: PropTypes.object.isRequired,
   unreads: PropTypes.array.isRequired,
   recipients: PropTypes.array.isRequired,
-  mode: PropTypes.string.isRequired
+  mode: PropTypes.string.isRequired,
+  authorDrawerOpen: PropTypes.bool.isRequired,
+  openAuthorDrawer: PropTypes.func.isRequired,
+  closeAuthorDrawer: PropTypes.func.isRequired,
+  currentAuthorId: PropTypes.string.isRequired
 }
 
 export default connect(

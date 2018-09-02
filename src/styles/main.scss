@@ -83,6 +83,7 @@ button {
     background-color: $theme-buttons;
     border: none;
     color: $theme-font-secondary;
+    cursor: pointer;
 
     &:hover {
         background-color: $theme-buttons-hover;
@@ -104,10 +105,17 @@ button {
 }
 
 /* ------ Control Panel ------ */
+
+.authors-open {
+    grid-template-rows: 60px 80px auto 350px;
+}
+.authors-closed {
+    grid-template-rows: 60px 80px auto 20px;
+}
+
 .control-panel {
     background-color: $theme-primary;
     display: grid;
-    grid-template-rows: 60px 80px auto 50px;
     text-align: center;
     position: fixed;
     height: 100vh;
@@ -140,6 +148,7 @@ button {
             div {
                 display: grid;
                 grid-template-columns: 190px 35px;
+                cursor: pointer;
                 p {
                     padding: 7px 20px;
                     margin-right: 5px;
@@ -177,6 +186,10 @@ button {
                 cursor: pointer;
             }
         }
+    }
+
+    &__authors {
+        border-top: 1px solid black;
     }
 }
 
@@ -364,6 +377,10 @@ button {
         font-weight: bold;
         line-height: 40px;
         text-align: center;
+    }
+
+    svg {
+        margin-top: 12px;
     }
 }
 

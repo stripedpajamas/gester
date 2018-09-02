@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 class Notification extends Component {
   constructor () {
@@ -31,7 +33,10 @@ class Notification extends Component {
     return (
       <div className={`toast ${className}`} onClick={this.handleClose}>
         <span className='toast-message'>{text}</span>
-        <span className='toast-close'>X</span>
+        <FontAwesomeIcon
+          className='toast-close'
+          icon={faTimes}
+        />
       </div>
     )
   }
