@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import { HotKeys } from 'react-hotkeys'
 import * as Actions from './store/actions'
 import ControlPanel from './components/ControlPanel'
-import JoinPubModal from './components/JoinPubModal'
 import MessageView from './components/MessageView'
 import Input from './components/Input'
 import Notification from './components/Notification'
@@ -82,9 +81,6 @@ class App extends Component {
               notification={this.props.notification}
               onClose={this.props.clearNotification}
             />
-          }
-          {this.props.joiningPub &&
-            <JoinPubModal />
           }
           <ControlPanel ref={this.controlPanel} />
           <div className='message-view'>
