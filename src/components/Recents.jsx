@@ -21,7 +21,7 @@ class Recents extends Component {
               </div>
             )
             : (
-              <div className='recents-item'>
+              <div className='recents-item__active'>
                 <p>#public</p>
               </div>
             )
