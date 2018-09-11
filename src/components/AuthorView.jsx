@@ -5,6 +5,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 class AuthorView extends Component {
   render () {
+    const buttonDisabled = this.props.currentAuthorId === this.props.me
     return (
       <div className='author-view'>
         <div>
@@ -22,11 +23,13 @@ class AuthorView extends Component {
           <button
             className='button'
             id='button-block'
+            disabled={buttonDisabled}
             onClick={() => this.props.handleClickBlock(this.props.isBlocked, this.props.currentAuthorId)}
           >{this.props.blockText}</button>
           <button
             className='button'
             id='button-follow'
+            disabled={buttonDisabled}
             onClick={() => this.props.handleClickFollow(this.props.areFollowing, this.props.currentAuthorId)}
           >{this.props.followText}</button>
           <button
