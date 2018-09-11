@@ -21,22 +21,22 @@ class AuthorView extends Component {
         </div>
         <div className='author-view__actions'>
           <button
-            className='button'
+            className='author-view__button'
+            id='button-private'
+            onClick={() => this.props.startPrivateMessage(this.props.author)}
+          >direct message</button>
+          <button
+            className='author-view__button'
             id='button-block'
             disabled={buttonDisabled}
             onClick={() => this.props.handleClickBlock(this.props.isBlocked, this.props.currentAuthorId)}
           >{this.props.blockText}</button>
           <button
-            className='button'
+            className='author-view__button'
             id='button-follow'
             disabled={buttonDisabled}
             onClick={() => this.props.handleClickFollow(this.props.areFollowing, this.props.currentAuthorId)}
           >{this.props.followText}</button>
-          <button
-            className='button'
-            id='button-private'
-            onClick={() => this.props.startPrivateMessage(this.props.author)}
-          >start private</button>
         </div>
       </div>
     )

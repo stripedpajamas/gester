@@ -130,7 +130,7 @@ class ControlPanel extends Component {
     return (
       <div className='control-panel'>
         <div>
-          <button className='button' onClick={this.handlePrivateButton}>start private</button>
+          <button className='button' onClick={this.handlePrivateButton}>new private</button>
         </div>
         <div>
           <Input
