@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import path from 'path'
-import { app, BrowserWindow, ipcMain, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, shell, Menu } from 'electron'
+import defaultMenu from 'electron-default-menu'
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS
@@ -32,6 +33,9 @@ const createWindows = async () => {
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`)
   loaderWindow.loadURL(`file://${__dirname}/loader.html`)
+
+  // set up help menu
+  createMenu(mainWindow)
 
   if (isDevMode) {
     try {
@@ -73,6 +77,32 @@ const createWindows = async () => {
     mainWindow.show()
     loaderWindow.close()
   })
+}
+
+const createMenu = (win) => {
+  const contents = win.webContents
+  // Get template for default menu
+  const menu = defaultMenu(app, shell)
+
+  // add join pub in help menu
+  const help = menu.find(x => x.label === 'Help')
+  help.submenu = [
+    {
+      label: 'Join Pub',
+      click: () => {
+        contents.send('joining-pub')
+      }
+    },
+    {
+      label: 'Learn More',
+      click: () => {
+        shell.openExternal('https://github.com/stripedpajamas/gester')
+      }
+    }
+  ]
+
+  // Set top-level application menu, using modified template
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menu))
 }
 
 app.on('ready', () => {

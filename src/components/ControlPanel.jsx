@@ -29,6 +29,8 @@ class ControlPanel extends Component {
     this.startPrivateMessage = this.startPrivateMessage.bind(this)
     this.handleClickBlock = this.handleClickBlock.bind(this)
     this.handleClickFollow = this.handleClickFollow.bind(this)
+    this.handleCancelPub = this.handleCancelPub.bind(this)
+    this.handleJoinPub = this.handleJoinPub.bind(this)
 
     this.state = {
       closeIcon: null,
@@ -97,6 +99,15 @@ class ControlPanel extends Component {
 
   modalCancel () {
     this.setState({ privateModalOpen: false })
+  }
+
+  handleCancelPub () {
+    this.props.setJoinPub(false)
+  }
+
+  handleJoinPub (code) {
+    this.props.joinPub(code)
+    this.props.setJoinPub(false)
   }
 
   handleRecentClick (recipients) {
@@ -191,6 +202,13 @@ class ControlPanel extends Component {
             handleSubmit={this.startPrivateMessage}
           />
         )}
+        {this.props.joiningPub && (
+          <Modal
+            inputText='paste invite code here'
+            handleCancel={this.handleCancelPub}
+            handleSubmit={this.handleJoinPub}
+          />
+        )}
       </div>
     )
   }
@@ -206,7 +224,8 @@ const mapStateToProps = state => ({
   recipients: state.recipients,
   authorDrawerOpen: state.authorDrawerOpen,
   currentAuthorId: state.currentAuthorId,
-  me: state.me
+  me: state.me,
+  joiningPub: state.joiningPub
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -218,7 +237,9 @@ const mapDispatchToProps = dispatch => ({
   follow: bindActionCreators(Actions.follow, dispatch),
   unfollow: bindActionCreators(Actions.unfollow, dispatch),
   block: bindActionCreators(Actions.block, dispatch),
-  unblock: bindActionCreators(Actions.unblock, dispatch)
+  unblock: bindActionCreators(Actions.unblock, dispatch),
+  setJoinPub: bindActionCreators(Actions.setJoinPub, dispatch),
+  joinPub: bindActionCreators(Actions.joinPub, dispatch)
 })
 
 ControlPanel.propTypes = {
@@ -239,7 +260,9 @@ ControlPanel.propTypes = {
   unfollow: PropTypes.func.isRequired,
   block: PropTypes.func.isRequired,
   unblock: PropTypes.func.isRequired,
-  me: PropTypes.string.isRequired
+  me: PropTypes.string.isRequired,
+  joinPub: PropTypes.func.isRequired,
+  setJoinPub: PropTypes.func.isRequired
 }
 
 export default connect(

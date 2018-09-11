@@ -26,6 +26,7 @@ class Modal extends Component {
         <div className='modal'>
           <div>
             <input
+              autoFocus
               className='modal-input'
               onKeyPress={this.handleKeyDown}
               type='text'

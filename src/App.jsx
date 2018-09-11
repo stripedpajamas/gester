@@ -101,7 +101,6 @@ class App extends Component {
 
 App.propTypes = {
   setupCore: PropTypes.func.isRequired,
-  joiningPub: PropTypes.bool.isRequired,
   authorDrawerOpen: PropTypes.bool.isRequired,
   recipients: PropTypes.array.isRequired,
   error: PropTypes.object,
@@ -112,7 +111,6 @@ App.propTypes = {
 const mapStateToProps = state => ({
   mode: state.mode,
   recipients: state.recipients,
-  joiningPub: state.joiningPub,
   authorDrawerOpen: state.authorDrawerOpen,
   error: state.error,
   notification: state.notification,

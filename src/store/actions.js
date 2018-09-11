@@ -8,6 +8,10 @@ window.core = core
 let notification // eslint-disable-line
 
 export const setupCore = () => (dispatch, getState) => {
+  // listen for 'joining pub' to pop the modal
+  ipcRenderer.on('joining-pub', () => {
+    dispatch(setJoinPub(true))
+  })
   // start up core
   core.start({ timeWindow: 1209600000 }, (err) => {
     if (err) {
