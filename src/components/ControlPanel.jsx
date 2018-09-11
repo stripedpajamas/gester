@@ -4,9 +4,10 @@ import { bindActionCreators } from 'redux'
 import { getAuthorId } from '../store/util'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import Input from './Input'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import * as Actions from '../store/actions'
+import Input from './Input'
+import AuthorView from './AuthorView'
 
 class ControlPanel extends Component {
   constructor () {
@@ -143,7 +144,7 @@ class ControlPanel extends Component {
     return (
       <div className='control-panel'>
         <div>
-          <button className='button' onClick={this.handlePubButton}>+ join pub</button>
+          <button className='button' onClick={this.handlePubButton}>start private</button>
         </div>
         <div>
           <Input
@@ -216,36 +217,19 @@ class ControlPanel extends Component {
             </div>
           </div>)
           : (
-            <div className='author-view'>
-              <div>
-                <FontAwesomeIcon
-                  className='author-view__back'
-                  icon={faArrowLeft}
-                  onClick={this.handleBackButton}
-                />
-              </div>
-              <div>
-                <h1 className='author-view__header'>{author}</h1>
-                <h2 id='author-id'>{currentAuthorId || me}</h2>
-              </div>
-              <div className='author-view__actions'>
-                <button
-                  className='button'
-                  id='button-block'
-                  onClick={() => this.handleClickBlock(isBlocked, currentAuthorId)}
-                >{blockText}</button>
-                <button
-                  className='button'
-                  id='button-follow'
-                  onClick={() => this.handleClickFollow(areFollowing, currentAuthorId)}
-                >{followText}</button>
-                <button
-                  className='button'
-                  id='button-private'
-                  onClick={() => this.startPrivateMessage(author)}
-                >start private</button>
-              </div>
-            </div>
+            <AuthorView
+              isBlocked={isBlocked}
+              areFollowing={areFollowing}
+              blockText={blockText}
+              followText={followText}
+              author={author}
+              me={me}
+              currentAuthorId={currentAuthorId}
+              handleBackButton={this.handleBackButton}
+              handleClickBlock={this.handleClickBlock}
+              handleClickFollow={this.handleClickFollow}
+              startPrivateMessage={this.startPrivateMessage}
+            />
           )
         }
       </div>
