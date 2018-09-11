@@ -22,7 +22,7 @@ class MessageView extends Component {
   }
 
   handleNameClick (id) {
-    this.props.openAuthorDrawer(id)
+    this.props.openAuthorView(id)
   }
 
   renderMessages () {
@@ -72,7 +72,7 @@ MessageView.propTypes = {
   myNames: PropTypes.array.isRequired,
   messages: PropTypes.array.isRequired,
   authors: PropTypes.object.isRequired,
-  openAuthorDrawer: PropTypes.func.isRequired
+  openAuthorView: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
   authors: state.authors,
@@ -81,7 +81,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  openAuthorDrawer: bindActionCreators(Actions.openAuthorDrawer, dispatch)
+  openAuthorView: bindActionCreators(Actions.openAuthorView, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageView)
