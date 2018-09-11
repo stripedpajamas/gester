@@ -391,6 +391,8 @@ button {
     height: 40px;
     display: grid;
     grid-template-columns: 95% 5%;
+    padding: 0 10px;
+    overflow: hidden;
     transform: translateY(-70px);
     animation: slideDown 4.5s 0s ease forwards;
     * {
