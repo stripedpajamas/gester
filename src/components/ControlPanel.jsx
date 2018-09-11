@@ -3,10 +3,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getAuthorId } from '../store/util'
 import PropTypes from 'prop-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import * as Actions from '../store/actions'
 import Input from './Input'
+import Recents from './Recents'
 import AuthorView from './AuthorView'
 import Modal from './Modal'
 
@@ -125,11 +124,6 @@ class ControlPanel extends Component {
   }
 
   render () {
-    const sortedRecents = this.props.recents.slice().sort((a, b) => {
-      const mappedA = a.filtered.map(id => this.props.authors[id] || id).join(', ')
-      const mappedB = b.filtered.map(id => this.props.authors[id] || id).join(', ')
-      return mappedA > mappedB
-    })
     const { authors, currentAuthorId, me, following, blocked } = this.props
     const author = authors[currentAuthorId] || currentAuthorId || authors[me] || me
 
@@ -155,65 +149,24 @@ class ControlPanel extends Component {
           />
         </div>
         {!this.props.authorDrawerOpen
-          ? (<div className='control-panel__users'>
-            <div className='recents'>
-              {this.props.mode === 'PRIVATE'
-                ? (
-                  <div className='recents-item' onClick={this.handleModeButton}>
-                    <p>#public</p>
-                  </div>
-                )
-                : (
-                  <div className='recents-item'>
-                    <p>#public</p>
-                  </div>
-                )
-              }
-              {sortedRecents.map((recent) => {
-                const currentRecps = this.props.recipients.join(', ')
-                const thisRecent = recent.filtered.join(', ')
-                const isCurrent = currentRecps === thisRecent
-                const isUnread = this.props.unreads.some((unread) => (
-                  unread.join(', ') === thisRecent
-                ))
-
-                const humanNames = recent.filtered.map(id => (this.props.authors[id] || id)).join(', ')
-
-                let className = isCurrent
-                  ? 'recents-item__active'
-                  : 'recents-item'
-                if (isUnread) {
-                  className += ' unread'
-                }
-                const wantingToClose = this.state.closeIconHover === thisRecent
-                return (
-                  <div
-                    className={className}
-                    onMouseOver={() => this.handleMouseOver(thisRecent)}
-                    onMouseLeave={this.handleMouseLeave}
-                    key={thisRecent}
-                  >
-                    <p onClick={() => this.handleRecentClick(humanNames)}>
-                      {humanNames}
-                    </p>
-                    {this.state.closeIcon === thisRecent &&
-                      <span
-                        className='recents-remove-icon'
-                        onMouseOver={() => this.handleMouseOverButton(thisRecent)}
-                        onMouseLeave={this.handleMouseLeaveButton}
-                        onClick={() => this.handleRemoveRecent(recent.raw)}
-                      >
-                        <FontAwesomeIcon
-                          icon={faTimesCircle}
-                          className={wantingToClose ? 'hover' : ''}
-                        />
-                      </span>
-                    }
-                  </div>
-                )
-              })}
-            </div>
-          </div>)
+          ? (
+            <Recents
+              recents={this.props.recents}
+              mode={this.props.mode}
+              handleModeButton={this.handleModeButton}
+              recipients={this.props.recipients}
+              unreads={this.props.unreads}
+              authors={this.props.authors}
+              closeIconHover={this.state.closeIconHover}
+              closeIcon={this.state.closeIcon}
+              handleMouseOver={this.handleMouseOver}
+              handleMouseLeave={this.handleMouseLeave}
+              handleRecentClick={this.handleRecentClick}
+              handleMouseOverButton={this.handleMouseOverButton}
+              handleMouseLeaveButton={this.handleMouseLeaveButton}
+              handleRemoveRecent={this.handleRemoveRecent}
+            />
+          )
           : (
             <AuthorView
               isBlocked={isBlocked}
