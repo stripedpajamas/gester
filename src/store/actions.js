@@ -303,7 +303,7 @@ export const unblock = (id) => (dispatch) => {
     .then(({ result }) => dispatch(setNotification(result)))
     .catch((e) => dispatch(setError(e)))
 }
-export const removeRecent = (recents) => {
+export const removeRecent = (recents) => (dispatch) => {
   core.recents.remove(recents)
 }
 // #endregion
