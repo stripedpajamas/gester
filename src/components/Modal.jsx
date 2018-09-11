@@ -27,6 +27,7 @@ class Modal extends Component {
           <div>
             <input
               className='modal-input'
+              onKeyPress={this.handleKeyDown}
               type='text'
               placeholder={this.props.inputText}
               ref={el => { this.inputVal = el }}
