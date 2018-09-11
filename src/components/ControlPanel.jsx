@@ -8,15 +8,15 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import * as Actions from '../store/actions'
 import Input from './Input'
 import AuthorView from './AuthorView'
+import Modal from './Modal'
 
 class ControlPanel extends Component {
   constructor () {
     super()
     this.handleInputSubmit = this.handleInputSubmit.bind(this)
     this.handleModeButton = this.handleModeButton.bind(this)
-    this.handlePubButton = this.handlePubButton.bind(this)
-    this.handlePubCancel = this.handlePubCancel.bind(this)
-    this.handlePubSubmit = this.handlePubSubmit.bind(this)
+    this.handlePrivateButton = this.handlePrivateButton.bind(this)
+    this.modalCancel = this.modalCancel.bind(this)
     this.handleRecentClick = this.handleRecentClick.bind(this)
     this.handleMouseOver = this.handleMouseOver.bind(this)
     this.handleMouseLeave = this.handleMouseLeave.bind(this)
@@ -34,7 +34,8 @@ class ControlPanel extends Component {
     this.state = {
       closeIcon: null,
       closeIconHover: null,
-      pmInputFocused: false
+      pmInputFocused: false,
+      privateModalOpen: false
     }
   }
 
@@ -57,24 +58,26 @@ class ControlPanel extends Component {
 
   handleInputSubmit (author) {
     const id = getAuthorId(author)
-    this.props.openAuthorDrawer(id)
+    this.props.openAuthorView(id)
   }
 
   startPrivateMessage (author) {
-    const recipient = [author]
-    this.props.goPrivate(recipient)
-    this.props.closeAuthorDrawer()
+    const recipients = author
+      .split(',')
+      .map(x => x.trim())
+    this.props.goPrivate(recipients)
+    this.props.closeAuthorView()
+    this.setState({ privateModalOpen: false })
   }
 
   handleBackButton () {
-    this.props.closeAuthorDrawer()
+    this.props.closeAuthorView()
   }
 
   handleClickBlock (blocked, id) {
     if (blocked) {
       return this.props.unblock(id)
     }
-
     return this.props.block(id)
   }
 
@@ -82,7 +85,6 @@ class ControlPanel extends Component {
     if (followed) {
       return this.props.unfollow(id)
     }
-
     return this.props.follow(id)
   }
 
@@ -90,16 +92,12 @@ class ControlPanel extends Component {
     this.props.goPublic()
   }
 
-  handlePubButton () {
-    this.props.setJoinPub(true)
+  handlePrivateButton () {
+    this.setState({ privateModalOpen: true })
   }
 
-  handlePubCancel () {
-    this.props.setJoinPub(false)
-  }
-
-  handlePubSubmit (invite) {
-    this.props.joinPub(invite)
+  modalCancel () {
+    this.setState({ privateModalOpen: false })
   }
 
   handleRecentClick (recipients) {
@@ -144,12 +142,12 @@ class ControlPanel extends Component {
     return (
       <div className='control-panel'>
         <div>
-          <button className='button' onClick={this.handlePubButton}>start private</button>
+          <button className='button' onClick={this.handlePrivateButton}>start private</button>
         </div>
         <div>
           <Input
             className='control-panel__input'
-            placeholder='Search For User'
+            placeholder='Search for user'
             onSubmit={this.handleInputSubmit}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
@@ -232,6 +230,14 @@ class ControlPanel extends Component {
             />
           )
         }
+        {this.state.privateModalOpen && (
+          <Modal
+            inputText='enter private recipient(s) separated by commas'
+            submitText='start'
+            handleCancel={this.modalCancel}
+            handleSubmit={this.startPrivateMessage}
+          />
+        )}
       </div>
     )
   }
@@ -253,11 +259,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   goPrivate: bindActionCreators(Actions.goPrivate, dispatch),
   goPublic: bindActionCreators(Actions.goPublic, dispatch),
-  joinPub: bindActionCreators(Actions.joinPub, dispatch),
   removeRecent: bindActionCreators(Actions.removeRecent, dispatch),
-  setJoinPub: bindActionCreators(Actions.setJoinPub, dispatch),
-  openAuthorDrawer: bindActionCreators(Actions.openAuthorDrawer, dispatch),
-  closeAuthorDrawer: bindActionCreators(Actions.closeAuthorDrawer, dispatch),
+  openAuthorView: bindActionCreators(Actions.openAuthorView, dispatch),
+  closeAuthorView: bindActionCreators(Actions.closeAuthorView, dispatch),
   follow: bindActionCreators(Actions.follow, dispatch),
   unfollow: bindActionCreators(Actions.unfollow, dispatch),
   block: bindActionCreators(Actions.block, dispatch),
@@ -267,8 +271,6 @@ const mapDispatchToProps = dispatch => ({
 ControlPanel.propTypes = {
   goPublic: PropTypes.func.isRequired,
   goPrivate: PropTypes.func.isRequired,
-  joinPub: PropTypes.func.isRequired,
-  setJoinPub: PropTypes.func.isRequired,
   recents: PropTypes.array.isRequired,
   authors: PropTypes.object.isRequired,
   unreads: PropTypes.array.isRequired,
@@ -277,8 +279,8 @@ ControlPanel.propTypes = {
   following: PropTypes.array.isRequired,
   blocked: PropTypes.array.isRequired,
   authorDrawerOpen: PropTypes.bool.isRequired,
-  openAuthorDrawer: PropTypes.func.isRequired,
-  closeAuthorDrawer: PropTypes.func.isRequired,
+  openAuthorView: PropTypes.func.isRequired,
+  closeAuthorView: PropTypes.func.isRequired,
   currentAuthorId: PropTypes.string.isRequired,
   follow: PropTypes.func.isRequired,
   unfollow: PropTypes.func.isRequired,
