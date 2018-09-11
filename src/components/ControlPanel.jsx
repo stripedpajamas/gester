@@ -15,16 +15,12 @@ class ControlPanel extends Component {
     this.handleInputSubmit = this.handleInputSubmit.bind(this)
     this.handleModeButton = this.handleModeButton.bind(this)
     this.handlePrivateButton = this.handlePrivateButton.bind(this)
-    this.modalCancel = this.modalCancel.bind(this)
     this.handleRecentClick = this.handleRecentClick.bind(this)
     this.handleMouseOver = this.handleMouseOver.bind(this)
     this.handleMouseLeave = this.handleMouseLeave.bind(this)
     this.handleMouseOverButton = this.handleMouseOverButton.bind(this)
     this.handleMouseLeaveButton = this.handleMouseLeaveButton.bind(this)
     this.handleRemoveRecent = this.handleRemoveRecent.bind(this)
-    this.handleFocusPMInput = this.handleFocusPMInput.bind(this)
-    this.handleInputFocus = this.handleInputFocus.bind(this)
-    this.handleInputBlur = this.handleInputBlur.bind(this)
     this.handleBackButton = this.handleBackButton.bind(this)
     this.startPrivateMessage = this.startPrivateMessage.bind(this)
     this.handleClickBlock = this.handleClickBlock.bind(this)
@@ -35,26 +31,8 @@ class ControlPanel extends Component {
     this.state = {
       closeIcon: null,
       closeIconHover: null,
-      pmInputFocused: false,
       privateModalOpen: false
     }
-  }
-
-  handleFocusPMInput () {
-    if (!this.state.pmInputFocused) {
-      this.recipientsInput.handleFocusInput()
-      this.setState({ pmInputFocused: true })
-      return true
-    }
-    return false
-  }
-
-  handleInputFocus () {
-    this.setState({ pmInputFocused: true })
-  }
-
-  handleInputBlur () {
-    this.setState({ pmInputFocused: false })
   }
 
   handleInputSubmit (author) {
@@ -63,11 +41,15 @@ class ControlPanel extends Component {
   }
 
   startPrivateMessage (author) {
-    const recipients = author
-      .split(',')
-      .map(x => x.trim())
-    this.props.goPrivate(recipients)
-    this.props.closeAuthorView()
+    if (author) {
+      const recipients = author
+        .split(',')
+        .map(x => x.trim())
+      this.props.goPrivate(recipients)
+      this.props.closeAuthorView()
+    } else {
+      this.handleModeButton()
+    }
     this.setState({ privateModalOpen: false })
   }
 
@@ -94,11 +76,12 @@ class ControlPanel extends Component {
   }
 
   handlePrivateButton () {
-    this.setState({ privateModalOpen: true })
-  }
-
-  modalCancel () {
+    if (!this.state.privateModalOpen) {
+      this.setState({ privateModalOpen: true })
+      return true
+    }
     this.setState({ privateModalOpen: false })
+    return false
   }
 
   handleCancelPub () {
@@ -156,7 +139,6 @@ class ControlPanel extends Component {
             onSubmit={this.handleInputSubmit}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
-            ref={el => { this.recipientsInput = el }}
           />
         </div>
         {!this.props.authorDrawerOpen
@@ -198,7 +180,7 @@ class ControlPanel extends Component {
           <Modal
             inputText='enter private recipient(s) separated by commas'
             submitText='start'
-            handleCancel={this.modalCancel}
+            handleCancel={this.handlePrivateButton}
             handleSubmit={this.startPrivateMessage}
           />
         )}

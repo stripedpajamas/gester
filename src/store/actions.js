@@ -251,7 +251,11 @@ export const goPrivate = recipients => (dispatch) => {
   core.commands.private(recipients)
     .catch((e) => dispatch(setError(e)))
 }
-export const goPublic = () => (dispatch) => {
+export const goPublic = () => (dispatch, getState) => {
+  const state = getState()
+  if (state.mode === core.constants.MODE.PUBLIC) {
+    return
+  }
   dispatch({
     type: Types.SET_MESSAGES,
     messages: [{ loading: true }]

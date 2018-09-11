@@ -8,11 +8,11 @@ class Input extends Component {
 
     this.tabCompleter = null
 
-    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleKeyUp = this.handleKeyUp.bind(this)
     this.handleFocusInput = this.handleFocusInput.bind(this)
   }
 
-  handleKeyDown (e) {
+  handleKeyUp (e) {
     const msg = e.target.value
     if (e.key === 'Escape') {
       this.props.onBlur()
@@ -47,7 +47,7 @@ class Input extends Component {
           placeholder={this.props.placeholder}
           onFocus={this.props.onFocus}
           onBlur={this.props.onBlur}
-          onKeyDown={this.handleKeyDown}
+          onKeyUp={this.handleKeyUp}
           onChange={this.handleChange}
           ref={el => { this.messageInput = el }}
           type='text'

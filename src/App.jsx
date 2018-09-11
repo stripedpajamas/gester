@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import { HotKeys } from 'react-hotkeys'
+import { constants } from 'ssb-chat-core'
 import * as Actions from './store/actions'
 import ControlPanel from './components/ControlPanel'
 import MessageView from './components/MessageView'
@@ -16,16 +17,16 @@ class App extends Component {
 
     this.messageInput = React.createRef()
     this.controlPanel = React.createRef()
-    this.handleFocusPMInput = this.handleFocusPMInput.bind(this)
+    this.handleOpenPrivate = this.handleOpenPrivate.bind(this)
     this.handleToggleMode = this.handleToggleMode.bind(this)
     this.handleInputSubmit = this.handleInputSubmit.bind(this)
 
     this.keyMap = {
-      focusPMInput: 'command+k',
+      openPrivate: 'command+k',
       toggleMode: 'command+t'
     }
     this.hotKeyHandlers = {
-      focusPMInput: this.handleFocusPMInput,
+      openPrivate: this.handleOpenPrivate,
       toggleMode: this.handleToggleMode
     }
   }
@@ -49,11 +50,11 @@ class App extends Component {
     }
   }
 
-  handleFocusPMInput () {
-    const pmInputFocused = this.controlPanel.current
+  handleOpenPrivate () {
+    const alreadyOpen = this.controlPanel.current
       .getWrappedInstance()
-      .handleFocusPMInput()
-    if (!pmInputFocused) {
+      .handlePrivateButton()
+    if (!alreadyOpen) {
       this.messageInput.current.handleFocusInput()
     }
   }

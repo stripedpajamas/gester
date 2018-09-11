@@ -5,10 +5,10 @@ class Modal extends Component {
   constructor (props) {
     super(props)
 
-    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleKeyUp = this.handleKeyUp.bind(this)
   }
 
-  handleKeyDown (e) {
+  handleKeyUp (e) {
     if (e.key === 'Escape') {
       this.props.handleCancel()
       return
@@ -28,7 +28,7 @@ class Modal extends Component {
             <input
               autoFocus
               className='modal-input'
-              onKeyPress={this.handleKeyDown}
+              onKeyUp={this.handleKeyUp}
               type='text'
               placeholder={this.props.inputText}
               ref={el => { this.inputVal = el }}
