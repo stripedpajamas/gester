@@ -100,7 +100,7 @@ button {
 .control-panel {
     background-color: $theme-primary;
     display: grid;
-    grid-template-rows: 60px 80px auto;
+    grid-template-rows: 80px 80px auto;
     text-align: center;
     position: fixed;
     height: 100vh;
@@ -108,7 +108,7 @@ button {
 
     .button {
         padding: 10px 25px;
-        margin-top: 20px;
+        margin-top: 40px;
     }
 
     &__input {
@@ -192,8 +192,9 @@ button {
             word-break: break-all;
         }
 
-        .button {
+        &__button {
             padding: 10px 0;
+            margin-top: 10px;
             width: 87px;
         }
 
