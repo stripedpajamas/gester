@@ -8,7 +8,6 @@ import ControlPanel from './components/ControlPanel'
 import JoinPubModal from './components/JoinPubModal'
 import MessageView from './components/MessageView'
 import Input from './components/Input'
-import AuthorDrawer from './components/AuthorDrawer'
 import Notification from './components/Notification'
 import Loader from './components/Loader'
 
@@ -76,7 +75,7 @@ class App extends Component {
     const mode = this.props.mode.toLowerCase()
     return (
       <HotKeys keyMap={this.keyMap} handlers={this.hotKeyHandlers}>
-        <div className={this.props.authorDrawerOpen ? 'main drawer-open' : 'main drawer-closed'}>
+        <div className='main'>
           {hasNotification &&
             <Notification
               error={this.props.error}
@@ -98,7 +97,6 @@ class App extends Component {
               ref={this.messageInput}
             />
           </div>
-          <AuthorDrawer />
         </div>
       </HotKeys>
     )
