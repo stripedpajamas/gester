@@ -30,7 +30,7 @@ $theme-error: #c32f27;
 $theme-notification: #f7dba7;
 $color-white: #fff;
 
-$control-panel-width: 225px;
+$control-panel-width: 235px;
   
 $main-font: 'Roboto', Helvetica, sans-serif;
 
@@ -48,14 +48,7 @@ $main-font: 'Roboto', Helvetica, sans-serif;
 
 .main {
     display: grid;
-}
-
-.drawer-closed {
-    grid-template-columns: $control-panel-width auto 50px;
-}
-
-.drawer-open {
-    grid-template-columns: $control-panel-width auto 247px;
+    grid-template-columns: $control-panel-width auto;
 }
 
 #author-id {
@@ -83,6 +76,7 @@ button {
     background-color: $theme-buttons;
     border: none;
     color: $theme-font-secondary;
+    cursor: pointer;
 
     &:hover {
         background-color: $theme-buttons-hover;
@@ -91,7 +85,6 @@ button {
 
     &:focus {
         outline: none;
-        background-color: $theme-buttons-click;
     }
 
     &:disabled {
@@ -107,7 +100,7 @@ button {
 .control-panel {
     background-color: $theme-primary;
     display: grid;
-    grid-template-rows: 60px 80px auto 50px;
+    grid-template-rows: 60px 80px auto;
     text-align: center;
     position: fixed;
     height: 100vh;
@@ -140,6 +133,7 @@ button {
             div {
                 display: grid;
                 grid-template-columns: 190px 35px;
+                cursor: pointer;
                 p {
                     padding: 7px 20px;
                     margin-right: 5px;
@@ -149,7 +143,7 @@ button {
                     width: 15px;
                 }
                 svg {
-                    margin: 7px 0;
+                    margin: 7px 0 7px 5px;
                     fill-opacity: .8;
                 }
                 .hover {
@@ -175,6 +169,45 @@ button {
             
             &__item {
                 cursor: pointer;
+            }
+        }
+    }
+
+    &__authors {
+        border-top: 1px solid black;
+    }
+
+    .author-view {
+        display: grid;
+        grid-template-rows: 100px auto 350px;
+        padding: 0 20px; 
+
+        &__back {
+            float: left;
+            margin-top: 22px;
+            cursor: pointer;
+        }
+
+        &__header {
+            word-break: break-all;
+        }
+
+        .button {
+            padding: 10px 0;
+            width: 87px;
+        }
+
+        #button-private {
+            padding: 10px 0;
+            width: 100%;
+        }
+
+        #button-block {
+            margin-right: 20px;
+            background-color: $theme-buttons-error;
+
+            &:hover {
+                background-color: $theme-buttons-error-hover;                
             }
         }
     }
@@ -214,7 +247,7 @@ button {
             text-align: center;
         }
     
-        .join-button {
+        .modal-submit {
             margin-right: 30px;
             background-color: $theme-buttons-secondary;
     
@@ -365,6 +398,10 @@ button {
         line-height: 40px;
         text-align: center;
     }
+
+    svg {
+        margin-top: 12px;
+    }
 }
 
 @keyframes slideDown {
@@ -383,85 +420,6 @@ button {
     background-color: $theme-notification;
     * {
         color: $theme-font;
-    }
-}
-
-/* ------ Author Drawer ------ */
-.author-drawer {
-    height: 100vh;
-    border-left: 2px solid $theme-active;
-    display: grid;
-    grid-template-columns: auto auto;
-
-    &__toggle {
-        margin-top: 20px;
-        width: 48px;
-        text-align: center;
-
-    }
-
-    &__content {
-        width: 205px;
-        padding: 20px;
-        display: grid;
-        text-align: center;
-        grid-template-rows: 60px 125px auto 65px 200px;
-        
-        input {
-            width: calc(100% - 21px);
-            padding: 7px 10px;
-            margin-top: 15px;
-
-            &:focus {
-                border: 2px solid $theme-buttons-click;
-                outline: none;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-            }
-        }
-
-        #button-block {
-            margin-right: 25px;
-            background-color: $theme-buttons-error;
-
-            &:hover {
-                background-color: $theme-buttons-error-hover;                
-            }
-
-            &:focus {
-                background-color: $theme-buttons-error-click;
-            }
-        }
-
-        .toggle {
-            text-align: left;
-        }
-
-        .button {
-            padding: 10px 0;
-            width: 90px;
-        }
-
-        #button-private {
-            padding: 10px 0;
-            width: 100%;
-        }
-
-        div {
-            h1 {
-                word-break: break-all;
-            }
-        }
-    }
-
-    .toggle-arrow {
-        background-color: $color-white;
-        border: 1px solid $theme-active;
-        padding: 10px;
-        cursor: pointer;
-
-        &:focus {
-            box-shadow: none;
-        }
     }
 }
 

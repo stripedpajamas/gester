@@ -5,10 +5,8 @@ import PropTypes from 'prop-types'
 import { HotKeys } from 'react-hotkeys'
 import * as Actions from './store/actions'
 import ControlPanel from './components/ControlPanel'
-import JoinPubModal from './components/JoinPubModal'
 import MessageView from './components/MessageView'
 import Input from './components/Input'
-import AuthorDrawer from './components/AuthorDrawer'
 import Notification from './components/Notification'
 import Loader from './components/Loader'
 
@@ -76,16 +74,13 @@ class App extends Component {
     const mode = this.props.mode.toLowerCase()
     return (
       <HotKeys keyMap={this.keyMap} handlers={this.hotKeyHandlers}>
-        <div className={this.props.authorDrawerOpen ? 'main drawer-open' : 'main drawer-closed'}>
+        <div className='main'>
           {hasNotification &&
             <Notification
               error={this.props.error}
               notification={this.props.notification}
               onClose={this.props.clearNotification}
             />
-          }
-          {this.props.joiningPub &&
-            <JoinPubModal />
           }
           <ControlPanel ref={this.controlPanel} />
           <div className='message-view'>
@@ -98,7 +93,6 @@ class App extends Component {
               ref={this.messageInput}
             />
           </div>
-          <AuthorDrawer />
         </div>
       </HotKeys>
     )

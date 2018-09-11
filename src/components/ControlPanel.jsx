@@ -1,20 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { getAuthorId } from '../store/util'
 import PropTypes from 'prop-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-import Input from './Input'
 import * as Actions from '../store/actions'
+import Input from './Input'
+import Recents from './Recents'
+import AuthorView from './AuthorView'
+import Modal from './Modal'
 
 class ControlPanel extends Component {
   constructor () {
     super()
     this.handleInputSubmit = this.handleInputSubmit.bind(this)
     this.handleModeButton = this.handleModeButton.bind(this)
-    this.handlePubButton = this.handlePubButton.bind(this)
-    this.handlePubCancel = this.handlePubCancel.bind(this)
-    this.handlePubSubmit = this.handlePubSubmit.bind(this)
+    this.handlePrivateButton = this.handlePrivateButton.bind(this)
+    this.modalCancel = this.modalCancel.bind(this)
     this.handleRecentClick = this.handleRecentClick.bind(this)
     this.handleMouseOver = this.handleMouseOver.bind(this)
     this.handleMouseLeave = this.handleMouseLeave.bind(this)
@@ -24,11 +25,16 @@ class ControlPanel extends Component {
     this.handleFocusPMInput = this.handleFocusPMInput.bind(this)
     this.handleInputFocus = this.handleInputFocus.bind(this)
     this.handleInputBlur = this.handleInputBlur.bind(this)
+    this.handleBackButton = this.handleBackButton.bind(this)
+    this.startPrivateMessage = this.startPrivateMessage.bind(this)
+    this.handleClickBlock = this.handleClickBlock.bind(this)
+    this.handleClickFollow = this.handleClickFollow.bind(this)
 
     this.state = {
       closeIcon: null,
       closeIconHover: null,
-      pmInputFocused: false
+      pmInputFocused: false,
+      privateModalOpen: false
     }
   }
 
@@ -49,32 +55,48 @@ class ControlPanel extends Component {
     this.setState({ pmInputFocused: false })
   }
 
-  handleInputSubmit (msg) {
-    if (!msg) {
-      this.props.goPublic()
-      return
-    }
-    const recipients = msg
+  handleInputSubmit (author) {
+    const id = getAuthorId(author)
+    this.props.openAuthorView(id)
+  }
+
+  startPrivateMessage (author) {
+    const recipients = author
       .split(',')
       .map(x => x.trim())
     this.props.goPrivate(recipients)
-    this.handleInputBlur()
+    this.props.closeAuthorView()
+    this.setState({ privateModalOpen: false })
+  }
+
+  handleBackButton () {
+    this.props.closeAuthorView()
+  }
+
+  handleClickBlock (blocked, id) {
+    if (blocked) {
+      return this.props.unblock(id)
+    }
+    return this.props.block(id)
+  }
+
+  handleClickFollow (followed, id) {
+    if (followed) {
+      return this.props.unfollow(id)
+    }
+    return this.props.follow(id)
   }
 
   handleModeButton () {
     this.props.goPublic()
   }
 
-  handlePubButton () {
-    this.props.setJoinPub(true)
+  handlePrivateButton () {
+    this.setState({ privateModalOpen: true })
   }
 
-  handlePubCancel () {
-    this.props.setJoinPub(false)
-  }
-
-  handlePubSubmit (invite) {
-    this.props.joinPub(invite)
+  modalCancel () {
+    this.setState({ privateModalOpen: false })
   }
 
   handleRecentClick (recipients) {
@@ -102,86 +124,73 @@ class ControlPanel extends Component {
   }
 
   render () {
-    const sortedRecents = this.props.recents.slice().sort((a, b) => {
-      const mappedA = a.filtered.map(id => this.props.authors[id] || id).join(', ')
-      const mappedB = b.filtered.map(id => this.props.authors[id] || id).join(', ')
-      return mappedA > mappedB
-    })
+    const { authors, currentAuthorId, me, following, blocked } = this.props
+    const author = authors[currentAuthorId] || currentAuthorId || authors[me] || me
+
+    const isBlocked = blocked.includes(currentAuthorId)
+    const areFollowing = following.includes(currentAuthorId)
+
+    const blockText = isBlocked ? 'unblock' : 'block'
+    const followText = areFollowing ? 'unfollow' : 'follow'
 
     return (
       <div className='control-panel'>
         <div>
-          <button className='button' onClick={this.handlePubButton}>+ join pub</button>
+          <button className='button' onClick={this.handlePrivateButton}>start private</button>
         </div>
         <div>
           <Input
             className='control-panel__input'
-            placeholder='New private message...'
+            placeholder='Search for user'
             onSubmit={this.handleInputSubmit}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
             ref={el => { this.recipientsInput = el }}
           />
         </div>
-        <div className='control-panel__users'>
-          <div className='recents'>
-            {this.props.mode === 'PRIVATE'
-              ? (
-                <div className='recents-item' onClick={this.handleModeButton}>
-                  <p>#public</p>
-                </div>
-              )
-              : (
-                <div className='recents-item'>
-                  <p>#public</p>
-                </div>
-              )
-            }
-            {sortedRecents.map((recent) => {
-              const currentRecps = this.props.recipients.join(', ')
-              const thisRecent = recent.filtered.join(', ')
-              const isCurrent = currentRecps === thisRecent
-              const isUnread = this.props.unreads.some((unread) => (
-                unread.join(', ') === thisRecent
-              ))
-
-              const humanNames = recent.filtered.map(id => (this.props.authors[id] || id)).join(', ')
-
-              let className = isCurrent
-                ? 'recents-item__active'
-                : 'recents-item'
-              if (isUnread) {
-                className += ' unread'
-              }
-              const wantingToClose = this.state.closeIconHover === thisRecent
-              return (
-                <div
-                  className={className}
-                  onMouseOver={() => this.handleMouseOver(thisRecent)}
-                  onMouseLeave={this.handleMouseLeave}
-                  key={thisRecent}
-                >
-                  <p onClick={() => this.handleRecentClick(humanNames)}>
-                    {humanNames}
-                  </p>
-                  {this.state.closeIcon === thisRecent &&
-                    <span
-                      className='recents-remove-icon'
-                      onMouseOver={() => this.handleMouseOverButton(thisRecent)}
-                      onMouseLeave={this.handleMouseLeaveButton}
-                      onClick={() => this.handleRemoveRecent(recent.raw)}
-                    >
-                      <FontAwesomeIcon
-                        icon={faTimesCircle}
-                        className={wantingToClose ? 'hover' : ''}
-                      />
-                    </span>
-                  }
-                </div>
-              )
-            })}
-          </div>
-        </div>
+        {!this.props.authorDrawerOpen
+          ? (
+            <Recents
+              recents={this.props.recents}
+              mode={this.props.mode}
+              handleModeButton={this.handleModeButton}
+              recipients={this.props.recipients}
+              unreads={this.props.unreads}
+              authors={this.props.authors}
+              closeIconHover={this.state.closeIconHover}
+              closeIcon={this.state.closeIcon}
+              handleMouseOver={this.handleMouseOver}
+              handleMouseLeave={this.handleMouseLeave}
+              handleRecentClick={this.handleRecentClick}
+              handleMouseOverButton={this.handleMouseOverButton}
+              handleMouseLeaveButton={this.handleMouseLeaveButton}
+              handleRemoveRecent={this.handleRemoveRecent}
+            />
+          )
+          : (
+            <AuthorView
+              isBlocked={isBlocked}
+              areFollowing={areFollowing}
+              blockText={blockText}
+              followText={followText}
+              author={author}
+              me={me}
+              currentAuthorId={currentAuthorId}
+              handleBackButton={this.handleBackButton}
+              handleClickBlock={this.handleClickBlock}
+              handleClickFollow={this.handleClickFollow}
+              startPrivateMessage={this.startPrivateMessage}
+            />
+          )
+        }
+        {this.state.privateModalOpen && (
+          <Modal
+            inputText='enter private recipient(s) separated by commas'
+            submitText='start'
+            handleCancel={this.modalCancel}
+            handleSubmit={this.startPrivateMessage}
+          />
+        )}
       </div>
     )
   }
@@ -191,28 +200,46 @@ const mapStateToProps = state => ({
   mode: state.mode,
   recents: state.recents,
   authors: state.authors,
+  following: state.following,
+  blocked: state.blocked,
   unreads: state.unreads,
-  recipients: state.recipients
+  recipients: state.recipients,
+  authorDrawerOpen: state.authorDrawerOpen,
+  currentAuthorId: state.currentAuthorId,
+  me: state.me
 })
 
 const mapDispatchToProps = dispatch => ({
   goPrivate: bindActionCreators(Actions.goPrivate, dispatch),
   goPublic: bindActionCreators(Actions.goPublic, dispatch),
-  joinPub: bindActionCreators(Actions.joinPub, dispatch),
   removeRecent: bindActionCreators(Actions.removeRecent, dispatch),
-  setJoinPub: bindActionCreators(Actions.setJoinPub, dispatch)
+  openAuthorView: bindActionCreators(Actions.openAuthorView, dispatch),
+  closeAuthorView: bindActionCreators(Actions.closeAuthorView, dispatch),
+  follow: bindActionCreators(Actions.follow, dispatch),
+  unfollow: bindActionCreators(Actions.unfollow, dispatch),
+  block: bindActionCreators(Actions.block, dispatch),
+  unblock: bindActionCreators(Actions.unblock, dispatch)
 })
 
 ControlPanel.propTypes = {
   goPublic: PropTypes.func.isRequired,
   goPrivate: PropTypes.func.isRequired,
-  joinPub: PropTypes.func.isRequired,
-  setJoinPub: PropTypes.func.isRequired,
   recents: PropTypes.array.isRequired,
   authors: PropTypes.object.isRequired,
   unreads: PropTypes.array.isRequired,
   recipients: PropTypes.array.isRequired,
-  mode: PropTypes.string.isRequired
+  mode: PropTypes.string.isRequired,
+  following: PropTypes.array.isRequired,
+  blocked: PropTypes.array.isRequired,
+  authorDrawerOpen: PropTypes.bool.isRequired,
+  openAuthorView: PropTypes.func.isRequired,
+  closeAuthorView: PropTypes.func.isRequired,
+  currentAuthorId: PropTypes.string.isRequired,
+  follow: PropTypes.func.isRequired,
+  unfollow: PropTypes.func.isRequired,
+  block: PropTypes.func.isRequired,
+  unblock: PropTypes.func.isRequired,
+  me: PropTypes.string.isRequired
 }
 
 export default connect(
