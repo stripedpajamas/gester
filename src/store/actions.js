@@ -226,7 +226,7 @@ export const setJoinPub = (join) => {
     joiningPub: join
   }
 }
-export const openAuthorDrawer = (id) => {
+export const openAuthorView = (id) => {
   // TODO ask core if i am following + blocking this id
   // if the id is not me
   return {
@@ -234,7 +234,7 @@ export const openAuthorDrawer = (id) => {
     currentAuthorId: id
   }
 }
-export const closeAuthorDrawer = () => {
+export const closeAuthorView = () => {
   // TODO clear state on following/blocking
   return {
     type: Types.CLOSE_AUTHOR_DRAWER
