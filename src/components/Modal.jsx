@@ -23,13 +23,12 @@ class Modal extends Component {
   render () {
     return (
       <div>
-        <div className='join-pub modal'>
+        <div className='modal'>
           <div>
             <input
               className='modal-input'
               type='text'
               placeholder={this.props.inputText}
-              onKeyDown={this.handleKeyDown}
               ref={el => { this.inputVal = el }}
             />
           </div>
@@ -45,8 +44,11 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  joinPub: PropTypes.func.isRequired,
-  setJoinPub: PropTypes.func.isRequired
+  inputText: PropTypes.string.isRequired,
+  handleCancel: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  cancelText: PropTypes.string,
+  submitText: PropTypes.string
 }
 
 Modal.defaultProps = {
