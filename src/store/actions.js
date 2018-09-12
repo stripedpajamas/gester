@@ -333,4 +333,20 @@ export const unblock = (id) => (dispatch) => {
 export const removeRecent = (recents) => (dispatch) => {
   core.recents.remove(recents)
 }
+
+export const renameAuthor = (id, newName) => (dispatch, getState) => {
+  return core.commands.identify(id, newName)
+    .then(({ result }) => {
+      const { authors } = getState()
+      dispatch(setNotification(result))
+      dispatch({
+        type: Types.SET_AUTHORS,
+        authors: {
+          ...authors,
+          [id]: newName
+        }
+      })
+    })
+    .catch((e) => dispatch(setError(e)))
+}
 // #endregion

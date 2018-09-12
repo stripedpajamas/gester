@@ -190,6 +190,19 @@ button {
 
         &__header {
             word-break: break-all;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        &__change {
+            border: none;
+            background-color: $theme-primary;
+            text-align: center;
+            font-size: 20px;
+            width: 99%;
+            font-weight: bold;
         }
 
         &__button {
@@ -204,7 +217,7 @@ button {
         }
 
         #button-block {
-            margin-right: 20px;
+            margin-left: 20px;
             background-color: $theme-buttons-error;
 
             &:hover {

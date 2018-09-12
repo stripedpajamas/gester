@@ -173,6 +173,7 @@ class ControlPanel extends Component {
               handleClickBlock={this.handleClickBlock}
               handleClickFollow={this.handleClickFollow}
               startPrivateMessage={this.startPrivateMessage}
+              renameAuthor={this.props.renameAuthor}
             />
           )
         }
@@ -222,7 +223,8 @@ const mapDispatchToProps = dispatch => ({
   block: bindActionCreators(Actions.block, dispatch),
   unblock: bindActionCreators(Actions.unblock, dispatch),
   setJoinPub: bindActionCreators(Actions.setJoinPub, dispatch),
-  joinPub: bindActionCreators(Actions.joinPub, dispatch)
+  joinPub: bindActionCreators(Actions.joinPub, dispatch),
+  renameAuthor: bindActionCreators(Actions.renameAuthor, dispatch)
 })
 
 ControlPanel.propTypes = {
@@ -245,7 +247,8 @@ ControlPanel.propTypes = {
   unblock: PropTypes.func.isRequired,
   me: PropTypes.string.isRequired,
   joinPub: PropTypes.func.isRequired,
-  setJoinPub: PropTypes.func.isRequired
+  setJoinPub: PropTypes.func.isRequired,
+  renameAuthor: PropTypes.func.isRequired
 }
 
 export default connect(
