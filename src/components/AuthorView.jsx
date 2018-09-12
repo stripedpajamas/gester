@@ -4,6 +4,41 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 class AuthorView extends Component {
+  constructor () {
+    super()
+
+    this.handleNameClick = this.handleNameClick.bind(this)
+    this.handleNameChange = this.handleNameChange.bind(this)
+    this.handleNameSet = this.handleNameSet.bind(this)
+
+    this.state = {
+      newName: '',
+      inEditMode: false
+    }
+  }
+
+  handleNameClick () {
+    this.setState({
+      inEditMode: true,
+      newName: this.props.author
+    })
+  }
+
+  handleNameChange (e) {
+    this.setState({ newName: e.target.value })
+  }
+
+  handleNameSet (e) {
+    if (e.key === 'Enter') {
+      console.log(this.state.newName)
+      console.log(this.props.currentAuthorId)
+      console.log(this.props.me)
+      this.setState({ inEditMode: false })
+    } else if (e.key === 'Escape') {
+      this.setState({ inEditMode: false })
+    }
+  }
+
   render () {
     const buttonDisabled = this.props.currentAuthorId === this.props.me
     return (
@@ -16,7 +51,20 @@ class AuthorView extends Component {
           />
         </div>
         <div>
-          <h1 className='author-view__header'>{this.props.author}</h1>
+          {this.state.inEditMode
+            ? (
+              <input
+                autoFocus
+                className='author-view__change'
+                value={this.state.newName}
+                onChange={this.handleNameChange}
+                onKeyUp={this.handleNameSet}
+              />
+            )
+            : (
+              <h1 className='author-view__header' onDoubleClick={this.handleNameClick}>{this.props.author}</h1>
+            )
+          }
           <h2 id='author-id'>{this.props.currentAuthorId || this.props.me}</h2>
         </div>
         <div className='author-view__actions'>
