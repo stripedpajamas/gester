@@ -10,6 +10,7 @@ class AuthorView extends Component {
     this.handleNameClick = this.handleNameClick.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleNameSet = this.handleNameSet.bind(this)
+    this.handleLeaveInput = this.handleLeaveInput.bind(this)
 
     this.state = {
       newName: '',
@@ -42,6 +43,10 @@ class AuthorView extends Component {
     }
   }
 
+  handleLeaveInput () {
+    this.setState({ inEditMode: false })
+  }
+
   render () {
     const buttonDisabled = this.props.currentAuthorId === this.props.me
     return (
@@ -62,6 +67,7 @@ class AuthorView extends Component {
                 value={this.state.newName}
                 onChange={this.handleNameChange}
                 onKeyUp={this.handleNameSet}
+                onBlur={this.handleLeaveInput}
               />
             )
             : (
