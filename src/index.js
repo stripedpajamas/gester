@@ -70,9 +70,6 @@ const createWindows = async () => {
     // when you should delete the corresponding element.
     mainWindow = null
   })
-  mainWindow.on('focus', () => {
-    ipcMain.emit('main-focused')
-  })
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
     loaderWindow.close()
@@ -107,6 +104,12 @@ const createMenu = (win) => {
 
 app.on('ready', () => {
   createWindows()
+})
+
+app.on('browser-window-focus', () => {
+  if (mainWindow) {
+    mainWindow.webContents.send('main-focused')
+  }
 })
 
 // Quit when all windows are closed.
