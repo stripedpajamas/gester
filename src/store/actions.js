@@ -162,8 +162,9 @@ export const setupCore = () => (dispatch, getState) => {
           body: 'New unread message'
         })
       } else {
+        const state = getState()
         // get the current private recps
-        const recps = core.recipients.getJS()
+        const recps = core.recipients.getJS().filter(r => r !== state.me)
         let shouldShowBadge = false
         unreads.forEach((unread) => {
           if (Util.compareArrays(unread, recps)) {
@@ -181,6 +182,24 @@ export const setupCore = () => (dispatch, getState) => {
 
     // make placeholders in state for any authors we don't know about
     Util.getUnreadAuthors(unreads)
+  })
+
+  // also listen for when the window is focused
+  // so that we can mark things as read
+  ipcRenderer.on('main-focused', () => {
+    const state = getState()
+    // get the current private recps
+    const recps = core.recipients.getJS().filter(r => r !== state.me)
+    let shouldShowBadge = false
+    state.unreads.forEach((unread) => {
+      if (Util.compareArrays(unread, recps)) {
+        // window is focused and we are talking to these recps
+        core.unreads.setAsRead(core.recipients.get())
+      } else {
+        shouldShowBadge = true
+      }
+    })
+    ipcRenderer.send('unread', shouldShowBadge)
   })
 
   // keep a record of who is the current private recipients in redux
