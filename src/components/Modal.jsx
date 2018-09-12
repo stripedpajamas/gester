@@ -24,7 +24,8 @@ class Modal extends Component {
     return (
       <div>
         <div className='modal'>
-          <div>
+          <div className='modal-content'>
+            <p className='modal-text'>{this.props.text}</p>
             <input
               autoFocus
               className='modal-input'
@@ -34,9 +35,9 @@ class Modal extends Component {
               ref={el => { this.inputVal = el }}
             />
           </div>
-          <div>
-            <button className='modal-cancel button' onClick={this.props.handleCancel}>{this.props.cancelText}</button>
-            <button className='modal-submit button' onClick={() => this.props.handleSubmit(this.inputVal.value)}>{this.props.submitText}</button>
+          <div className='modal-actions'>
+            <button className='modal-cancel' onClick={this.props.handleCancel}>{this.props.cancelText}</button>
+            <button className='modal-submit' onClick={() => this.props.handleSubmit(this.inputVal.value)}>{this.props.submitText}</button>
           </div>
         </div>
         <div className='modal-overlay' onClick={this.handleCancel} />
@@ -49,11 +50,13 @@ Modal.propTypes = {
   inputText: PropTypes.string.isRequired,
   handleCancel: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  text: PropTypes.string,
   cancelText: PropTypes.string,
   submitText: PropTypes.string
 }
 
 Modal.defaultProps = {
+  text: '',
   cancelText: 'cancel',
   submitText: 'submit'
 }

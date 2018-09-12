@@ -178,6 +178,7 @@ class ControlPanel extends Component {
         }
         {this.state.privateModalOpen && (
           <Modal
+            text='start a private chat or press enter to go to public chat'
             inputText='enter private recipient(s) separated by commas'
             submitText='start'
             handleCancel={this.handlePrivateButton}
