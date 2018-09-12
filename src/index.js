@@ -127,6 +127,8 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
     createWindows()
+  } else if (!mainWindow.isVisible()) {
+    mainWindow.show()
   }
 })
 
