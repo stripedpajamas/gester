@@ -9,7 +9,7 @@ class AuthorView extends Component {
 
     this.handleNameClick = this.handleNameClick.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
-    this.handleNameSet = this.handleNameSet.bind(this)
+    this.handleNameSave = this.handleNameSave.bind(this)
     this.handleLeaveInput = this.handleLeaveInput.bind(this)
 
     this.state = {
@@ -29,7 +29,7 @@ class AuthorView extends Component {
     this.setState({ newName: e.target.value })
   }
 
-  handleNameSet (e) {
+  handleNameSave (e) {
     if (e.key === 'Enter') {
       this.props.renameAuthor(this.props.currentAuthorId, this.state.newName)
         .then(() => {
@@ -66,7 +66,7 @@ class AuthorView extends Component {
                 className='author-view__change'
                 value={this.state.newName}
                 onChange={this.handleNameChange}
-                onKeyUp={this.handleNameSet}
+                onKeyUp={this.handleNameSave}
                 onBlur={this.handleLeaveInput}
               />
             )
