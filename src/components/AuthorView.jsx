@@ -30,10 +30,13 @@ class AuthorView extends Component {
 
   handleNameSet (e) {
     if (e.key === 'Enter') {
-      console.log(this.state.newName)
-      console.log(this.props.currentAuthorId)
-      console.log(this.props.me)
-      this.setState({ inEditMode: false })
+      this.props.renameAuthor(this.props.currentAuthorId, this.state.newName)
+        .then(() => {
+          this.setState({
+            inEditMode: false,
+            newName: ''
+          })
+        })
     } else if (e.key === 'Escape') {
       this.setState({ inEditMode: false })
     }
@@ -75,16 +78,16 @@ class AuthorView extends Component {
           >direct message</button>
           <button
             className='author-view__button'
-            id='button-block'
-            disabled={buttonDisabled}
-            onClick={() => this.props.handleClickBlock(this.props.isBlocked, this.props.currentAuthorId)}
-          >{this.props.blockText}</button>
-          <button
-            className='author-view__button'
             id='button-follow'
             disabled={buttonDisabled}
             onClick={() => this.props.handleClickFollow(this.props.areFollowing, this.props.currentAuthorId)}
           >{this.props.followText}</button>
+          <button
+            className='author-view__button'
+            id='button-block'
+            disabled={buttonDisabled}
+            onClick={() => this.props.handleClickBlock(this.props.isBlocked, this.props.currentAuthorId)}
+          >{this.props.blockText}</button>
         </div>
       </div>
     )
@@ -98,7 +101,8 @@ AuthorView.propTypes = {
   followText: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   me: PropTypes.string.isRequired,
-  currentAuthorId: PropTypes.string.isRequired
+  currentAuthorId: PropTypes.string.isRequired,
+  renameAuthor: PropTypes.func.isRequired
 }
 
 export default AuthorView
