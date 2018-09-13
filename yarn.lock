@@ -7385,9 +7385,9 @@ ssb-blobs@^1.1.4, ssb-blobs@^1.1.5:
     pull-stream "^3.3.0"
     ssb-ref "^2.3.0"
 
-ssb-chat-core@^1.0.37:
-  version "1.0.37"
-  resolved "https://registry.yarnpkg.com/ssb-chat-core/-/ssb-chat-core-1.0.37.tgz#92ae5066489bf4f80bfba8470a71e3cae15a24f7"
+ssb-chat-core@^1.0.39:
+  version "1.0.39"
+  resolved "https://registry.yarnpkg.com/ssb-chat-core/-/ssb-chat-core-1.0.39.tgz#a90c829365e59a9b38d57bd357cce41d10501314"
   dependencies:
     immutable "^3.8.2"
     nanobus "^4.3.3"

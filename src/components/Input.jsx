@@ -9,15 +9,12 @@ class Input extends Component {
     this.tabCompleter = null
 
     this.handleKeyUp = this.handleKeyUp.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleFocusInput = this.handleFocusInput.bind(this)
   }
 
-  handleKeyUp (e) {
+  handleKeyDown (e) {
     const msg = e.target.value
-    if (e.key === 'Escape') {
-      this.props.onBlur()
-      return
-    }
     if (e.key !== 'Tab') {
       this.tabCompleter = null
     }
@@ -27,6 +24,14 @@ class Input extends Component {
       }
       this.messageInput.value = this.tabCompleter()
       e.preventDefault()
+    }
+  }
+
+  handleKeyUp (e) {
+    const msg = e.target.value
+    if (e.key === 'Escape') {
+      this.props.onBlur()
+      return
     }
     if (e.key === 'Enter') {
       this.props.onSubmit(msg)
@@ -47,6 +52,7 @@ class Input extends Component {
           placeholder={this.props.placeholder}
           onFocus={this.props.onFocus}
           onBlur={this.props.onBlur}
+          onKeyDown={this.handleKeyDown}
           onKeyUp={this.handleKeyUp}
           onChange={this.handleChange}
           ref={el => { this.messageInput = el }}

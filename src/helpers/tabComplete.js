@@ -3,7 +3,19 @@ import core from 'ssb-chat-core'
 
 const emojiList = Object.keys(emojis.emoji).map(e => `:${e}:`)
 
-const author = (partial) => core.authors.findMatches(partial)
+const author = (partial) => {
+  // take off an @ symbol if they have it
+  let input = partial
+  let atSign
+  if (partial[0] === '@') {
+    input = partial.slice(1)
+    atSign = true
+  }
+  return core.authors.findMatches(input).map(x => {
+    if (atSign) return `@${x}`
+    return x
+  })
+}
 
 const emoji = (partial) => {
   // finding emojis that start with the partial
@@ -24,11 +36,6 @@ export default (line) => {
   if (lastWord.indexOf(':') === 0) { // emoji
     matches = emoji(lastWord)
   } else {
-    // if they didn't include an @ symbol, put one on
-    if (lastWord.indexOf('@') !== 0) {
-      lastWord = `@${lastWord}`
-    }
-
     matches = author(lastWord)
   }
 

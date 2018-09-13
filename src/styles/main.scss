@@ -250,13 +250,12 @@ button {
         align-items: center;
         justify-items: center;
         text-align: center;
-        input {
-            width: 80%;
-            border: 1px solid $theme-border;
-            padding: 10px;
-        }
     }
-
+    &-input {
+        width: 80%;
+        border: 1px solid $theme-border;
+        padding: 10px;
+    }
     &-actions {
         text-align: right;
         border-top: 1px solid $theme-primary;

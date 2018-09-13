@@ -267,7 +267,13 @@ export const closeAuthorView = () => {
 
 // #region Interacting with the core
 export const goPrivate = recipients => (dispatch) => {
-  core.commands.private(recipients)
+  const recps = recipients.map(x => {
+    if (x[0] === '@') {
+      return x.slice(1)
+    }
+    return x
+  })
+  core.commands.private(recps)
     .catch((e) => dispatch(setError(e)))
 }
 export const goPublic = () => (dispatch, getState) => {

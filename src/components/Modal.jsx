@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Input from './Input'
 
 class Modal extends Component {
   constructor (props) {
@@ -26,13 +27,12 @@ class Modal extends Component {
         <div className='modal'>
           <div className='modal-content'>
             <p className='modal-text'>{this.props.text}</p>
-            <input
+            <Input
               autoFocus
               className='modal-input'
-              onKeyUp={this.handleKeyUp}
-              type='text'
+              onBlur={this.props.handleCancel}
+              onSubmit={this.props.handleSubmit}
               placeholder={this.props.inputText}
-              ref={el => { this.inputVal = el }}
             />
           </div>
           <div className='modal-actions'>
