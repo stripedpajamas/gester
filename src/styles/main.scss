@@ -100,7 +100,7 @@ button {
 .control-panel {
     background-color: $theme-primary;
     display: grid;
-    grid-template-rows: 80px 80px auto;
+    grid-template-rows: 80px 80px auto 0px;
     text-align: center;
     position: fixed;
     height: 100vh;
@@ -184,12 +184,13 @@ button {
 
         &__back {
             float: left;
-            margin-top: 22px;
+            margin-top: 24px;
             cursor: pointer;
         }
 
         &__header {
             word-break: break-all;
+            margin-bottom: 10px;
 
             &:hover {
                 cursor: pointer;
@@ -250,11 +251,18 @@ button {
         align-items: center;
         justify-items: center;
         text-align: center;
-    }
-    &-input {
-        width: 80%;
-        border: 1px solid $theme-border;
-        padding: 10px;
+        
+        div {
+            width: 100%;
+            input {
+                width: 80%;
+                border: 1px solid $theme-border;
+                padding: 10px;
+            }
+        }
+        
+
+
     }
     &-actions {
         text-align: right;

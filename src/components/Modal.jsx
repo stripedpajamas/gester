@@ -29,7 +29,7 @@ class Modal extends Component {
             <p className='modal-text'>{this.props.text}</p>
             <Input
               autoFocus
-              className='modal-input'
+              className='modal-content__input'
               onBlur={this.props.handleCancel}
               onSubmit={this.props.handleSubmit}
               placeholder={this.props.inputText}
