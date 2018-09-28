@@ -1,6 +1,8 @@
 # :hamster: gester :hamster:
 p2p chat app built on scuttlebutt
 
+![screenshot](images/gester_screenshot.png)
+
 more on scuttlebutt: https://www.scuttlebutt.nz/
 
 potentially chat with friends on the same network without even being connected to the internet :raised_hands:
