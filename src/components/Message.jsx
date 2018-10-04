@@ -29,7 +29,8 @@ class Message extends Component {
   }
   process (msg, action, color) {
     // process markdown and emojis
-    const emojified = emoji.emojify(msg, null, (e) => `[${e}]{.emoji}`)
+    const msgStr = typeof msg === 'string' ? msg : JSON.stringify(msg)
+    const emojified = emoji.emojify(msgStr, null, (e) => `[${e}]{.emoji}`)
     let input = this.markMentions(emojified)
     input = this.makeSpansSafe(input)
     const marked = remark()
