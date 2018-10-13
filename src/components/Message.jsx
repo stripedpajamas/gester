@@ -14,8 +14,8 @@ class Message extends Component {
   markMentions (text) {
     let highlighted = text
     this.props.myNames.forEach((name) => {
-      const re = new RegExp(`(${name})`, 'g')
-      highlighted = highlighted.replace(re, `[$1]{.mention}`)
+      const re = new RegExp(`(\\s|^)(${name})(\\b|\\s|$)`, 'g')
+      highlighted = highlighted.replace(re, `[$2]{.mention}`)
     })
     return highlighted
   }
