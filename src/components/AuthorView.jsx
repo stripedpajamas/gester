@@ -74,7 +74,14 @@ class AuthorView extends Component {
               <h1 className='author-view__header' onDoubleClick={this.handleNameClick}>{this.props.author}</h1>
             )
           }
-          <h2 id='author-id'>{this.props.currentAuthorId || this.props.me}</h2>
+          {this.props.currentAuthorId === this.props.author
+            ? (
+              <h2 className='error-text'>(user not found)</h2>
+            )
+            : (
+              <h2 id='author-id'>{this.props.currentAuthorId || this.props.me}</h2>
+            )
+          }
         </div>
         <div className='author-view__actions'>
           <button
