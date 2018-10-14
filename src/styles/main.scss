@@ -53,7 +53,6 @@ $main-font: 'Roboto', Helvetica, sans-serif;
 
 #author-id {
     font-size: 18px;
-    margin-top: 10px;
     font-weight: normal;
     word-break: break-all;
     font-family: monospace;
@@ -94,6 +93,10 @@ button {
 
 .button-close {
     cursor: pointer;
+}
+
+.error-text {
+    font-style: italic;
 }
 
 /* ------ Control Panel ------ */
@@ -179,8 +182,12 @@ button {
 
     .author-view {
         display: grid;
-        grid-template-rows: 100px auto 350px;
-        padding: 0 20px; 
+        grid-template-rows: 100px auto 375px;
+        padding: 0 20px;
+
+        h2 {
+            margin-top: 20px;
+        }
 
         &__back {
             float: left;
