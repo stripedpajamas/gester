@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { isId } from '../helpers/validateId'
 
 class AuthorView extends Component {
   constructor () {
@@ -74,7 +75,14 @@ class AuthorView extends Component {
               <h1 className='author-view__header' onDoubleClick={this.handleNameClick}>{this.props.author}</h1>
             )
           }
-          <h2 id='author-id'>{this.props.currentAuthorId || this.props.me}</h2>
+          {!isId(this.props.author) && this.props.currentAuthorId === this.props.author
+            ? (
+              <h2 className='error-text'>(user not found)</h2>
+            )
+            : (
+              <h2 id='author-id'>{this.props.currentAuthorId || this.props.me}</h2>
+            )
+          }
         </div>
         <div className='author-view__actions'>
           <button
