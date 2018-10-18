@@ -22,12 +22,6 @@ export const setupCore = () => (dispatch, getState) => {
     // set to public mode initially
     core.mode.setPublic()
     // get messages, me, authors, unreads, and recents into redux immediately
-    const messages = core.messages.getJS()
-    dispatch({
-      type: Types.SET_MESSAGES,
-      messages
-    })
-    Util.getMessageAuthors(messages)
     dispatch({
       type: Types.SET_MY_NAMES,
       myNames: core.me.namesJS().map(n => `@${n}`)
