@@ -12,7 +12,7 @@ export const generateRandomColor = () => {
 
 // gets a random color from our premade list of colors
 const getRandomColor = (colors) => {
-  const rnd = [Math.floor(Math.random() * colors.everyone.length - 1)]
+  const rnd = [Math.floor(Math.random() * (colors.everyone.length - 1))]
   return colors.everyone[rnd]
 }
 
