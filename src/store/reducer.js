@@ -57,6 +57,9 @@ export default (state = initialState, action) => (
         draft.authorDrawerOpen = false
         draft.currentAuthorId = ''
         break
+      case Types.TOGGLE_THEME:
+        draft.darkTheme = !state.darkTheme
+        break
     }
   })
 )

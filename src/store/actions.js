@@ -12,6 +12,9 @@ export const setupCore = () => (dispatch, getState) => {
   ipcRenderer.on('joining-pub', () => {
     dispatch(setJoinPub(true))
   })
+  ipcRenderer.on('toggle-theme', () => {
+    dispatch(toggleTheme())
+  })
   // start up core
   core.start({ timeWindow: 1209600000 }, (err) => {
     if (err) {
@@ -255,6 +258,11 @@ export const closeAuthorView = () => {
   // TODO clear state on following/blocking
   return {
     type: Types.CLOSE_AUTHOR_DRAWER
+  }
+}
+export const toggleTheme = () => {
+  return {
+    type: Types.TOGGLE_THEME
   }
 }
 // #endregion

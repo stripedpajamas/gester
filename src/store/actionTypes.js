@@ -11,6 +11,7 @@ export const SET_UNREADS = 'SET_UNREADS'
 export const SET_ME = 'SET_ME'
 export const OPEN_AUTHOR_DRAWER = 'OPEN_AUTHOR_DRAWER'
 export const CLOSE_AUTHOR_DRAWER = 'CLOSE_AUTHOR_DRAWER'
+export const TOGGLE_THEME = 'TOGGLE_THEME'
 
 export const SET_ERROR = 'SET_ERROR'
 export const SET_NOTIFICATION = 'SET_NOTIFICATION'

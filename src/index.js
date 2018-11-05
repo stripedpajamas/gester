@@ -79,7 +79,7 @@ const createWindows = async () => {
 const createMenu = (win) => {
   const contents = win.webContents
   // Get template for default menu
-  const menu = defaultMenu(app, shell)
+  let menu = defaultMenu(app, shell)
 
   // add join pub in help menu
   const help = menu.find(x => x.label === 'Help')
@@ -98,6 +98,17 @@ const createMenu = (win) => {
     }
   ]
 
+  menu = menu.map(x => {
+    if (x.label === 'View') {
+      x.submenu.push({
+        label: 'Toggle Dark Mode',
+        click: () => {
+          contents.send('toggle-theme')
+        }
+      })
+    }
+    return x
+  })
   // Set top-level application menu, using modified template
   Menu.setApplicationMenu(Menu.buildFromTemplate(menu))
 }
