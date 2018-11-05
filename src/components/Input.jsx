@@ -44,8 +44,9 @@ class Input extends Component {
   }
 
   render () {
+    const { darkTheme } = this.props
     return (
-      <div className='messenger'>
+      <div className={`messenger ${darkTheme ? 'messenger--dark' : ''}`}>
         <input
           autoFocus={this.props.autoFocus}
           className={this.props.className}
@@ -69,7 +70,8 @@ Input.propTypes = {
   onBlur: PropTypes.func,
   placeholder: PropTypes.string,
   className: PropTypes.string,
-  autoFocus: PropTypes.bool
+  autoFocus: PropTypes.bool,
+  darkTheme: PropTypes.bool
 }
 
 Input.defaultProps = {

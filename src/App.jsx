@@ -67,8 +67,9 @@ class App extends Component {
   }
 
   render () {
+    const { darkTheme } = this.props
     if (this.props.loading) {
-      return <Loader />
+      return <Loader darkTheme={darkTheme} />
     }
     const hasNotification = this.props.error || this.props.notification
     const mode = this.props.mode.toLowerCase()
@@ -77,15 +78,17 @@ class App extends Component {
         <div className='main'>
           {hasNotification &&
             <Notification
+              darkTheme={darkTheme}
               error={this.props.error}
               notification={this.props.notification}
               onClose={this.props.clearNotification}
             />
           }
           <ControlPanel ref={this.controlPanel} />
-          <div className='message-view'>
+          <div className={`message-view ${darkTheme ? 'message-view--dark' : ''}`}>
             <MessageView />
             <Input
+              darkTheme={darkTheme}
               autoFocus
               className='messenger-input'
               placeholder={`Send ${mode} message`}
@@ -105,7 +108,8 @@ App.propTypes = {
   recipients: PropTypes.array.isRequired,
   error: PropTypes.object,
   notification: PropTypes.string,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  darkTheme: PropTypes.bool
 }
 
 const mapStateToProps = state => ({
@@ -114,7 +118,8 @@ const mapStateToProps = state => ({
   authorDrawerOpen: state.authorDrawerOpen,
   error: state.error,
   notification: state.notification,
-  loading: state.loading
+  loading: state.loading,
+  darkTheme: state.darkTheme
 })
 
 const mapDispatchToProps = dispatch => ({

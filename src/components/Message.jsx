@@ -47,7 +47,7 @@ class Message extends Component {
   }
 
   render () {
-    const { author, message, skipAuthor } = this.props
+    const { author, message, skipAuthor, darkTheme } = this.props
     const { timestamp, author: id, text, action } = message
 
     const tinyTime = format(timestamp, 'HH:mm')
@@ -63,7 +63,7 @@ class Message extends Component {
 
     if (action) {
       return (
-        <span className='message message-action'>
+        <span className={`message message-action ${darkTheme ? 'message--dark' : ''}`}>
           <span className='message-time message-time-action' title={fullTime}>
             {tinyTime}
           </span>
@@ -81,7 +81,7 @@ class Message extends Component {
     }
 
     return (
-      <span className='message'>
+      <span className={`message ${darkTheme ? 'message--dark' : ''}`}>
         <span className={timeClass.join(' ')} title={fullTime}>
           {tinyTime}
         </span>
@@ -106,7 +106,8 @@ Message.propTypes = {
   message: PropTypes.object.isRequired,
   myNames: PropTypes.array.isRequired,
   author: PropTypes.string.isRequired,
-  skipAuthor: PropTypes.bool.isRequired
+  skipAuthor: PropTypes.bool.isRequired,
+  darkTheme: PropTypes.bool
 }
 
 export default Message

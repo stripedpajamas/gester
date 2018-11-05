@@ -22,9 +22,10 @@ class Modal extends Component {
   }
 
   render () {
+    const { darkTheme } = this.props
     return (
       <div>
-        <div className='modal'>
+        <div className={`modal ${darkTheme ? 'modal--dark' : ''}`}>
           <div className='modal-content'>
             <p className='modal-text'>{this.props.text}</p>
             <Input
@@ -40,7 +41,10 @@ class Modal extends Component {
             <button className='modal-submit' onClick={() => this.props.handleSubmit(this.inputVal.value)}>{this.props.submitText}</button>
           </div>
         </div>
-        <div className='modal-overlay' onClick={this.handleCancel} />
+        <div
+          className={`modal-overlay ${darkTheme ? 'modal-overlay--dark' : ''}`}
+          onClick={this.props.handleCancel}
+        />
       </div>
     )
   }
@@ -52,7 +56,8 @@ Modal.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   text: PropTypes.string,
   cancelText: PropTypes.string,
-  submitText: PropTypes.string
+  submitText: PropTypes.string,
+  darkTheme: PropTypes.bool
 }
 
 Modal.defaultProps = {

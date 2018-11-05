@@ -26,17 +26,17 @@ class Notification extends Component {
   }
 
   render () {
-    const { error, notification } = this.props
-    const className = error ? 'error' : 'notification'
+    const { error, notification, darkTheme } = this.props
+    const classNames = [error ? 'error' : 'notification']
     const text = (error || {}).message || notification
 
+    if (darkTheme) {
+      classNames.push(`${classNames[0]}--dark`)
+    }
     return (
-      <div className={`toast ${className}`} onClick={this.handleClose}>
-        <span className='toast-message'>{text}</span>
-        <FontAwesomeIcon
-          className='toast-close'
-          icon={faTimes}
-        />
+      <div className={`toast ${classNames}`} onClick={this.handleClose}>
+        <span>{text}</span>
+        <FontAwesomeIcon icon={faTimes} />
       </div>
     )
   }
@@ -45,7 +45,8 @@ class Notification extends Component {
 Notification.propTypes = {
   onClose: PropTypes.func.isRequired,
   error: PropTypes.object,
-  notification: PropTypes.string
+  notification: PropTypes.string,
+  darkTheme: PropTypes.bool
 }
 
 export default Notification

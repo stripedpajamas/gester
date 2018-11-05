@@ -26,7 +26,7 @@ class MessageView extends Component {
   }
 
   renderMessages () {
-    const { messages, authors, myNames } = this.props
+    const { messages, authors, myNames, darkTheme } = this.props
     if (!messages.length) {
       return (
         <div className='empty'>
@@ -47,6 +47,7 @@ class MessageView extends Component {
       // was sent from the same author
       const skipAuthor = !!(messages[idx - 1] && messages[idx - 1].author === message.author)
       return (<Message
+        darkTheme={darkTheme}
         author={author}
         key={message.key}
         message={message}
@@ -72,12 +73,14 @@ MessageView.propTypes = {
   myNames: PropTypes.array.isRequired,
   messages: PropTypes.array.isRequired,
   authors: PropTypes.object.isRequired,
-  openAuthorView: PropTypes.func.isRequired
+  openAuthorView: PropTypes.func.isRequired,
+  darkTheme: PropTypes.bool
 }
 const mapStateToProps = state => ({
   authors: state.authors,
   myNames: state.myNames,
-  messages: state.messages
+  messages: state.messages,
+  darkMode: state.darkTheme
 })
 
 const mapDispatchToProps = dispatch => ({
