@@ -118,7 +118,7 @@ class ControlPanel extends Component {
   }
 
   render () {
-    const { authors, currentAuthorId, me, following, blocked } = this.props
+    const { authors, currentAuthorId, me, following, blocked, darkTheme } = this.props
     const author = authors[currentAuthorId] || currentAuthorId || authors[me] || me
 
     const isBlocked = blocked.includes(currentAuthorId)
@@ -128,7 +128,7 @@ class ControlPanel extends Component {
     const followText = areFollowing ? 'unfollow' : 'follow'
 
     return (
-      <div className='control-panel'>
+      <div className={`control-panel ${darkTheme ? 'control-panel--dark' : ''}`}>
         <div>
           <button className='button' onClick={this.handlePrivateButton}>new private</button>
         </div>
@@ -209,7 +209,8 @@ const mapStateToProps = state => ({
   authorDrawerOpen: state.authorDrawerOpen,
   currentAuthorId: state.currentAuthorId,
   me: state.me,
-  joiningPub: state.joiningPub
+  joiningPub: state.joiningPub,
+  darkTheme: state.darkTheme,
 })
 
 const mapDispatchToProps = dispatch => ({

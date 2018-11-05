@@ -534,3 +534,20 @@ button {
       transform: scale(1)
     }
   }
+
+
+
+/* ---------------------------- DARK THEME --------------------------------*/
+
+$control-panel-dark: #1d2021;
+$message-view-dark: #282828;
+/* --------------------------- CONTROL PANEL ------------------------------*/
+
+.control-panel--dark {
+    background-color: $control-panel-dark;
+    .recents-item {
+        p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+    }
+}
