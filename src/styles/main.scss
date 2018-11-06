@@ -551,6 +551,11 @@ $dark-theme-font: rgba(255, 255, 255, 0.8);
 /* buttons */
 $dark-theme-button: #00587d;
 $dark-theme-button-hover: #004664;
+$dark-theme-buttons-secondary: #00816f;
+$dark-theme-buttons-secondary-hover: #007463;
+
+$dark-theme-block: #9E1F1F;
+$dark-theme-block-hover: #8e1b1b;
 /* --------------------------- CONTROL PANEL ------------------------------*/
 
 .control-panel--dark {
@@ -618,6 +623,14 @@ $dark-theme-button-hover: #004664;
                 }
             }
         }
+
+        #button-block {
+            background-color: $dark-theme-block;
+
+            &:hover {
+                background-color: $dark-theme-block-hover;
+            }
+        }
     }
 }
 
@@ -651,12 +664,22 @@ $dark-theme-button-hover: #004664;
 
 .modal--dark {
     background-color: $control-panel-dark;
-    .modal-text {
-        color: $dark-theme-font;
+    .modal {
+        &-text {
+            color: $dark-theme-font;
+        }
+        &-actions {
+            border-top: 1px solid $dark-theme-accent;
+        }
+        &-submit {
+            background-color: $dark-theme-buttons-secondary;
+    
+            &:hover {
+                background-color: $dark-theme-buttons-secondary-hover;
+            }
+        }
     }
-    .modal-actions {
-        border-top: 1px solid $dark-theme-accent;
-    }
+    
 }
 .modal-overlay--dark {
     opacity: 0.8;
