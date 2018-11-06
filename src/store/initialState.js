@@ -16,5 +16,6 @@ export default {
   joiningPub: false,
   currentAuthorId: '',
   authorDrawerOpen: false,
-  loading: true
+  loading: true,
+  darkTheme: true
 }

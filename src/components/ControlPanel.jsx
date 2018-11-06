@@ -180,6 +180,7 @@ class ControlPanel extends Component {
         }
         {this.state.privateModalOpen && (
           <Modal
+            darkTheme={darkTheme}
             text='start a private chat or press enter to go to public chat'
             inputText='enter private recipient(s) separated by commas'
             submitText='start'
@@ -189,6 +190,7 @@ class ControlPanel extends Component {
         )}
         {this.props.joiningPub && (
           <Modal
+            darkTheme={darkTheme}
             inputText='paste invite code here'
             handleCancel={this.handleCancelPub}
             handleSubmit={this.handleJoinPub}

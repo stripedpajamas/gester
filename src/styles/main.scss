@@ -540,6 +540,7 @@ button {
 /* ---------------------------- DARK THEME --------------------------------*/
 
 $control-panel-dark: #1d2021;
+$dark-theme-accent: #323232;
 $recents-highlight: #88898c;
 $recents-active: #3c3c3c;
 $message-view-dark: #171717;
@@ -568,13 +569,13 @@ $dark-theme-button-hover: #004664;
                 }
 
                 &:hover {
-                    background-color: $recents-highlight;
+                    background-color: $dark-theme-accent;
                 }
 
             }
 
             &:hover {
-                background-color: $recents-highlight;
+                background-color: $dark-theme-accent;
 
                 svg {
                     fill: $control-panel-dark;
@@ -649,7 +650,14 @@ $dark-theme-button-hover: #004664;
 
 
 .modal--dark {
-    .modal {
-        background-color: $control-panel-dark;
+    background-color: $control-panel-dark;
+    .modal-text {
+        color: $dark-theme-font;
     }
+    .modal-actions {
+        border-top: 1px solid $dark-theme-accent;
+    }
+}
+.modal-overlay--dark {
+    opacity: 0.8;
 }
