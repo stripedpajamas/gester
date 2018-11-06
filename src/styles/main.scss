@@ -22,7 +22,7 @@ $theme-buttons-error-hover: #a74747;
 $theme-buttons-error-click: #ca5d5d;
 $theme-border: #27324A;
 $theme-font: #323232;
-$theme-font-dark: black;
+$dark-theme-font: black;
 $theme-font-secondary: #fafafa;
 $theme-highlight: #fafafa;
 $theme-active: #dddddd;
@@ -166,7 +166,7 @@ button {
                 }
             }
             .unread {
-                color: $theme-font-dark;
+                color: $dark-theme-font;
                 font-family: $main-font;
                 font-weight: bold;
             }
@@ -544,22 +544,27 @@ $recents-highlight: #88898c;
 $recents-active: #3c3c3c;
 $message-view-dark: #171717;
 
+/* text */
+$dark-theme-font: rgba(255, 255, 255, 0.8);
 
-$text-light: rgba(255, 255, 255, 0.8);
+/* buttons */
+$dark-theme-button: #00587d;
+$dark-theme-button-hover: #004664;
 /* --------------------------- CONTROL PANEL ------------------------------*/
 
 .control-panel--dark {
     background-color: $control-panel-dark;
+    color: $dark-theme-font;
     .recents {
         &-item {
             p {
-                color: $text-light;
+                color: $dark-theme-font;
             }
 
             &--active {
                 background-color: $recents-active;
                 p {
-                    color: $text-light;
+                    color: $dark-theme-font;
                 }
 
                 &:hover {
@@ -573,14 +578,57 @@ $text-light: rgba(255, 255, 255, 0.8);
 
                 svg {
                     fill: $control-panel-dark;
+                    color: $dark-theme-font;
+                }
+            }
+        }
+    }
+
+    button {
+        background-color: $dark-theme-button;
+
+        &:hover {
+            background-color: $dark-theme-button-hover;
+        }
+    }
+
+    input {
+        background-color: $message-view-dark;
+        color: $dark-theme-font;
+
+        &:focus {
+            border-color: $dark-theme-button;
+        }
+    }
+
+    .author-view {
+        div {
+            h1, h2 {
+                color: $dark-theme-font;
+            }
+        }
+
+
+        &__back {
+            * {
+                fill: $dark-theme-font;
+                &:hover {
+                    fill: $color-gray;
                 }
             }
         }
     }
 }
 
+/* --------------------------- MESSAGE VIEW ------------------------------*/
+
 .message-view--dark {
     background-color: $message-view-dark;
+
+    input {
+        background-color: $control-panel-dark;
+        color: $dark-theme-font;        
+    }
 }
 
 .message--dark {
@@ -589,10 +637,19 @@ $text-light: rgba(255, 255, 255, 0.8);
         color: $theme-secondary;
     }
     div, p, p > a {
-        color: $text-light;
+        color: $dark-theme-font;
         line-height: 1.5;
     }
     code {
-        color: $text-light;
+        color: $dark-theme-font;
+    }
+}
+
+/* --------------------------- MODAL ------------------------------*/
+
+
+.modal--dark {
+    .modal {
+        background-color: $control-panel-dark;
     }
 }
