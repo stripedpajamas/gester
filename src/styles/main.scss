@@ -582,3 +582,17 @@ $text-light: rgba(255, 255, 255, 0.8);
 .message-view--dark {
     background-color: $message-view-dark;
 }
+
+.message--dark {
+    .mention {
+        background-color: $theme-buttons-secondary-hover;
+        color: $theme-secondary;
+    }
+    div, p, p > a {
+        color: $text-light;
+        line-height: 1.5;
+    }
+    code {
+        color: $text-light;
+    }
+}

@@ -80,7 +80,7 @@ const mapStateToProps = state => ({
   authors: state.authors,
   myNames: state.myNames,
   messages: state.messages,
-  darkMode: state.darkTheme
+  darkTheme: state.darkTheme
 })
 
 const mapDispatchToProps = dispatch => ({
