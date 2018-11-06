@@ -148,7 +148,7 @@ button {
                 }
                 svg {
                     margin: 7px 0 7px 5px;
-                    fill-opacity: .8;
+                    fill-opacity: 0.7;
                 }
                 .hover {
                     * {
@@ -161,7 +161,7 @@ button {
                 &:hover {
                     background-color: $theme-highlight;
                 }
-                &__active {
+                &--active {
                     background-color: $theme-active;
                 }
             }
@@ -540,14 +540,45 @@ button {
 /* ---------------------------- DARK THEME --------------------------------*/
 
 $control-panel-dark: #1d2021;
-$message-view-dark: #282828;
+$recents-highlight: #88898c;
+$recents-active: #3c3c3c;
+$message-view-dark: #171717;
+
+
+$text-light: rgba(255, 255, 255, 0.8);
 /* --------------------------- CONTROL PANEL ------------------------------*/
 
 .control-panel--dark {
     background-color: $control-panel-dark;
-    .recents-item {
-        p {
-            color: rgba(255, 255, 255, 0.7);
+    .recents {
+        &-item {
+            p {
+                color: $text-light;
+            }
+
+            &--active {
+                background-color: $recents-active;
+                p {
+                    color: $text-light;
+                }
+
+                &:hover {
+                    background-color: $recents-highlight;
+                }
+
+            }
+
+            &:hover {
+                background-color: $recents-highlight;
+
+                svg {
+                    fill: $control-panel-dark;
+                }
+            }
         }
     }
+}
+
+.message-view--dark {
+    background-color: $message-view-dark;
 }

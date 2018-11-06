@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { isId } from '../helpers/validateId'
+import isId from '../helpers/validateId'
 
 class AuthorView extends Component {
   constructor () {

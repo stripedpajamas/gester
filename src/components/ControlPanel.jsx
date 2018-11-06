@@ -37,6 +37,7 @@ class ControlPanel extends Component {
 
   handleInputSubmit (author) {
     const id = getAuthorId(author)
+    console.log(author)
     this.props.openAuthorView(id)
   }
 
