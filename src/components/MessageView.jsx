@@ -28,20 +28,20 @@ class MessageView extends Component {
 
   renderMessages () {
     const { messages, authors, myNames, progress } = this.props
-    if (progress.current !== progress.target) {
-      return (
-        <div className='empty'>
-          <span>
-            Indexing database, please wait...
-            <Line
-              percent={(progress.current / progress.target) * 100}
-              strokeColor='#224d5f'
-            />
-          </span>
-        </div>
-      )
-    }
     if (!messages.length) {
+      if (progress.current !== progress.target) {
+        return (
+          <div className='empty'>
+            <span>
+              Indexing database, please wait...
+              <Line
+                percent={(progress.current / progress.target) * 100}
+                strokeColor='#224d5f'
+              />
+            </span>
+          </div>
+        )
+      }
       return (
         <div className='empty'>
           <span>Nothing to see here 🐥</span>
