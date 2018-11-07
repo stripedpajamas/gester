@@ -7,6 +7,7 @@ import spanStuff from 'remark-bracketed-spans'
 import { Parser } from 'html-to-react'
 import emoji from 'node-emoji'
 import { getAuthorColor, getMeColor } from '../helpers/randomColor'
+import colors from '../data/colors'
 
 const toReact = new Parser()
 
@@ -52,7 +53,9 @@ class Message extends Component {
 
     const tinyTime = format(timestamp, 'HH:mm')
     const fullTime = format(timestamp, 'MMM DD HH:mm')
-    const color = message.fromMe ? getMeColor() : getAuthorColor(author)
+    const themeColors = darkTheme ? colors.dark : colors.light
+    console.log(themeColors)
+    const color = message.fromMe ? getMeColor() : getAuthorColor(author, themeColors)
     const processedText = this.process(text, action, color)
 
     const timeClass = ['message-time']

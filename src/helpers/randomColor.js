@@ -1,5 +1,3 @@
-import colors from '../data/colors'
-
 // this will be used if we need any random color
 export const generateRandomColor = () => {
   const letters = '0123456789ABCDEF'
@@ -20,7 +18,7 @@ const getRandomColor = (colors) => {
 // a user has a color assigned to them
 // dont want to make it unique because we may not have enough colors
 const colorMap = {}
-export const getAuthorColor = (author) => {
+export const getAuthorColor = (author, colors) => {
   if (!colorMap[author]) {
     colorMap[author] = getRandomColor(colors)
   }
