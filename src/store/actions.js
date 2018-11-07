@@ -93,7 +93,6 @@ export const setupCore = () => (dispatch, getState) => {
 
   // keep a copy of indexing progress in redux and keep it up to date
   const debouncedProgressUpdate = debounce((progress) => {
-    console.log('called')
     dispatch({
       type: Types.SET_PROGRESS,
       progress
