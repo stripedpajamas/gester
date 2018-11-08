@@ -94,6 +94,15 @@ export const setupCore = () => (dispatch, getState) => {
   }, 200, { leading: true })
   core.events.on('messages-changed', debouncedMessagesUpdate)
 
+  // keep a copy of indexing progress in redux and keep it up to date
+  const debouncedProgressUpdate = debounce((progress) => {
+    dispatch({
+      type: Types.SET_PROGRESS,
+      progress
+    })
+  }, 500, { leading: true, maxWait: 500 })
+  core.events.on('progress-changed', debouncedProgressUpdate)
+
   // keep a copy of relevant authors in redux and keep them up to date
   const debouncedAuthorsUpdate = debounce((authors) => {
     dispatch({

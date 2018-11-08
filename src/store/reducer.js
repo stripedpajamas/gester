@@ -11,6 +11,9 @@ export default (state = initialState, action) => (
       case Types.SET_MESSAGES:
         draft.messages = action.messages
         break
+      case Types.SET_PROGRESS:
+        draft.progress = action.progress
+        break
       case Types.SET_RECIPIENTS:
         draft.recipients = action.recipients
         break

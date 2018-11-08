@@ -17,5 +17,6 @@ export default {
   currentAuthorId: '',
   authorDrawerOpen: false,
   loading: true,
-  darkTheme: true
+  darkTheme: true,
+  progress: { current: 0, target: 100 }
 }

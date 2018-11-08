@@ -1,4 +1,5 @@
 export const SET_MESSAGES = 'SET_MESSAGES'
+export const SET_PROGRESS = 'SET_PROGRESS'
 export const SET_AUTHORS = 'SET_AUTHORS'
 export const SET_MY_NAMES = 'SET_MY_NAMES'
 export const SET_FOLLOWING = 'SET_FOLLOWING'
