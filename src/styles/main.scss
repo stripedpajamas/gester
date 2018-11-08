@@ -646,6 +646,9 @@ $dark-theme-block-hover: #8e1b1b;
 }
 
 .message--dark {
+    .message-time {
+        color: $color-gray;
+    }
     .mention {
         background-color: $theme-buttons-secondary-hover;
         color: $theme-secondary;

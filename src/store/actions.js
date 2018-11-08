@@ -3,6 +3,7 @@ import debounce from 'lodash.debounce'
 import core from 'ssb-chat-core'
 import * as Types from './actionTypes'
 import * as Util from './util'
+import configStorage from './storage';
 
 window.core = core
 let notification // eslint-disable-line
@@ -13,6 +14,9 @@ export const setupCore = () => (dispatch, getState) => {
     dispatch(setJoinPub(true))
   })
   ipcRenderer.on('toggle-theme', () => {
+    const state = getState()
+    const darkTheme = state.darkTheme
+    configStorage.setConfig('darkTheme', !darkTheme)
     dispatch(toggleTheme())
   })
   // start up core
