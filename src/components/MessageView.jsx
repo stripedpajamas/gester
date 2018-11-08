@@ -61,7 +61,7 @@ class MessageView extends Component {
     const { messages, authors, myNames, darkTheme } = this.props
     if (!messages.length) {
       return (
-        <div className='empty'>
+        <div className={`empty ${darkTheme ? 'empty--dark' : ''}`}>
           <span>Nothing to see here 🐥</span>
         </div>
       )

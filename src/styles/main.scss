@@ -684,3 +684,9 @@ $dark-theme-block-hover: #8e1b1b;
 .modal-overlay--dark {
     opacity: 0.8;
 }
+
+.empty--dark {
+    span {
+        color: $dark-theme-font
+    }
+}
