@@ -25,4 +25,4 @@ export const getAuthorColor = (author, colors) => {
   return colorMap[author]
 }
 
-export const getMeColor = () => colors.me
+export const getMeColor = (colors) => colors.me

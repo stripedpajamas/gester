@@ -54,10 +54,8 @@ class Message extends Component {
     const tinyTime = format(timestamp, 'HH:mm')
     const fullTime = format(timestamp, 'MMM DD HH:mm')
     const themeColors = darkTheme ? colors.dark : colors.light
-    console.log(themeColors)
-    const color = message.fromMe ? getMeColor() : getAuthorColor(author, themeColors)
+    const color = message.fromMe ? getMeColor(themeColors) : getAuthorColor(author, themeColors)
     const processedText = this.process(text, action, color)
-
     const timeClass = ['message-time']
     if (!skipAuthor) {
       // we are rendering the author, so push the time down a bit
