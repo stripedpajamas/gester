@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Line } from 'rc-progress'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
@@ -26,8 +27,21 @@ class MessageView extends Component {
   }
 
   renderMessages () {
-    const { messages, authors, myNames } = this.props
+    const { messages, authors, myNames, progress } = this.props
     if (!messages.length) {
+      if (progress.current !== progress.target) {
+        return (
+          <div className='empty'>
+            <span>
+              Indexing database, please wait...
+              <Line
+                percent={(progress.current / progress.target) * 100}
+                strokeColor='#224d5f'
+              />
+            </span>
+          </div>
+        )
+      }
       return (
         <div className='empty'>
           <span>Nothing to see here 🐥</span>
@@ -72,12 +86,14 @@ MessageView.propTypes = {
   myNames: PropTypes.array.isRequired,
   messages: PropTypes.array.isRequired,
   authors: PropTypes.object.isRequired,
+  progress: PropTypes.object.isRequired,
   openAuthorView: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
   authors: state.authors,
   myNames: state.myNames,
-  messages: state.messages
+  messages: state.messages,
+  progress: state.progress
 })
 
 const mapDispatchToProps = dispatch => ({

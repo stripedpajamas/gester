@@ -16,5 +16,6 @@ export default {
   joiningPub: false,
   currentAuthorId: '',
   authorDrawerOpen: false,
-  loading: true
+  loading: true,
+  progress: { current: 0, target: 100 }
 }
