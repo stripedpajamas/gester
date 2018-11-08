@@ -6,8 +6,6 @@ import toHTML from 'remark-html'
 import spanStuff from 'remark-bracketed-spans'
 import { Parser } from 'html-to-react'
 import emoji from 'node-emoji'
-import { getAuthorColor, getMeColor } from '../helpers/randomColor'
-import colors from '../data/colors'
 
 const toReact = new Parser()
 
@@ -48,13 +46,11 @@ class Message extends Component {
   }
 
   render () {
-    const { author, message, skipAuthor, darkTheme } = this.props
+    const { author, color, message, skipAuthor, darkTheme } = this.props
     const { timestamp, author: id, text, action } = message
 
     const tinyTime = format(timestamp, 'HH:mm')
     const fullTime = format(timestamp, 'MMM DD HH:mm')
-    const themeColors = darkTheme ? colors.dark : colors.light
-    const color = message.fromMe ? getMeColor(themeColors) : getAuthorColor(author, themeColors)
     const processedText = this.process(text, action, color)
     const timeClass = ['message-time']
     if (!skipAuthor) {
@@ -107,6 +103,7 @@ Message.propTypes = {
   message: PropTypes.object.isRequired,
   myNames: PropTypes.array.isRequired,
   author: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
   skipAuthor: PropTypes.bool.isRequired,
   darkTheme: PropTypes.bool
 }
