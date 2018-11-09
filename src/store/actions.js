@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce'
 import core from 'ssb-chat-core'
 import * as Types from './actionTypes'
 import * as Util from './util'
-import configStorage from './storage';
+import configStorage from './storage'
 
 window.core = core
 let notification // eslint-disable-line

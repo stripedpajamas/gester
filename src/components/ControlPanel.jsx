@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import classNames from '@sindresorhus/class-names'
 import { getAuthorId } from '../store/util'
 import PropTypes from 'prop-types'
 import * as Actions from '../store/actions'
@@ -128,8 +129,13 @@ class ControlPanel extends Component {
     const blockText = isBlocked ? 'unblock' : 'block'
     const followText = areFollowing ? 'unfollow' : 'follow'
 
+    const controlPanelClasses = classNames(
+      'control-panel',
+      { 'control-panel--dark': darkTheme }
+    )
+
     return (
-      <div className={`control-panel ${darkTheme ? 'control-panel--dark' : ''}`}>
+      <div className={controlPanelClasses}>
         <div>
           <button className='button' onClick={this.handlePrivateButton}>new private</button>
         </div>
@@ -213,7 +219,7 @@ const mapStateToProps = state => ({
   currentAuthorId: state.currentAuthorId,
   me: state.me,
   joiningPub: state.joiningPub,
-  darkTheme: state.darkTheme,
+  darkTheme: state.darkTheme
 })
 
 const mapDispatchToProps = dispatch => ({

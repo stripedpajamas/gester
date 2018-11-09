@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import { HotKeys } from 'react-hotkeys'
+import classNames from '@sindresorhus/class-names'
 import * as Actions from './store/actions'
 import ControlPanel from './components/ControlPanel'
 import MessageView from './components/MessageView'
@@ -73,6 +74,10 @@ class App extends Component {
     }
     const hasNotification = this.props.error || this.props.notification
     const mode = this.props.mode.toLowerCase()
+    const messageViewClasses = classNames(
+      'message-view',
+      { 'message-view--dark': darkTheme }
+    )
     return (
       <HotKeys keyMap={this.keyMap} handlers={this.hotKeyHandlers}>
         <div className='main'>
@@ -85,7 +90,7 @@ class App extends Component {
             />
           }
           <ControlPanel ref={this.controlPanel} />
-          <div className={`message-view ${darkTheme ? 'message-view--dark' : ''}`}>
+          <div className={messageViewClasses}>
             <MessageView />
             <Input
               darkTheme={darkTheme}

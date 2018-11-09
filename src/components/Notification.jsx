@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import classNames from '@sindresorhus/class-names'
 
 class Notification extends Component {
   constructor () {
@@ -27,14 +28,19 @@ class Notification extends Component {
 
   render () {
     const { error, notification, darkTheme } = this.props
-    const classNames = [error ? 'error' : 'notification']
+    const classes = classNames(
+      'toast',
+      {
+        'error': error,
+        'notification': notification,
+        'error--dark': error && darkTheme,
+        'notification--dark': notification && darkTheme
+      }
+    )
     const text = (error || {}).message || notification
 
-    if (darkTheme) {
-      classNames.push(`${classNames[0]}--dark`)
-    }
     return (
-      <div className={`toast ${classNames}`} onClick={this.handleClose}>
+      <div className={classes} onClick={this.handleClose}>
         <span>{text}</span>
         <FontAwesomeIcon icon={faTimes} />
       </div>

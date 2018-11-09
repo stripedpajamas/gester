@@ -3,6 +3,7 @@ import { Line } from 'rc-progress'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
+import classNames from '@sindresorhus/class-names'
 import * as Actions from '../store/actions'
 import Message from './Message'
 import Loader from './Loader'
@@ -60,10 +61,14 @@ class MessageView extends Component {
 
   renderMessages () {
     const { messages, authors, myNames, progress, darkTheme } = this.props
+    const emptyClass = classNames(
+      'empty',
+      { 'empty--dark': darkTheme }
+    )
     if (!messages.length) {
       if (progress.current !== progress.target) {
         return (
-          <div className={`empty ${darkTheme ? 'empty--dark' : ''}`}>
+          <div className={emptyClass}>
             <span>
               Indexing database, please wait...
               <Line
@@ -75,7 +80,7 @@ class MessageView extends Component {
         )
       }
       return (
-        <div className={`empty ${darkTheme ? 'empty--dark' : ''}`}>
+        <div className={emptyClass}>
           <span>Nothing to see here 🐥</span>
         </div>
       )

@@ -1,19 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from '@sindresorhus/class-names'
 
 const Loader = (props) => {
   const { darkTheme } = props
-  const classes = ['loader']
-  if (props.small) {
-    classes.push('loader-small')
-  } else {
-    classes.push('loader-large')
-  }
-  if (darkTheme) {
-    classes.push('loader--dark')
-  }
+  const classes = classNames(
+    'loader',
+    {
+      'loader-small': props.small,
+      'loader-large': props.large,
+      'loader--dark': darkTheme
+    }
+  )
   return (
-    <div className={classes.join(' ')}>
+    <div className={classes}>
       <div className='loader-1' />
       <div className='loader-2' />
       <div className='loader-3' />

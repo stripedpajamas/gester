@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import classNames from '@sindresorhus/class-names'
 import Input from './Input'
 
 class Modal extends Component {
@@ -23,9 +24,17 @@ class Modal extends Component {
 
   render () {
     const { darkTheme } = this.props
+    const modalClasses = classNames(
+      'modal',
+      { 'modal--dark': darkTheme }
+    )
+    const overlayClasses = classNames(
+      'modal-overlay',
+      { 'modal-overlay--dark': darkTheme }
+    )
     return (
       <div>
-        <div className={`modal ${darkTheme ? 'modal--dark' : ''}`}>
+        <div className={modalClasses}>
           <div className='modal-content'>
             <p className='modal-text'>{this.props.text}</p>
             <Input
@@ -42,7 +51,7 @@ class Modal extends Component {
           </div>
         </div>
         <div
-          className={`modal-overlay ${darkTheme ? 'modal-overlay--dark' : ''}`}
+          className={overlayClasses}
           onClick={this.props.handleCancel}
         />
       </div>
