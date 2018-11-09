@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import classNames from '@sindresorhus/class-names'
 
 const Loader = (props) => {
-  const { darkTheme } = props
+  const { small, darkTheme } = props
   const classes = classNames(
     'loader',
     {
-      'loader-small': props.small,
-      'loader-large': props.large,
+      'loader-small': small,
+      'loader-large': !small,
       'loader--dark': darkTheme
     }
   )
