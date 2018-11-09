@@ -29,7 +29,6 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "yarn",
         "icon": "build/gester"
       },
       "electronWinstallerConfig": {
