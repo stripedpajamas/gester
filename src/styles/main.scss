@@ -22,7 +22,7 @@ $theme-buttons-error-hover: #a74747;
 $theme-buttons-error-click: #ca5d5d;
 $theme-border: #27324A;
 $theme-font: #323232;
-$theme-font-dark: black;
+$dark-theme-font: black;
 $theme-font-secondary: #fafafa;
 $theme-highlight: #fafafa;
 $theme-active: #dddddd;
@@ -148,7 +148,7 @@ button {
                 }
                 svg {
                     margin: 7px 0 7px 5px;
-                    fill-opacity: .8;
+                    fill-opacity: 0.7;
                 }
                 .hover {
                     * {
@@ -161,12 +161,12 @@ button {
                 &:hover {
                     background-color: $theme-highlight;
                 }
-                &__active {
+                &--active {
                     background-color: $theme-active;
                 }
             }
             .unread {
-                color: $theme-font-dark;
+                color: $dark-theme-font;
                 font-family: $main-font;
                 font-weight: bold;
             }
@@ -534,3 +534,162 @@ button {
       transform: scale(1)
     }
   }
+
+
+
+/* ---------------------------- DARK THEME --------------------------------*/
+
+$control-panel-dark: #1d2021;
+$dark-theme-accent: #323232;
+$recents-highlight: #88898c;
+$recents-active: #3c3c3c;
+$message-view-dark: #171717;
+
+/* text */
+$dark-theme-font: rgba(255, 255, 255, 0.8);
+
+/* buttons */
+$dark-theme-button: #00587d;
+$dark-theme-button-hover: #004664;
+$dark-theme-buttons-secondary: #00816f;
+$dark-theme-buttons-secondary-hover: #007463;
+
+$dark-theme-block: #9E1F1F;
+$dark-theme-block-hover: #8e1b1b;
+/* --------------------------- CONTROL PANEL ------------------------------*/
+
+.control-panel--dark {
+    background-color: $control-panel-dark;
+    color: $dark-theme-font;
+    .recents {
+        &-item {
+            p {
+                color: $dark-theme-font;
+            }
+
+            &--active {
+                background-color: $recents-active;
+                p {
+                    color: $dark-theme-font;
+                }
+
+                &:hover {
+                    background-color: $dark-theme-accent;
+                }
+
+            }
+
+            &:hover {
+                background-color: $dark-theme-accent;
+
+                svg {
+                    fill: $control-panel-dark;
+                    color: $dark-theme-font;
+                }
+            }
+        }
+    }
+
+    button {
+        background-color: $dark-theme-button;
+
+        &:hover {
+            background-color: $dark-theme-button-hover;
+        }
+    }
+
+    input {
+        background-color: $message-view-dark;
+        color: $dark-theme-font;
+
+        &:focus {
+            border-color: $dark-theme-button;
+        }
+    }
+
+    .author-view {
+        div {
+            h1, h2 {
+                color: $dark-theme-font;
+            }
+        }
+
+
+        &__back {
+            * {
+                fill: $dark-theme-font;
+                &:hover {
+                    fill: $color-gray;
+                }
+            }
+        }
+
+        #button-block {
+            background-color: $dark-theme-block;
+
+            &:hover {
+                background-color: $dark-theme-block-hover;
+            }
+        }
+    }
+}
+
+/* --------------------------- MESSAGE VIEW ------------------------------*/
+
+.message-view--dark {
+    background-color: $message-view-dark;
+
+    input {
+        background-color: $control-panel-dark;
+        color: $dark-theme-font;        
+    }
+}
+
+.message--dark {
+    .message-time {
+        color: $color-gray;
+    }
+    .mention {
+        background-color: $theme-buttons-secondary-hover;
+        color: $theme-secondary;
+    }
+    div, p, p > a {
+        color: $dark-theme-font;
+        line-height: 1.5;
+    }
+    code {
+        color: $dark-theme-font;
+    }
+}
+
+/* --------------------------- MODAL ------------------------------*/
+
+
+.modal--dark {
+    background-color: $control-panel-dark;
+    .modal {
+        &-text {
+            color: $dark-theme-font;
+        }
+        &-actions {
+            border-top: 1px solid $dark-theme-accent;
+        }
+        &-submit {
+            background-color: $dark-theme-buttons-secondary;
+    
+            &:hover {
+                background-color: $dark-theme-buttons-secondary-hover;
+            }
+        }
+    }
+    
+}
+.modal-overlay--dark {
+    opacity: 0.8;
+}
+
+.empty--dark {
+    span {
+        color: $dark-theme-font
+    }
+}

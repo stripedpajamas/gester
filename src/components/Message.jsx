@@ -6,7 +6,7 @@ import toHTML from 'remark-html'
 import spanStuff from 'remark-bracketed-spans'
 import { Parser } from 'html-to-react'
 import emoji from 'node-emoji'
-import { getAuthorColor, getMeColor } from '../helpers/randomColor'
+import classNames from '@sindresorhus/class-names'
 
 const toReact = new Parser()
 
@@ -47,23 +47,27 @@ class Message extends Component {
   }
 
   render () {
-    const { author, message, skipAuthor } = this.props
+    const { author, color, message, skipAuthor, darkTheme } = this.props
     const { timestamp, author: id, text, action } = message
 
     const tinyTime = format(timestamp, 'HH:mm')
     const fullTime = format(timestamp, 'MMM DD HH:mm')
-    const color = message.fromMe ? getMeColor() : getAuthorColor(author)
     const processedText = this.process(text, action, color)
-
-    const timeClass = ['message-time']
-    if (!skipAuthor) {
-      // we are rendering the author, so push the time down a bit
-      timeClass.push('message-time-top')
-    }
+    const messageClass = classNames(
+      'message',
+      {
+        'message-action': action,
+        'message--dark': darkTheme
+      }
+    )
+    const timeClass = classNames(
+      'message-time',
+      { 'message-time-top': !skipAuthor }
+    )
 
     if (action) {
       return (
-        <span className='message message-action'>
+        <span className={messageClass}>
           <span className='message-time message-time-action' title={fullTime}>
             {tinyTime}
           </span>
@@ -81,8 +85,8 @@ class Message extends Component {
     }
 
     return (
-      <span className='message'>
-        <span className={timeClass.join(' ')} title={fullTime}>
+      <span className={messageClass}>
+        <span className={timeClass} title={fullTime}>
           {tinyTime}
         </span>
         <span>
@@ -106,7 +110,9 @@ Message.propTypes = {
   message: PropTypes.object.isRequired,
   myNames: PropTypes.array.isRequired,
   author: PropTypes.string.isRequired,
-  skipAuthor: PropTypes.bool.isRequired
+  color: PropTypes.string.isRequired,
+  skipAuthor: PropTypes.bool.isRequired,
+  darkTheme: PropTypes.bool
 }
 
 export default Message

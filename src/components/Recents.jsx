@@ -21,7 +21,7 @@ class Recents extends Component {
               </div>
             )
             : (
-              <div className='recents-item__active'>
+              <div className='recents-item--active'>
                 <p>#public</p>
               </div>
             )
@@ -37,7 +37,7 @@ class Recents extends Component {
             const humanNames = recent.filtered.map(id => (this.props.authors[id] || id)).join(', ')
 
             let className = isCurrent
-              ? 'recents-item__active'
+              ? 'recents-item--active'
               : 'recents-item'
             if (isUnread) {
               className += ' unread'

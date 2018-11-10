@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import classNames from '@sindresorhus/class-names'
 import { getAuthorId } from '../store/util'
 import PropTypes from 'prop-types'
 import * as Actions from '../store/actions'
@@ -37,6 +38,7 @@ class ControlPanel extends Component {
 
   handleInputSubmit (author) {
     const id = getAuthorId(author)
+    console.log(author)
     this.props.openAuthorView(id)
   }
 
@@ -118,7 +120,7 @@ class ControlPanel extends Component {
   }
 
   render () {
-    const { authors, currentAuthorId, me, following, blocked } = this.props
+    const { authors, currentAuthorId, me, following, blocked, darkTheme } = this.props
     const author = authors[currentAuthorId] || currentAuthorId || authors[me] || me
 
     const isBlocked = blocked.includes(currentAuthorId)
@@ -127,8 +129,13 @@ class ControlPanel extends Component {
     const blockText = isBlocked ? 'unblock' : 'block'
     const followText = areFollowing ? 'unfollow' : 'follow'
 
+    const controlPanelClasses = classNames(
+      'control-panel',
+      { 'control-panel--dark': darkTheme }
+    )
+
     return (
-      <div className='control-panel'>
+      <div className={controlPanelClasses}>
         <div>
           <button className='button' onClick={this.handlePrivateButton}>new private</button>
         </div>
@@ -179,6 +186,7 @@ class ControlPanel extends Component {
         }
         {this.state.privateModalOpen && (
           <Modal
+            darkTheme={darkTheme}
             text='start a private chat or press enter to go to public chat'
             inputText='enter private recipient(s) separated by commas'
             submitText='start'
@@ -188,6 +196,7 @@ class ControlPanel extends Component {
         )}
         {this.props.joiningPub && (
           <Modal
+            darkTheme={darkTheme}
             inputText='paste invite code here'
             handleCancel={this.handleCancelPub}
             handleSubmit={this.handleJoinPub}
@@ -209,7 +218,8 @@ const mapStateToProps = state => ({
   authorDrawerOpen: state.authorDrawerOpen,
   currentAuthorId: state.currentAuthorId,
   me: state.me,
-  joiningPub: state.joiningPub
+  joiningPub: state.joiningPub,
+  darkTheme: state.darkTheme
 })
 
 const mapDispatchToProps = dispatch => ({

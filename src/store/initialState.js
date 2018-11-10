@@ -1,8 +1,11 @@
 import core from 'ssb-chat-core'
+import configStorage from './storage'
+
+const storedConfig = configStorage.getConfigSync()
 
 const { constants } = core
 
-export default {
+export default Object.assign({
   messages: [],
   authors: {},
   following: [],
@@ -17,5 +20,6 @@ export default {
   currentAuthorId: '',
   authorDrawerOpen: false,
   loading: true,
+  darkTheme: true,
   progress: { current: 0, target: 100 }
-}
+}, storedConfig)

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import { HotKeys } from 'react-hotkeys'
+import classNames from '@sindresorhus/class-names'
 import * as Actions from './store/actions'
 import ControlPanel from './components/ControlPanel'
 import MessageView from './components/MessageView'
@@ -67,25 +68,32 @@ class App extends Component {
   }
 
   render () {
+    const { darkTheme } = this.props
     if (this.props.loading) {
-      return <Loader />
+      return <Loader darkTheme={darkTheme} />
     }
     const hasNotification = this.props.error || this.props.notification
     const mode = this.props.mode.toLowerCase()
+    const messageViewClasses = classNames(
+      'message-view',
+      { 'message-view--dark': darkTheme }
+    )
     return (
       <HotKeys keyMap={this.keyMap} handlers={this.hotKeyHandlers}>
         <div className='main'>
           {hasNotification &&
             <Notification
+              darkTheme={darkTheme}
               error={this.props.error}
               notification={this.props.notification}
               onClose={this.props.clearNotification}
             />
           }
           <ControlPanel ref={this.controlPanel} />
-          <div className='message-view'>
+          <div className={messageViewClasses}>
             <MessageView />
             <Input
+              darkTheme={darkTheme}
               autoFocus
               className='messenger-input'
               placeholder={`Send ${mode} message`}
@@ -105,7 +113,8 @@ App.propTypes = {
   recipients: PropTypes.array.isRequired,
   error: PropTypes.object,
   notification: PropTypes.string,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  darkTheme: PropTypes.bool
 }
 
 const mapStateToProps = state => ({
@@ -114,7 +123,8 @@ const mapStateToProps = state => ({
   authorDrawerOpen: state.authorDrawerOpen,
   error: state.error,
   notification: state.notification,
-  loading: state.loading
+  loading: state.loading,
+  darkTheme: state.darkTheme
 })
 
 const mapDispatchToProps = dispatch => ({

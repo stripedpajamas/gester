@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import classNames from '@sindresorhus/class-names'
 import tabComplete from '../helpers/tabComplete'
 
 class Input extends Component {
@@ -44,8 +45,13 @@ class Input extends Component {
   }
 
   render () {
+    const { darkTheme } = this.props
+    const classes = classNames(
+      'messenger',
+      { 'messenger--dark': darkTheme }
+    )
     return (
-      <div className='messenger'>
+      <div className={classes}>
         <input
           autoFocus={this.props.autoFocus}
           className={this.props.className}
@@ -69,7 +75,8 @@ Input.propTypes = {
   onBlur: PropTypes.func,
   placeholder: PropTypes.string,
   className: PropTypes.string,
-  autoFocus: PropTypes.bool
+  autoFocus: PropTypes.bool,
+  darkTheme: PropTypes.bool
 }
 
 Input.defaultProps = {

@@ -3,20 +3,53 @@ import { Line } from 'rc-progress'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
+import classNames from '@sindresorhus/class-names'
 import * as Actions from '../store/actions'
 import Message from './Message'
 import Loader from './Loader'
+import colorPalettes from '../data/colors'
 
 class MessageView extends Component {
   constructor () {
     super()
+    this.state = { themeColors: { everyone: [] } }
+    this.colorMap = {}
     this.handleNameClick = this.handleNameClick.bind(this)
   }
   componentDidMount () {
+    this.setThemeColors()
     this.scrollToBottom()
   }
-  componentDidUpdate () {
+  componentDidUpdate (prevProps) {
+    if (prevProps.darkTheme !== this.props.darkTheme) {
+      // theme change, forget current author colors
+      // and set theme colors to the new theme
+      this.colorMap = {}
+      this.setThemeColors()
+    }
     this.scrollToBottom()
+  }
+  setThemeColors () {
+    // handle getting initial theme colors
+    const themeColors = this.props.darkTheme
+      ? colorPalettes.dark
+      : colorPalettes.light
+    this.setState({ themeColors })
+  }
+  getRandomColor () {
+    const rnd = Math.floor(
+      Math.random() * (this.state.themeColors.everyone.length - 1)
+    )
+    return this.state.themeColors.everyone[rnd]
+  }
+  getAuthorColor (author) {
+    if (!this.colorMap[author]) {
+      this.colorMap[author] = this.getRandomColor()
+    }
+    return this.colorMap[author]
+  }
+  getMeColor () {
+    return this.state.themeColors.me
   }
   scrollToBottom () {
     this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight
@@ -27,11 +60,15 @@ class MessageView extends Component {
   }
 
   renderMessages () {
-    const { messages, authors, myNames, progress } = this.props
+    const { messages, authors, myNames, progress, darkTheme } = this.props
+    const emptyClass = classNames(
+      'empty',
+      { 'empty--dark': darkTheme }
+    )
     if (!messages.length) {
       if (progress.current !== progress.target) {
         return (
-          <div className='empty'>
+          <div className={emptyClass}>
             <span>
               Indexing database, please wait...
               <Line
@@ -43,7 +80,7 @@ class MessageView extends Component {
         )
       }
       return (
-        <div className='empty'>
+        <div className={emptyClass}>
           <span>Nothing to see here 🐥</span>
         </div>
       )
@@ -56,12 +93,17 @@ class MessageView extends Component {
     return messages.map((message, idx) => {
       const id = message.author
       const author = authors[id] || id
+      const color = message.fromMe
+        ? this.getMeColor()
+        : this.getAuthorColor(author)
       // so that we can group messages from the same author,
       // tell our child component if the previous message
       // was sent from the same author
       const skipAuthor = !!(messages[idx - 1] && messages[idx - 1].author === message.author)
       return (<Message
+        darkTheme={darkTheme}
         author={author}
+        color={color}
         key={message.key}
         message={message}
         myNames={myNames}
@@ -86,13 +128,15 @@ MessageView.propTypes = {
   myNames: PropTypes.array.isRequired,
   messages: PropTypes.array.isRequired,
   authors: PropTypes.object.isRequired,
-  progress: PropTypes.object.isRequired,
-  openAuthorView: PropTypes.func.isRequired
+  openAuthorView: PropTypes.func.isRequired,
+  darkTheme: PropTypes.bool,
+  progress: PropTypes.object.isRequired
 }
 const mapStateToProps = state => ({
   authors: state.authors,
   myNames: state.myNames,
   messages: state.messages,
+  darkTheme: state.darkTheme,
   progress: state.progress
 })
 

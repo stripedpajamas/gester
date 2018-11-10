@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import classNames from '@sindresorhus/class-names'
 
 class Notification extends Component {
   constructor () {
@@ -26,17 +27,22 @@ class Notification extends Component {
   }
 
   render () {
-    const { error, notification } = this.props
-    const className = error ? 'error' : 'notification'
+    const { error, notification, darkTheme } = this.props
+    const classes = classNames(
+      'toast',
+      {
+        'error': error,
+        'notification': notification,
+        'error--dark': error && darkTheme,
+        'notification--dark': notification && darkTheme
+      }
+    )
     const text = (error || {}).message || notification
 
     return (
-      <div className={`toast ${className}`} onClick={this.handleClose}>
-        <span className='toast-message'>{text}</span>
-        <FontAwesomeIcon
-          className='toast-close'
-          icon={faTimes}
-        />
+      <div className={classes} onClick={this.handleClose}>
+        <span>{text}</span>
+        <FontAwesomeIcon icon={faTimes} />
       </div>
     )
   }
@@ -45,7 +51,8 @@ class Notification extends Component {
 Notification.propTypes = {
   onClose: PropTypes.func.isRequired,
   error: PropTypes.object,
-  notification: PropTypes.string
+  notification: PropTypes.string,
+  darkTheme: PropTypes.bool
 }
 
 export default Notification
