@@ -2,10 +2,6 @@ platform:
 - x64
 environment:
   nodejs_version: "8"
-cache:
-- '%APPDATA%\npm-cache'
-- '%USERPROFILE%\.electron'
-- node_modules
 branches:
   only:
   - master
