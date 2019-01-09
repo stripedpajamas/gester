@@ -20,6 +20,6 @@ export default Object.assign({
   currentAuthorId: '',
   authorDrawerOpen: false,
   loading: true,
-  darkTheme: true,
+  darkTheme: false,
   progress: { current: 0, target: 100 }
 }, storedConfig)
